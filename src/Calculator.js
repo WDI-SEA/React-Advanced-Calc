@@ -12,7 +12,10 @@ class Calculator extends Component {
 	}
 	setNum = (e, num) => {
 		if (!this.state.firstNum) {
-			if (this.state.decUsed1 && num === '.') {
+			if (this.state.num1.includes('.')) {
+				this.setState({ decUsed1: true })
+			}
+			if (this.state.num1.includes('.') && num === '.') {
 				return
 			} else if (!this.state.decUsed1 && num === '.') {
 	  		this.setState({ num1: this.state.num1 + e.target.value, result: '', decUsed1: true });
@@ -49,46 +52,67 @@ class Calculator extends Component {
 		}
 	}
 	sum = (num1, num2) => {
+		if (this.state.func) {
+			this.fnc(this.state.num1, this.state.num2, this.state.func)
+			this.setState({ func: '+', firstNum: true });
+		}
 		if (this.state.num1) {
 			this.setState({ func: '+', firstNum: true });
 		}
 	}
 	sub = (num1, num2) => {
-		if (this.state.num1) {
+		if (!this.state.num1) {
+			this.setState({ num1: '-' })
+		} else if (this.state.num1 && !this.state.func) {
+			this.setState({ func: '-', firstNum: true });
+		} else if (this.state.func && !this.state.num2) {
+			this.setState({ num2: '-'})
+		} else if (this.state.func && this.state.num2) {
+			this.fnc(this.state.num1, this.state.num2, this.state.func)
 			this.setState({ func: '-', firstNum: true });
 		}
 	}
 	mlt = (num1, num2) => {
-		if (this.state.num1) {
+		if (this.state.func) {
+			this.fnc(this.state.num1, this.state.num2, this.state.func)
+			this.setState({ func: '*', firstNum: true });
+		}
+		else if (this.state.num1) {
 			this.setState({ func: '*', firstNum: true });
 		}
 	}
 	div = (num1, num2) => {
-		if (this.state.num1) {
+		if (this.state.func) {
+			this.fnc(this.state.num1, this.state.num2, this.state.func)
+			this.setState({ func: '/', firstNum: true });
+		}		if (this.state.num1) {
 			this.setState({ func: '/', firstNum: true });
 		}
 	}
 	mod = (num1, num2) => {
-		if (this.state.num1) {
+		if (this.state.func) {
+			this.fnc(this.state.num1, this.state.num2, this.state.func)
+			this.setState({ func: '%', firstNum: true });
+		}		if (this.state.num1) {
 			this.setState({ func: '%', firstNum: true });
 		}
 	}
 	fnc = (num1, num2, func) => {
 		switch (func) {
 			case ('+'):
-				this.setState({ result: parseFloat(num1, 10) + parseFloat(num2, 10), firstNum: false, num1: '', num2: '', func: '', decUsed1: false, decUsed2: false });
+				this.setState({ firstNum: false, num1: (parseFloat(num1, 10) + parseFloat(num2, 10)).toString(), num2: '', func: '', decUsed1: false, decUsed2: false });
 				break
 			case ('-'):
-				this.setState({ result: parseFloat(num1, 10) - parseFloat(num2, 10), firstNum: false, num1: '', num2: '', func: '', decUsed1: false, decUsed2: false });
+				this.setState({ firstNum: false, num1: (parseFloat(num1, 10) - parseFloat(num2, 10)).toString(), num2: '', func: '', decUsed1: false, decUsed2: false });
 				break
 			case ('*'):
-				this.setState({ result: parseFloat(num1, 10) * parseFloat(num2, 10), firstNum: false, num1: '', num2: '', func: '', decUsed1: false, decUsed2: false });
+				this.setState({ firstNum: false, num1: (parseFloat(num1, 10) * parseFloat(num2, 10)).toString(), num2: '', func: '', decUsed1: false, decUsed2: false });
 				break
 			case ('/'):
-				this.setState({ result: parseFloat(num1, 10) / parseFloat(num2, 10), firstNum: false, num1: '', num2: '', func: '', decUsed1: false, decUsed2: false });
+				this.setState({ firstNum: false, num1: (parseFloat(num1, 10) / parseFloat(num2, 10)).toString(), num2: '', func: '', decUsed1: false, decUsed2: false });
 				break
 			case ('%'):
-				this.setState({ result: parseFloat(num1, 10) % parseFloat(num2, 10), firstNum: false, num1: '', num2: '', func: '', decUsed1: false, decUsed2: false });
+				this.setState({ firstNum: false, num1: (parseFloat(num1, 10) % parseFloat(num2, 10)).toString(), num2: '', func: '', decUsed1: false, decUsed2: false });
 				break
 			default:
 				return
@@ -99,32 +123,32 @@ class Calculator extends Component {
 			<div className="container">
 			  <h1>+-*/% with React!</h1>
 			  <div className="numbers">
-		  	<h3 className="display">{this.state.num1} {this.state.func} {this.state.num2} {this.state.result}</h3>
+		  	<h3 className="display">{this.state.num1} {this.state.func} {this.state.num2}</h3>
 			  <div className="add">
-			    <button className="input" onClick={() => this.clear()}>AC</button>
-			    <button className="input" onClick={() => this.posNeg()}>+/-</button>
-			    <button className="input" onClick={() => this.mod(this.state.num1, this.state.num2)}>%</button>
+			    <button className="top-input" onClick={() => this.clear()}>AC</button>
+			    <button className="top-input" onClick={() => this.posNeg()}>+/-</button>
+			    <button className="top-input" onClick={() => this.mod(this.state.num1, this.state.num2)}>%</button>
 			    <button className="operator"onClick={() => this.div(this.state.num1, this.state.num2)}>/</button>
 			    <br />
 			    <input type="button"
-					  name="1"
-					  value="1"
+					  name="7"
+					  value="7"
 					  className="input"
-					  onClick={ (e) => this.setNum(e, 1) }
+					  onClick={ (e) => this.setNum(e, 7) }
+					/>
+			    
+			   	<input type="button"
+					  name="8"
+					  value="8"
+					  className="input"
+					  onClick={ (e) => this.setNum(e, 8) }
 					/>
 			    
 			    <input type="button"
-					  name="2"
-					  value="2"
+					  name="9"
+					  value="9"
 					  className="input"
-					  onClick={ (e) => this.setNum(e, 2) }
-					/>
-			    
-			    <input type="button"
-					  name="3"
-					  value="3"
-					  className="input"
-					  onClick={ (e) => this.setNum(e, 3) }
+					  onClick={ (e) => this.setNum(e, 9) }
 					/>
 					
 			    <button className="operator"onClick={() => this.sum(this.state.num1, this.state.num2)}>+</button>
@@ -152,25 +176,26 @@ class Calculator extends Component {
 					
 			    <button className="operator"onClick={() => this.sub(this.state.num1, this.state.num2)}>-</button>
 			    <br />
-			    <input type="button"
-					  name="7"
-					  value="7"
-					  className="input"
-					  onClick={ (e) => this.setNum(e, 7) }
-					/>
 			    
-			   	<input type="button"
-					  name="8"
-					  value="8"
+					<input type="button"
+					  name="1"
+					  value="1"
 					  className="input"
-					  onClick={ (e) => this.setNum(e, 8) }
+					  onClick={ (e) => this.setNum(e, 1) }
 					/>
 			    
 			    <input type="button"
-					  name="9"
-					  value="9"
+					  name="2"
+					  value="2"
 					  className="input"
-					  onClick={ (e) => this.setNum(e, 9) }
+					  onClick={ (e) => this.setNum(e, 2) }
+					/>
+			    
+			    <input type="button"
+					  name="3"
+					  value="3"
+					  className="input"
+					  onClick={ (e) => this.setNum(e, 3) }
 					/>
 					
 			    <button className="operator"onClick={() => this.mlt(this.state.num1, this.state.num2)}>*</button>
@@ -187,7 +212,7 @@ class Calculator extends Component {
 					  className="input"
 					  onClick={ (e) => this.setNum(e, '.') }
 					/>
-			    <button className="input" onClick={() => this.fnc(this.state.num1, this.state.num2, this.state.func)}>=</button>
+			    <button className="operator" onClick={() => this.fnc(this.state.num1, this.state.num2, this.state.func)}>=</button>
 			    <br />
 			  </div>
 			  </div>
