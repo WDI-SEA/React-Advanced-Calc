@@ -52,7 +52,7 @@ class Calculator extends Component {
 		}
 	}
 	sum = (num1, num2) => {
-		if (this.state.func) {
+		if (this.state.func && this.state.num2) {
 			this.fnc(this.state.num1, this.state.num2, this.state.func)
 			this.setState({ func: '+', firstNum: true });
 		}
@@ -73,7 +73,7 @@ class Calculator extends Component {
 		}
 	}
 	mlt = (num1, num2) => {
-		if (this.state.func) {
+		if (this.state.func && this.state.num2) {
 			this.fnc(this.state.num1, this.state.num2, this.state.func)
 			this.setState({ func: '*', firstNum: true });
 		}
@@ -82,7 +82,7 @@ class Calculator extends Component {
 		}
 	}
 	div = (num1, num2) => {
-		if (this.state.func) {
+		if (this.state.func && this.state.num2) {
 			this.fnc(this.state.num1, this.state.num2, this.state.func)
 			this.setState({ func: '/', firstNum: true });
 		}		if (this.state.num1) {
@@ -90,7 +90,7 @@ class Calculator extends Component {
 		}
 	}
 	mod = (num1, num2) => {
-		if (this.state.func) {
+		if (this.state.func && this.state.num2) {
 			this.fnc(this.state.num1, this.state.num2, this.state.func)
 			this.setState({ func: '%', firstNum: true });
 		}		if (this.state.num1) {
