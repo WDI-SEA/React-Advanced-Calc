@@ -15,13 +15,56 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
 .App-link {
   color: #61dafb;
 }
+
+.container{
+  height: 490px;
+  width: 280px;
+
+}
+
+.screen{
+  height: 140px;
+  width: 280px;
+  background-color:gray;
+}
+
+.normal-color{
+  height: 70px;
+  width: 70px;
+  background-color: white;
+}
+
+.other-color{
+  height: 70px;
+  width: 70px;
+  background-color: orange;
+}
+
+
+.zero-color{
+  height: 70px;
+  width: 140px;
+  background-color: white;
+}
+
+button{
+  font-size: 20px;
+}
+
+.screen{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 50px;
+}
+
+
 
 @keyframes App-logo-spin {
   from {
