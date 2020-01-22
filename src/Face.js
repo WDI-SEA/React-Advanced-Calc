@@ -11,20 +11,37 @@ const Face = props => {
 
     const getResult = () => {
         console.log('getting result')
+
+        switch (operation) {
+            case 'divide':
+                console.log('dividing');
+                break;
+            case 'multiply':
+                console.log('multiplying')
+                break;
+            case 'minus':
+                console.log('subtracting');
+                break;
+            case 'add':
+                console.log('adding');
+                break;
+            default:
+                setDisplay('Choose an operator.')
+        }
     }
 
     const changeNumber = (e) => {
-        console.log(e.target.value);
-        setDisplay(e.target.value);
+        let num = e.target.value;
+        setNumber(num);
+        setDisplay(num);
         getResult();
     }
 
     const changeOperation = (e) => {
-        console.log(e.target.value);
+        setOperation(e.target.value);
     }
 
     const clearAll = () => {
-        console.log('Clearing');
         setNumber(DEFAULT_VALUE);
         setOperation(DEFAULT_OPERATOR);
         setDisplay(DEFAULT_VALUE);
