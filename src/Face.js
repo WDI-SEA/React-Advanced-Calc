@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 let DEFAULT_VALUE = 0;
 let DEFAULT_OPERATOR = 'add';
@@ -9,32 +9,38 @@ const Face = props => {
     let [result, setResult] = useState(DEFAULT_VALUE);
     let [display, setDisplay] = useState(DEFAULT_VALUE);
 
-    const getResult = () => {
-        console.log('getting result')
-
-        switch (operation) {
-            case 'divide':
-                console.log('dividing');
-                break;
-            case 'multiply':
-                console.log('multiplying')
-                break;
-            case 'minus':
-                console.log('subtracting');
-                break;
-            case 'add':
-                console.log('adding');
-                break;
-            default:
-                setDisplay('Choose an operator.')
+    useEffect( () => {
+        const getResult = async () => {
+            let calculated;
+            switch (operation) {
+                case 'divide':
+                    calculated = result / number;
+                    break;
+                case 'multiply':
+                    calculated = result * number;
+                    break;
+                case 'minus':
+                    calculated = result - number;
+                    break;
+                case 'add':
+                    calculated = result + number;
+                    break;
+                default:
+                    setDisplay('Choose an operator.')
+            }
+    
+            console.log(calculated);
+            setResult(calculated);
+            setDisplay(calculated);
         }
-    }
+
+        getResult();
+    }, [number]);
 
     const changeNumber = (e) => {
         let num = e.target.value;
-        setNumber(num);
         setDisplay(num);
-        getResult();
+        setNumber(num);
     }
 
     const changeOperation = (e) => {
