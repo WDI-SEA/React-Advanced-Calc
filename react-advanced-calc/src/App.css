@@ -1,0 +1,33 @@
+.App {
+  text-align: center;
+}
+
+
+
+.calculator {
+  height: 30vh;
+  width: 30vw;
+}
+
+.container {
+  height: 30vh;
+  width: 30vw;
+}
+
+.display {
+  height: 5vh;
+  width: 11.1vw;
+  margin-left: 136px;
+  background-color: gray;
+  color: white;
+}
+
+.calc-buttons {
+  display: inline-grid;
+  grid-template-columns: 40px 40px 40px 40px;
+  grid-template-rows: 40px 40px 40px 40px 40px;
+}
+
+.orange {
+  background-color: orange;
+}
