@@ -4,7 +4,8 @@ const Calculator = () => {
     //use state
     let [values, setValues] = useState([])
     let [currentValue, setCurrentValue] = useState('0')
-    let [lastClickedOperator, setLastClickedOperator] = useState('add')
+    let [tempValues, setTempValues] = useState([])
+    let [lastClickedOperator, setLastClickedOperator] = useState('')
     let [result, setResult] = useState('')
 
     //functions needed
@@ -12,7 +13,21 @@ const Calculator = () => {
     //subtractValues
     //multiplyValues
     //divideValues
-    //clearState
+    const clearState = () => {
+        setValues([])
+        setCurrentValue('0') 
+        setLastClickedOperator('')
+        setResult('')
+    }
+
+    const operatorFunction = () => {
+        console.log(currentValue)
+        let array = [...tempValues, parseInt(currentValue)]
+        console.log(array)
+        setTempValues(array)
+        console.log(tempValues)
+    }
+
     //showResult
         //if last clicked operator = add
                 //addValues
@@ -29,9 +44,12 @@ const Calculator = () => {
                 <h1>{currentValue}</h1>
             </div>
             <div className="row">
-                <button>AC</button>
-                {/* onClick=clearState */}
-                <button>+</button>
+                <button
+                    onClick={e => clearState()}
+                >AC</button>
+                <button
+                    onClick={e => operatorFunction()}
+                >+</button>
                 {/* onClick= set values state from currentValues, reset currentvalue, set lastclickedoperator to add */}
                 <button>-</button>
                 {/* onClick= set values state from currentValues, reset currentvalue, set lastclickedoperator to sub */}
