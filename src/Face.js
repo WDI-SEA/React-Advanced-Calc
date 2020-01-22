@@ -24,10 +24,11 @@ const Face = props => {
     }
 
     const clearAll = () => {
-        setNumber = DEFAULT_VALUE;
-        setOperation = DEFAULT_OPERATOR;
-        setDisplay = DEFAULT_VALUE;
-        setResult = DEFAULT_VALUE;
+        console.log('Clearing');
+        setNumber(DEFAULT_VALUE);
+        setOperation(DEFAULT_OPERATOR);
+        setDisplay(DEFAULT_VALUE);
+        setResult(DEFAULT_VALUE);
     }
 
     return (
