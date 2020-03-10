@@ -2,11 +2,21 @@ import React, { useState } from 'react'
 
 const Calculator = props => {
     // Declare state variables
-    let [num, setNum] = useState({
+    const [num, setNum] = useState({
         num1: null,
         display: "",
         operator: ""
     })
+
+    const opTable = {
+        '+': (x, y) => (x+y),
+        '-': (x, y) => (x-y),
+        'x': (x, y) => (x*y),
+        '/': (x, y) => (x/y),
+        '%': (x, y) => (x%y)
+    }
+
+    //event handlers and FUNctions
 
     let selectNum = (e) => {
         e.preventDefault();
@@ -31,6 +41,17 @@ const Calculator = props => {
         })
         console.log(num.operator)
         console.log(num.num1)
+
+
+        // if(!num.num1) {
+        //     return
+        // }
+        // if (num.num1) {
+        //     setNum({
+        //         num1: opTable[num.operator](Number(num.num1), Number(num.display))
+        //     })
+        // } else {}
+
     }
     // set operator to what was selected
     // add current displayed string to num1
@@ -44,11 +65,30 @@ const Calculator = props => {
         //that takes num1 {operator} display = answer
         // set display to answer
         // clear operator
-        let equate = (e) => {
-            let answer = parseInt(num.num1) + num.operator.substr() + parseInt(num.display);
-            setNum({
-                 display: answer
-            })
+    let equate = (e) => {
+        console.log( `${num.num1} ${num.operator} ${num.display}`)
+        
+        setNum({
+             display: opTable[num.operator](Number(num.num1), Number(num.display))
+        })
+        //     let math = switch (, y) {
+        //         case '+': 
+        //             function(x, y) { return (x + y) };
+        //             break;
+        //         case '-': 
+        //             function(x, y) { return (x - y) };
+        //             break;
+        //         case 'x': 
+        //             function(x, y) {return (x * y)};
+        //             break;
+        //         case '/': 
+        //         function(x, y) {return (x / y)};
+        //     }​​​​​​​;
+            
+            // let answer = math(num.num1, num.display);
+
+            // console.log(answer)
+
         }
 
 // on click of A/C
@@ -67,7 +107,7 @@ const Calculator = props => {
             <h1>React Calculator</h1>
             <div className="calc-container">
                 <p>Values: </p>
-                <div className="answer-box">{num.display}</div>
+                <div className="answer-box">{num.display ? num.display : num.num1}</div>
                 <div className="calc-row">
                     <button className="calc-button calc-button-top">AC</button>
                     <button className="calc-button calc-button-top">+/-</button>
