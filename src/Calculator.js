@@ -4,7 +4,7 @@ const Calculator = props => {
     // Declare state variables
     const [total, setTotal] = useState(0);
     const [input, setInput] = useState([]);
-    const operators = ["/", "x", "+", "-"];
+    const operators = ["/", "x", "%", "+", "-"];
 
     function resetCalculator() {
         setTotal(0);
@@ -13,18 +13,25 @@ const Calculator = props => {
 
     function addInput(e) {
         let buttonValue = e.target.value;
-        let regexNumber = new RegExp("^[0-9]+$");
-
+        let regexNumber = new RegExp("^[0-9]/w+");
         if (input.length < 1 && regexNumber.test(buttonValue)) {
+            console.log("first", buttonValue);
             setInput([buttonValue]);
             return;
         }
 
         if (regexNumber.test(buttonValue)){
             input[input.length - 1] += buttonValue;
+            console.log("second", buttonValue);
             return;
         } else if (operators.includes(buttonValue)) {
+            console.log(buttonValue, input);
             if(regexNumber.test(input[input.length-1])) {
+                console.log("third", buttonValue);
+                if (buttonValue === "%") {
+                    input[input.length - 1] /= 100;
+                    return;
+                }
                 setInput([...input, buttonValue, ""]);
                 return;
             } else {
@@ -68,7 +75,7 @@ const Calculator = props => {
             }
         });
 
-        setInput([...totalArray]);
+        setInput([(totalArray[0]).toString()]);
         setTotal(totalArray[0]);
         return;
     }
@@ -83,7 +90,7 @@ const Calculator = props => {
                 <div className="calc-row">
                     <button className="calc-button calc-button-top" onClick={() => resetCalculator()}>AC</button>
                     <button className="calc-button calc-button-top">+/-</button>
-                    <button className="calc-button calc-button-top">%</button>
+                    <button className="calc-button calc-button-top" value="%" onClick={(e) => addInput(e)}>%</button>
                     <button className="calc-button calc-button-op" value="/" onClick={(e) => addInput(e)}>/</button>
                 </div>
                 <div className="calc-row">
