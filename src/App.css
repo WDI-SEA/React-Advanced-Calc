@@ -11,8 +11,9 @@
 
 .calc-button {
   width: 35px;
-  min-height: 10px;
-  color: #333;
+  min-height: 35px;
+
+  color: black;
   background-color: #ccc;
 }
 
@@ -31,8 +32,12 @@
 }
 
 .answer-box {
-  background-color: #333;
+  background-color: grey;
   color: #fff;
   text-align: right;
-  min-height: 25px;
+  min-height: 40px;
+}
+.answer {
+  position: relative;
+  top: 20px;
 }
