@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 
 const Calculator = props => {
     // Declare state variables
+    let [operator, setOperator] = useState('')
+    let [num1, setNum1] = useState('')
+    let [num2, setNum2] = useState('')
+
 
 
     return (
