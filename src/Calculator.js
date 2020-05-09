@@ -5,43 +5,106 @@ const Calculator = props => {
     let [operator, setOperator] = useState('')
     let [num1, setNum1] = useState('')
     let [num2, setNum2] = useState('')
+    let [display, setDisplay] = useState('')
+    let [answer, setAnswer] = useState('')
 
+    const allClear = () => {
+        setOperator('')
+        setNum1('')
+        setNum2('')
+        setDisplay('')
+        setAnswer('')
+        console.log('allClear has run')
+    }
+
+    const handleDisplay = (input) => {
+        let currentDisplay = display.slice()
+        setDisplay(currentDisplay + input)
+    }
+
+    const handleNumberClick = (e) => {
+        if (operator) {
+            let currentNum2 = num2.slice()
+            setNum2(currentNum2 + e.target.value)
+            handleDisplay(num2)
+            console.log(num2)
+        }
+        else {
+            let currentNum1 = num1.slice()
+            setNum1(currentNum1 + e.target.value)
+            handleDisplay(num1)
+            console.log(num1)
+        }
+    }
+
+    const handleOpClick = (e) => {
+        if ( num1 && !operator && !num2 ) {
+            setOperator(e.target.value)  
+        }
+        handleDisplay(operator)
+        console.log(operator)
+    }
+
+    const calculate = () => {
+        switch (operator){
+            case '/':
+                setAnswer(num1 / num2)
+            break;
+            case '*':
+                setAnswer(num1 * num2)
+            break;
+            case '+':
+                setAnswer(num1 + num2)
+            break;
+            case '-':
+                setAnswer(num1 - num2)
+            break;
+            case '%':
+                setAnswer(num1/100)
+            break;
+        }
+        console.log(num1)
+        console.log(num2)
+        console.log(operator)
+    }
 
 
     return (
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                <p>Values: </p>
-                <div className="answer-box">TBD</div>
+                <div className="display">
+                <p>{display}</p>
+                </div>
+                <div className="answer-box">{answer}</div>
                 <div className="calc-row">
-                    <button className="calc-button calc-button-top">AC</button>
+                    <button className="calc-button calc-button-top" onClick={allClear}>AC</button>
                     <button className="calc-button calc-button-top">+/-</button>
-                    <button className="calc-button calc-button-top">%</button>
-                    <button className="calc-button calc-button-op">/</button>
+                    <button className="calc-button calc-button-top" value={'%'} onClick={handleOpClick} >%</button>
+                    <button className="calc-button calc-button-op" value={'/'} onClick={handleOpClick}>/</button>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button">7</button>
-                    <button className="calc-button">8</button>
-                    <button className="calc-button">9</button>
-                    <button className="calc-button calc-button-op">x</button>
+                    <button className="calc-button" value={7} onClick={handleNumberClick}>7</button>
+                    <button className="calc-button" value={8} onClick={handleNumberClick}>8</button>
+                    <button className="calc-button" value={9} onClick={handleNumberClick}>9</button>
+                    <button className="calc-button calc-button-op" value={'*'} onClick={handleOpClick}>x</button>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button">4</button>
-                    <button className="calc-button">5</button>
-                    <button className="calc-button">6</button>
-                    <button className="calc-button calc-button-op">-</button>
+                    <button className="calc-button" value={4} onClick={handleNumberClick}>4</button>
+                    <button className="calc-button" value={5} onClick={handleNumberClick}>5</button>
+                    <button className="calc-button" value={6} onClick={handleNumberClick}>6</button>
+                    <button className="calc-button calc-button-op" value={'-'} onClick={handleOpClick}>-</button>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button">1</button>
-                    <button className="calc-button">2</button>
-                    <button className="calc-button">3</button>
-                    <button className="calc-button calc-button-op">+</button>
+                    <button className="calc-button" value={1} onClick={handleNumberClick}>1</button>
+                    <button className="calc-button" value={2} onClick={handleNumberClick}>2</button>
+                    <button className="calc-button" value={3} onClick={handleNumberClick}>3</button>
+                    <button className="calc-button calc-button-op" value={'+'} onClick={handleOpClick}>+</button>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button width-2">0</button>
+                    <button className="calc-button width-2" value={0} onClick={handleNumberClick}>0</button>
                     <button className="calc-button">.</button>
-                    <button className="calc-button calc-button-op">=</button>
+                    <button className="calc-button calc-button-op" onClick={calculate}>=</button>
                 </div>
             </div>
         </div>
