@@ -39,9 +39,10 @@ const Calculator = props => {
 
     const handleOpClick = (e) => {
         if ( num1 && !operator && !num2 ) {
-            setOperator(e.target.value)  
+            setOperator(e.target.value) 
+            handleDisplay(operator) 
         }
-        handleDisplay(operator)
+        
         console.log(operator)
     }
 
