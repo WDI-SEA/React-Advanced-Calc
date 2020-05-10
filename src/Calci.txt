@@ -1,0 +1,280 @@
+/*
+ This txt file contains the entire calcultor code for debugging purpose
+*/
+
+
+ /*************************************************
+import React, { useState } from 'react';
+import * as mathFn from 'mathjs';
+
+const Calci = props => {
+    // Declare state variables
+    const ZERO = '0';
+    const DECIMAL_DOT ="."
+    const EQUALS = "="
+    const PLUS_MINUS = "+/-"
+    const NEGATIVE = "-"
+    let [equation,setEquation] = useState([])
+    let [expression,setExpression]= useState('')
+    let [equalTo, setEqualTo] = useState('')
+    let [operatorObjs,setOperatorObjs] = useState([]) 
+    let [isDecimalDot, setIsDecimalDot] = useState(false)
+    let [isNegative, setIsNegative] = useState(false)
+
+   const clear=()=>{
+     expression=""
+     equation = []
+     operatorObjs = []
+     setEquation(equation)
+     setExpression(expression) 
+     setOperatorObjs(operatorObjs)
+   }   
+ 
+    const isOperator=(value)=>{
+        if(value==="+" || value==="*" || value==="/" || value==="-"  || value==="%")
+        return true;
+        else
+        return false;
+    }
+
+    const pushAndSet=(val)=>{
+        equation.push(val)
+        setEquation(equation)
+        expression = expression+val
+        setExpression(expression)
+
+        let ifOperator = isOperator(val)
+        if(ifOperator)
+        {
+          let  operatorObj ={ type: val, indexInExpression: (expression.length-1),indexInEquation :(equation.length-1)}
+            operatorObjs.push(operatorObj)
+            console.log('operatorObjs',operatorObjs)
+            setOperatorObjs(operatorObjs)
+        }
+        console.log("push and set expression",expression)
+    }
+
+
+    const callPlusMinus=()=> {
+        checkForEqualPressed()
+        if(!isDecimalDot)
+        {
+            console.log("pos or negative")
+            let objArrayLength = operatorObjs.length;
+            console.log('ooperator array obj len',objArrayLength)
+            if(objArrayLength){
+                let lastOperatorObj = operatorObjs[objArrayLength-1]
+                let index = lastOperatorObj.indexInExpression;
+               
+                console.log('index',index)
+                if(index != (expression.length-1))
+                {
+                    let extractedVal = expression.slice((index+1))
+                    console.log('extractedVal',extractedVal)
+                    extractedVal= extractedVal*-1;
+                    let replaceExp = expression.slice(0, (index+1))
+                    console.log("replaceexp",replaceExp)
+                    expression =replaceExp +extractedVal
+                    setExpression(expression)
+
+                    let indInEquation = lastOperatorObj.indexInEquation;
+                    if(!isNegative){
+                         equation.splice((indInEquation+1),0,NEGATIVE)
+
+                    }else if(isNegative){
+                        equation.splice((indInEquation+1),1)
+                    }
+                    setEquation(equation)
+                    isNegative = !isNegative
+                    setIsNegative(isNegative)
+                    console.log('equation in plus minus : if',equation)
+                }
+            }else{
+                    if(expression){
+                        expression = expression * -1;
+                        setExpression(expression)
+                        if(!isNegative){
+                            equation.unshift(NEGATIVE)
+                        }else if(isNegative){
+                            equation.shift()
+                        }
+                        setEquation(equation)
+                        isNegative = !isNegative
+                        setIsNegative(isNegative)
+                        console.log('equation in plus minus : else',equation)
+                        console.log('expression in plus minus',expression)
+                    }
+            }
+    }
+    else{
+        console.log('decimal dot')
+    }
+}
+
+    const checkForEqualPressed=()=>{
+        if(equalTo == EQUALS ){
+            clear()
+            equalTo = ''
+            setEqualTo(equalTo)
+        }
+    }
+    const createExpression=(e)=>{
+        checkForEqualPressed()
+        let val = e.target.value
+        let prevVal= equation.slice(-1) // this returns an array containing the last element in the equation []
+        console.log("button",val)
+        console.log("check prev prevVal",prevVal)
+        console.log("check prev prevVal.length",prevVal.length)
+        //when there is a decimal dot, just before any key is pressed
+        if(isDecimalDot){
+            console.log('there is a dot at the current location')
+            if( !isOperator(val)){ // when values is 0-9, add it after decimal 
+                pushAndSet(val)
+                isDecimalDot = !isDecimalDot
+                setIsDecimalDot(isDecimalDot)
+            }
+        }else // when there is no decimal dot, just before any key is pressed
+        {
+                 // ensures that the first element is not zero, toggle switch for =or-
+                if(prevVal.length === 0  && val!== ZERO && val !== PLUS_MINUS)
+                {
+                        if( !isOperator(val)) // ensures that first value is also not an operator
+                        {    console.log("first value is not an operator")
+                            pushAndSet(val)
+                        } 
+                }
+                else if( prevVal.length!== 0 && (!isOperator(prevVal[0]) || !isOperator(val)))
+                {   //before pushing check if the previous value (in the prevVal array at index 0) also is an operator
+                    //for ex. 2+ is there and now adding an extra + should not be allowed
+                    pushAndSet(val)
+                }
+        }
+    }
+
+    // return true if its an integer positive or negative from 0 to 9
+    const isNumber=(val)=>{
+        if (val==0){
+            return true;
+        }
+        else{
+                for(let i=1;i<=9;i++){
+                    if(val == i || val == (i*-1)){
+                        return true;
+                    }
+                }
+            }
+        return false;  
+    }
+
+   const handleDecimalDot=()=>{
+        checkForEqualPressed()
+       let zeroDecimal = "0."
+       // When decimal is the first thing user clicked
+       if(equation.length == 0){
+            isDecimalDot = true
+            setIsDecimalDot(isDecimalDot)
+            pushAndSet(zeroDecimal)
+       }
+       else{
+        
+            let prevVal= equation.slice(-1)[0]; console.log("inside decimal dot else ",prevVal)
+            // If there is any operator before decimal dot is pressed
+            if (isOperator(prevVal) )
+            { // ex. add 0. after + so it will be +0.
+                isDecimalDot = true
+                setIsDecimalDot(isDecimalDot)
+                pushAndSet(zeroDecimal)
+            }
+             // If there is any number before decimal dot is pressed
+           else if(isNumber(prevVal))
+           {  console.log("inside decimal dot else, else if ")
+            // extract the number value after the operator and check if there is a decimal dot in
+            // the expression already, if not add the decimal dot after the number   
+            let objArrayLength = operatorObjs.length;
+            console.log('oper array obj len in decimal dot',objArrayLength)
+                if(objArrayLength)
+                {
+                    let lastOperatorObj = operatorObjs[objArrayLength-1]
+                    let index = lastOperatorObj.indexInExpression;
+                    let extractedVal = expression.slice((index+1))
+                    console.log('extracted decimal value',extractedVal)
+                    if(!extractedVal.includes(DECIMAL_DOT))
+                    {
+                        isDecimalDot = true
+                        setIsDecimalDot(isDecimalDot)
+                        pushAndSet(DECIMAL_DOT)
+                    }
+                }
+                else{
+                    let stringExp = expression.toString()
+                    console.log('exp in decimal dot',expression)
+                    console.log('string exp in decimal dot',stringExp)
+                    if(!(stringExp.includes(DECIMAL_DOT))){
+                        isDecimalDot = true
+                        setIsDecimalDot(isDecimalDot)
+                        pushAndSet(DECIMAL_DOT)
+                    }
+                  
+                }
+           }
+       }
+   }
+
+ 
+   const compute=()=>{
+    if(expression){
+             let ans= mathFn.evaluate(expression)
+             if(ans !== Infinity) 
+             {  ans = round(ans,6) }
+             console.log('exp ans',ans)
+             setExpression(ans)
+             equalTo = EQUALS
+             setEqualTo(equalTo)
+         }
+}
+
+    
+
+    return (
+        <div className="container">
+            <h1>React Calculator</h1>
+            <div className="calc-container">
+            <p> {expression}</p>
+                <div className="answer-box">TBD</div>
+                <div className="calc-row">
+                    <button className="calc-button calc-button-top" onClick={clear}>AC</button>
+                    <button className="calc-button calc-button-top" value="+/-" onClick={callPlusMinus}>+/-</button>
+                    <button className="calc-button calc-button-top" value="%" onClick={createExpression}>%</button>
+                    <button className="calc-button calc-button-op" value="/" onClick={createExpression}>/</button>
+                </div>
+                <div className="calc-row">
+                    <button className="calc-button" value = "7" onClick={createExpression}>7</button>
+                    <button className="calc-button" value = "8" onClick={createExpression}>8</button>
+                    <button className="calc-button" value = "9" onClick={createExpression}>9</button>
+                    <button className="calc-button calc-button-op" value="*" onClick={createExpression}>x</button>
+                </div>
+                <div className="calc-row">
+                    <button className="calc-button" value = "4" onClick={createExpression}>4</button>
+                    <button className="calc-button" value = "5" onClick={createExpression}>5</button>
+                    <button className="calc-button" value = "6" onClick={createExpression}>6</button>
+                    <button className="calc-button calc-button-op" value="-" onClick={createExpression}>-</button>
+                </div>
+                <div className="calc-row">
+                    <button className="calc-button" value = "1" onClick={createExpression}>1</button>
+                    <button className="calc-button" value = "2" onClick={createExpression}>2</button>
+                    <button className="calc-button" value = "3" onClick={createExpression}>3</button>
+                    <button className="calc-button calc-button-op" value="+" onClick={createExpression}>+</button>
+                </div>
+                <div className="calc-row">
+                    <button className="calc-button width-2" value = "0" onClick={createExpression}>0</button>
+                    <button className="calc-button" value = "." onClick={handleDecimalDot}>.</button>
+                    <button className="calc-button calc-button-op" onClick={compute}>=</button>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default Calci
+
+*************************************************/
