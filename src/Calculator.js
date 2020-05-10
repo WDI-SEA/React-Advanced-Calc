@@ -13,7 +13,11 @@ const Calculator = props => {
     const numInput = (e) => {
         e.preventDefault()
         if (!previousnum && !currentNum && e.target.value == '0') {
-        } else if (previousnum.length + currentNum.length < 9){
+        } else if (previousnum.length + currentNum.length > 7){
+            setpreviousnum('Num too')
+            setCurrentNum(' long')
+        } 
+        else if (previousnum.length + currentNum.length < 9){
         setpreviousnum(previousnum + currentNum + operator)
         setCurrentNum(e.target.value)
         setoperator('')
@@ -67,7 +71,7 @@ const Calculator = props => {
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                <p>{previousnum}|{currentNum}|{operator}</p>
+                {/* <p>{previousnum}|{currentNum}|{operator}</p> */}
                 <div className="answer-box">{previousnum}{currentNum}{operator}</div>
                 <div className="calc-row">
                     <Button style={{ "background-color": "#8c8c8c", "color": "white" }} className="calc-button calc-button-top" onClick={clearBox}>AC</Button>
