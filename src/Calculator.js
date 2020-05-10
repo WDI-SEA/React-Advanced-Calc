@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
+import 'antd/dist/antd.css';
 import {evaluate} from 'mathjs'
+import {orange} from '@ant-design/colors'
+import {Button} from 'antd'
 
 const Calculator = props => {
     let [currentnum, setcurrentnum] = useState('')
@@ -8,13 +11,13 @@ const Calculator = props => {
     //stuff
     const numInput = (e) => {
         e.preventDefault()
-        if (currentnum.length < 10){
+        if (!currentnum && e.target.value == '0') {
+        } else if (currentnum.length < 10){
         setcurrentnum(currentnum + e.target.value)
-        } else {
-            console.log("too many numbers")
+        } else 
+            console.log("can't have zero first")
         }
         
-    }
     const clearBox = () => {
         console.log(currentnum)
         setcurrentnum('')
@@ -55,36 +58,36 @@ const Calculator = props => {
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                <p>{previousnum}|{currentnum}</p>
+                {/* <p>{previousnum}|{currentnum}</p> */}
                 <div className="answer-box">{previousnum}{currentnum}</div>
                 <div className="calc-row">
-                    <button className="calc-button calc-button-top" onClick={clearBox}>AC</button>
-                    <button className="calc-button calc-button-top" onClick={negInput} value="-1">+/-</button>
-                    <button className="calc-button calc-button-top"onClick={operInput} value="%">%</button>
-                    <button className="calc-button calc-button-op"onClick={operInput} value="/">/</button>
+                    <Button style={{ "background-color": "#8c8c8c", "color": "white" }} className="calc-button calc-button-top" onClick={clearBox}>AC</Button>
+                    <Button style={{ "background-color": "#8c8c8c", "color": "white" }} className="calc-button calc-button-top" onClick={negInput} value="-1">+/-</Button>
+                    <Button style={{ "background-color": "#8c8c8c", "color": "white" }} className="calc-button calc-button-top"onClick={operInput} value="%">%</Button>
+                    <Button style={{ "background-color": "orange", "color": "white" }} className="calc-button calc-button-op"onClick={operInput} value="/">/</Button>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button" onClick={numInput} value="7">7</button>
-                    <button className="calc-button"onClick={numInput} value="8">8</button>
-                    <button className="calc-button"onClick={numInput} value="9">9</button>
-                    <button className="calc-button calc-button-op"onClick={operInput} value="*">x</button>
+                    <Button style={{ "background-color": "##f0f0f0", "color": "black" }} className="calc-button" onClick={numInput} value="7">7</Button>
+                    <Button style={{ "background-color": "##f0f0f0", "color": "black" }} className="calc-button"onClick={numInput} value="8">8</Button>
+                    <Button style={{ "background-color": "##f0f0f0", "color": "black" }} className="calc-button"onClick={numInput} value="9">9</Button>
+                    <Button style={{ "background-color": "orange", "color": "white" }} className="calc-button calc-button-op"onClick={operInput} value="*">x</Button>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button"onClick={numInput} value="4">4</button>
-                    <button className="calc-button"onClick={numInput} value="5">5</button>
-                    <button className="calc-button"onClick={numInput} value="6">6</button>
-                    <button className="calc-button calc-button-op" onClick={operInput} value="-">-</button>
+                    <Button style={{ "background-color": "##f0f0f0", "color": "black" }} className="calc-button"onClick={numInput} value="4">4</Button>
+                    <Button style={{ "background-color": "##f0f0f0", "color": "black" }} className="calc-button"onClick={numInput} value="5">5</Button>
+                    <Button style={{ "background-color": "##f0f0f0", "color": "black" }} className="calc-button"onClick={numInput} value="6">6</Button>
+                    <Button style={{ "background-color": "orange", "color": "white" }} className="calc-button calc-button-op" onClick={operInput} value="-">-</Button>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button"onClick={numInput} value="1">1</button>
-                    <button className="calc-button"onClick={numInput} value="2">2</button>
-                    <button className="calc-button"onClick={numInput} value="3">3</button>
-                    <button className="calc-button calc-button-op" onClick={operInput} value="+">+</button>
+                    <Button style={{ "background-color": "##f0f0f0", "color": "black" }} className="calc-button"onClick={numInput} value="1">1</Button>
+                    <Button style={{ "background-color": "##f0f0f0", "color": "black" }} className="calc-button"onClick={numInput} value="2">2</Button>
+                    <Button style={{ "background-color": "##f0f0f0", "color": "black" }} className="calc-button"onClick={numInput} value="3">3</Button>
+                    <Button style={{ "background-color": "orange", "color": "white" }} className="calc-button calc-button-op" onClick={operInput} value="+">+</Button>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button width-2"onClick={numInput} value="0">0</button>
-                    <button className="calc-button" onClick={periodInput} value=".">.</button>
-                    <button className="calc-button calc-button-op" onClick={calcEval}>=</button>
+                    <Button style={{ "background-color": "##f0f0f0", "color": "black" }} className="@orange-6 calc-button width-2"onClick={numInput} value="0">0</Button>
+                    <Button style={{ "background-color": "##f0f0f0", "color": "black" }} className="calc-button" onClick={periodInput} value=".">.</Button>
+                    <Button style={{ "background-color": "orange", "color": "white" }} className="calc-button calc-button-op" onClick={calcEval}>=</Button>
                 </div>
             </div>
         </div>
