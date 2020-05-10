@@ -12,9 +12,10 @@ const Calculator = props => {
     //stuff
     const numInput = (e) => {
         e.preventDefault()
-        if (!previousnum && e.target.value == '0') {
-        } else if (previousnum.length < 9){
-        setpreviousnum(previousnum + operator + e.target.value)
+        if (!previousnum && !currentNum && e.target.value == '0') {
+        } else if (previousnum.length + currentNum.length < 9){
+        setpreviousnum(previousnum + currentNum + operator)
+        setCurrentNum(e.target.value)
         setoperator('')
         } else 
             console.log("can't have zero first")
@@ -24,26 +25,29 @@ const Calculator = props => {
         console.log(operator)
         setoperator('')
         setpreviousnum('')
+        setCurrentNum('')
     }
 
     const negInput = (e) => {
-        setpreviousnum(previousnum * e.target.value)
+        setCurrentNum(currentNum * e.target.value)
     }
 
     const calcEval = () => {
-        let evalnum = (previousnum + operator)
+        let evalnum = (previousnum + operator + currentNum)
         evalnum = `${eval(evalnum)}`
         console.log("evalnum is: ", evalnum)
         if(evalnum.length > 10){
              evalnum = evalnum.substr(0, 9)
         }
-        setoperator(`${evalnum}`)
+        setCurrentNum(`${evalnum}`)
         setpreviousnum('')
+        setoperator('')
         console.log(operator)
     }
 
     const operInput = (e) => {
-        if(operator){
+        if(!currentNum){
+        } else if(operator){
             console.log("too many sequential operators")
         } else {
         setoperator(e.target.value)
@@ -63,8 +67,8 @@ const Calculator = props => {
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                <p>{previousnum}|{operator}</p>
-                <div className="answer-box">{previousnum}{operator}</div>
+                <p>{previousnum}|{currentNum}|{operator}</p>
+                <div className="answer-box">{previousnum}{currentNum}{operator}</div>
                 <div className="calc-row">
                     <Button style={{ "background-color": "#8c8c8c", "color": "white" }} className="calc-button calc-button-top" onClick={clearBox}>AC</Button>
                     <Button style={{ "background-color": "#8c8c8c", "color": "white" }} className="calc-button calc-button-top" onClick={negInput} value="-1">+/-</Button>
