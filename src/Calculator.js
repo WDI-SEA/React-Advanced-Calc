@@ -5,52 +5,57 @@ import {orange} from '@ant-design/colors'
 import {Button} from 'antd'
 
 const Calculator = props => {
-    let [currentnum, setcurrentnum] = useState('')
+    let [operator, setoperator] = useState('')
+    let [currentNum, setCurrentNum] = useState('')
     let [previousnum, setpreviousnum] = useState('')
     // Declare state variables
     //stuff
     const numInput = (e) => {
         e.preventDefault()
-        if (!currentnum && e.target.value == '0') {
-        } else if (currentnum.length < 10){
-        setcurrentnum(currentnum + e.target.value)
+        if (!previousnum && e.target.value == '0') {
+        } else if (previousnum.length < 9){
+        setpreviousnum(previousnum + operator + e.target.value)
+        setoperator('')
         } else 
             console.log("can't have zero first")
         }
         
     const clearBox = () => {
-        console.log(currentnum)
-        setcurrentnum('')
+        console.log(operator)
+        setoperator('')
         setpreviousnum('')
     }
 
     const negInput = (e) => {
-        setcurrentnum(currentnum * e.target.value)
+        setpreviousnum(previousnum * e.target.value)
     }
 
     const calcEval = () => {
-        let evalnum = (previousnum + currentnum)
+        let evalnum = (previousnum + operator)
         evalnum = `${eval(evalnum)}`
         console.log("evalnum is: ", evalnum)
         if(evalnum.length > 10){
              evalnum = evalnum.substr(0, 9)
         }
-        setcurrentnum(`${evalnum}`)
+        setoperator(`${evalnum}`)
         setpreviousnum('')
-        console.log(currentnum)
+        console.log(operator)
     }
 
     const operInput = (e) => {
-        setpreviousnum(previousnum + currentnum + e.target.value)
-        setcurrentnum('')
+        if(operator){
+            console.log("too many sequential operators")
+        } else {
+        setoperator(e.target.value)
+        }
     }
 
     const periodInput = (e) => {
-        if (!currentnum){
-            setcurrentnum(0 + e.target.value)
-        } else if (currentnum.includes(e.target.value)){
+        if (!previousnum){
+            setpreviousnum(0 + e.target.value)
+        } else if (previousnum.includes(e.target.value)){
         } else {
-            setcurrentnum(currentnum + e.target.value)
+            setpreviousnum(previousnum + e.target.value)
         }
     }
     
@@ -58,8 +63,8 @@ const Calculator = props => {
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                {/* <p>{previousnum}|{currentnum}</p> */}
-                <div className="answer-box">{previousnum}{currentnum}</div>
+                <p>{previousnum}|{operator}</p>
+                <div className="answer-box">{previousnum}{operator}</div>
                 <div className="calc-row">
                     <Button style={{ "background-color": "#8c8c8c", "color": "white" }} className="calc-button calc-button-top" onClick={clearBox}>AC</Button>
                     <Button style={{ "background-color": "#8c8c8c", "color": "white" }} className="calc-button calc-button-top" onClick={negInput} value="-1">+/-</Button>
