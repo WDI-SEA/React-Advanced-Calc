@@ -14,10 +14,11 @@ const Calculator = props => {
         e.preventDefault()
         if (!previousnum && !currentNum && e.target.value == '0') {
         } else if (previousnum.length + currentNum.length > 7){
-            setpreviousnum('Num too')
-            setCurrentNum(' long')
+            setpreviousnum('')
+            setCurrentNum('')
+            console.log('error')
         } 
-        else if (previousnum.length + currentNum.length < 9){
+        else if (previousnum.length + currentNum.length < 8){
         setpreviousnum(previousnum + currentNum + operator)
         setCurrentNum(e.target.value)
         setoperator('')
