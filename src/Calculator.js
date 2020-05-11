@@ -11,19 +11,19 @@ const Calculator = props => {
     // Declare state variables
     //stuff
     const numInput = (e) => {
-        e.preventDefault()
         if (!previousnum && !currentNum && e.target.value == '0') {
         } else if (previousnum.length + currentNum.length > 7){
             setpreviousnum('')
             setCurrentNum('')
+            setoperator('')
             console.log('error')
-        } 
-        else if (previousnum.length + currentNum.length < 8){
+        } else {
         setpreviousnum(previousnum + currentNum + operator)
         setCurrentNum(e.target.value)
         setoperator('')
-        } else 
-            console.log("can't have zero first")
+        }
+        // } else 
+        //     console.log("can't have zero first")
         }
         
     const clearBox = () => {
@@ -34,7 +34,13 @@ const Calculator = props => {
     }
 
     const negInput = (e) => {
-        setCurrentNum(currentNum * e.target.value)
+        if(!previousnum){
+            setCurrentNum(currentNum * e.target.value)
+        } else if (previousnum.includes('+') || previousnum.includes('-') || previousnum.includes('/') || previousnum.includes('*')) {
+            setCurrentNum(currentNum * e.target.value)
+        } else {
+            setpreviousnum(previousnum * e.target.value)
+        }
     }
 
     const calcEval = () => {
