@@ -17,10 +17,12 @@ const Calculator = props => {
             setCurrentNum('')
             setoperator('')
             console.log('error')
-        } else {
+        } else if(operator) {
         setpreviousnum(previousnum + currentNum + operator)
         setCurrentNum(e.target.value)
         setoperator('')
+        } else {
+            setCurrentNum(currentNum + e.target.value)
         }
         // } else 
         //     console.log("can't have zero first")
@@ -78,7 +80,7 @@ const Calculator = props => {
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                <p>{previousnum}|{currentNum}|{operator}</p>
+                {/* <p>{previousnum}|{currentNum}|{operator}</p> */}
                 <div className="answer-box">{previousnum}{currentNum}{operator}</div>
                 <div className="calc-row">
                     <Button style={{ "background-color": "#8c8c8c", "color": "white" }} className="calc-button calc-button-top" onClick={clearBox}>AC</Button>
