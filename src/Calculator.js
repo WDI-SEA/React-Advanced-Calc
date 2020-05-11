@@ -2,123 +2,130 @@ import React, { useState } from 'react'
 
 const Calculator = props => {
     // Declare state variables
-    // pulls out all the variables
-    const [operation, setOperation] = useState('')
-    const [numba, setNumba] = useState([])
-    const [display, setDisplay] = useState(0)
-    const [resetDisplay, setResetDisplay] = useState(false)
+    let [answer, setAnswer] = useState('0')
+    let [currentNum, setCurrentNum] = useState('')
+    let [error, setError] = useState('')
+    let [num1, setNum1] = useState('')
+    let [operator, setOperator] = useState('')
 
-    // whenever setNum is being called, any number/decimal the user clicks is being called. 
-    const setNum = (e) => {
-        let newNum = e.target.innerText;
-        console.log(newNum);
-        if (display === 0) {
-            // displays the number in the calculator that the user inputted
-            // the numbers are being treat as "strings" 
-            setDisplay(newNum)
-        } else if (resetDisplay === true) {
-            setDisplay(newNum)
-            setResetDisplay(false)
-        } else {
-            // string concationation?
-            let newDisplay = display + newNum
-            setDisplay(newDisplay)
+    // Event Handlers 
+    const numClick = e => {
+        // console.log('A number was clicked', e.target.value)
+        if (currentNum || e.target.value !== '0') {
+            setCurrentNum(currentNum + e.target.value)
         }
-        // Adding a newNum to an Array, ... means it includes all the content of the original array, newNum adds it the that array. 
-        setNumba([...numba, newNum])
+        console.log('current num', currentNum)
     }
-    const clearNum = (e) => {
-        // Set zero as the default input 
-        setNumba([0])
-        setDisplay(0)
-    }
-    // clickhandler for any mathematical operation
-    const addOperation = (e) => {
-        let op = e.target.innerText
-        // whatever text in that button that the user clicked on 
-        setOperation(op)
-        let combineNum = ''
-        for (let i = 0; i < numba.length; i++) {
-            combineNum += numba[i]
-        }
-        console.log(combineNum)
-        setNumba([combineNum])
-        setResetDisplay(true)
 
-    }
-    // applies to the "=" then calcResult is being called
-    const calcResult = (e) => {
-        let result = 0
-        let second = ''
-        for (let i = 1; i < numba.length; i++) {
-            second += numba[i];
+    const opClick = e => {
+        // console.log('Operator', e.target.value)
+        if (operator) {
+            setError('Operator already set')
         }
-        console.log(second)
+        else if (!currentNum) {
+            setError('Please enter a number')
+        }
+        else {
+            // Everything s good
+            setNum1(currentNum)
+            setOperator(e.target.value)
+            setError('')
+            setCurrentNum('')
+        }
+    }
 
-        console.log(numba)
-        if (operation === '+') {
-            result = parseInt(numba[0]) + parseInt(second)
-            setDisplay(result)
-            setNumba([result])
-        } else if (operation === '-') {
-            result = parseInt(numba[0]) - parseInt(second)
-            setDisplay(result)
-            setNumba([result])
-        } else if (operation === 'x') {
-            result = parseInt(numba[0]) * parseInt(second)
-            setDisplay(result)
-            setNumba([result])
-        } else if (operation === '/') {
-            result = parseInt(numba[0]) / parseInt(second)
-            setDisplay(result)
-            setNumba([result])
-        } else if (operation === '%') {
-            result = parseInt(numba[0]) % parseInt(second)
-            setDisplay(result)
-            setNumba([result])
-        } else {
-            console.log("Incorrect input");
+    const clear = () => {
+        setAnswer('0')
+        setError('')
+        setCurrentNum('')
+        setNum1('')
+        setOperator('')
+    }
+
+    const plusMinusClick = () => {
+        setCurrentNum(currentNum * -1)
+    }
+
+    const dotClick = () => {
+        if(!currentNum) {
+            setCurrentNum('0.')
+        }
+        else if (currentNum.indexOf('.') === -1) {
+            setCurrentNum(currentNum + '.')
         }
     }
+
+    const solve = () => {
+        // console.log('Calculate the answer')
+        if (!num1 || !operator) {
+            setError('Please enter a valid expression')
+        }
+        else if (!currentNum) {
+            setError('Enter a second number!')
+        }
+        else {
+            let tempAnswer = ''
+            if (operator === '+') {
+                tempAnswer = Number(num1) + Number(currentNum)
+            }
+            else if (operator === '-') {
+                tempAnswer = Number(num1) - Number(currentNum)
+            }
+            else if (operator === 'x') {
+                tempAnswer = Number(num1) * Number(currentNum)
+            }
+            else if (operator === '/') {
+                tempAnswer = Number(num1) / Number(currentNum)
+            }
+            else if (operator === '%') {
+                tempAnswer = Number(num1) % Number(currentNum)
+            }
+
+            setAnswer(tempAnswer.toString().slice(0,10))
+            setError('')
+            setCurrentNum(tempAnswer.toString().slice(0,10))
+            setNum1('')
+            setOperator('')
+        }
+    }
+
     return (
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                <p>CALCULATE 🤓: </p>
-                {/* {display}: updates my numbers */}
-                <div className="answer-box">{display}</div>
+                <p>Values: {num1 || currentNum} {operator} {operator ? currentNum : ''}</p>
+                <div className="answer-box">{answer}</div>
                 <div className="calc-row">
-                    <button className="calc-button calc-button-top" onClick={(e) => clearNum(e)}>AC</button>
-                    {/* // TODO: +/- treats numbers if they are either negative or positive */}
-                    <button className="calc-button calc-button-top">+/-</button>
-                    <button className="calc-button calc-button-top" onClick={(e) => addOperation(e)}>%</button>
-                    <button className="calc-button calc-button-op" onClick={(e) => addOperation(e)}>/</button>
+                    <button className="calc-button calc-button-top" onClick={clear}>AC</button>
+                    <button className="calc-button calc-button-top" onClick={plusMinusClick}>+/-</button>
+                    <button className="calc-button calc-button-top" onClick={opClick} value='%'>%</button>
+                    <button className="calc-button calc-button-op" onClick={opClick} value='/'>/</button>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button" onClick={(e) => setNum(e)}>7</button>
-                    <button className="calc-button" onClick={(e) => setNum(e)}>8</button>
-                    <button className="calc-button" onClick={(e) => setNum(e)}>9</button>
-                    <button className="calc-button calc-button-op" onClick={(e) => addOperation(e)}>x</button>
+                    <button className="calc-button" onClick={numClick} value='7'>7</button>
+                    <button className="calc-button" onClick={numClick} value='8'>8</button>
+                    <button className="calc-button" onClick={numClick} value='9'>9</button>
+                    <button className="calc-button calc-button-op" onClick={opClick} value='*'>x</button>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button" onClick={(e) => setNum(e)}>4</button>
-                    <button className="calc-button" onClick={(e) => setNum(e)}>5</button>
-                    <button className="calc-button" onClick={(e) => setNum(e)}>6</button>
-                    <button className="calc-button calc-button-op" onClick={(e) => addOperation(e)}>-</button>
+                    <button className="calc-button" onClick={numClick} value='4'>4</button>
+                    <button className="calc-button" onClick={numClick} value='5'>5</button>
+                    <button className="calc-button" onClick={numClick} value='6'>6</button>
+                    <button className="calc-button calc-button-op" onClick={opClick} value='-'>-</button>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button" onClick={(e) => setNum(e)}>1</button>
-                    <button className="calc-button" onClick={(e) => setNum(e)}>2</button>
-                    <button className="calc-button" onClick={(e) => setNum(e)}>3</button>
-                    <button className="calc-button calc-button-op" onClick={(e) => addOperation(e)}>+</button>
+                    <button className="calc-button" onClick={numClick} value='1'>1</button>
+                    <button className="calc-button" onClick={numClick} value='2'>2</button>
+                    <button className="calc-button" onClick={numClick} value='3'>3</button>
+                    <button className="calc-button calc-button-op" onClick={opClick} value='+'>+</button>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button width-2" onClick={(e) => setNum(e)}>0</button>
-                    {/* TODO: create a seperate clickhandler for period so there is only ONE period. */}
-                    <button className="calc-button" onClick={(e) => setNum(e)}>.</button>
-                    <button className="calc-button calc-button-op" onClick={(e) => calcResult(e)}>=</button>
+                    <button className="calc-button width-2" onClick={numClick} value='0'>0</button>
+                    <button className="calc-button" onClick={dotClick}>.</button>
+                    <button className="calc-button calc-button-op" onClick={solve} value='='>=</button>
                 </div>
             </div>
+            <p className="error"> {error} </p>
         </div>
     )
 }
