@@ -29,10 +29,9 @@ const Calculator = props => {
     }
 
     let handleOp = (e) => {
-        // setTempNum(tempNum += (e.target.value))
         console.log(tempNum)
         console.log(eval(tempNum))
-        // let result = 
+        let result =
         // 
 
         // currentOp = e.target.value
@@ -40,11 +39,11 @@ const Calculator = props => {
         // setNum(tempNum)
         
         // var convString = result.toString()
-        // setDisplay(result)
+        display = eval(tempNum)
+        setDisplay(result)
         // setNum(convString)
-        
-        // setTempNum('')
-        // return display
+        return display
+        setTempNum('')
     }
 
 
