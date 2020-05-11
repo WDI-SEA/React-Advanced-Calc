@@ -2,64 +2,37 @@ import React, { useState } from 'react'
 
 const Calculator = props => {
     // Declare state variables
-    let [inputs, setInput] = useState([]);
-    let [num, setNum] = useState('');
-    let [ops, setOps] = useState('');
-    let [equation, setEquation] = useState('')
+    let [inputs, setInputs] = useState('');
+    let [evaluation, setEvalutation] = useState('')
     
-    
-
     const inputNum = (value) => {
-        setNum(num + value)
-        setEquation(equation + value)
-
+        setInputs(inputs + value)
     }
 
     const inputOps = (value) => {
         console.log(value)
-        setOps(value)
-        inputs.push(num)
-        inputs.push(value)
+        setInputs(inputs + value)
         console.log(inputs)
-        setEquation(equation + value)
-        setNum('')
-    }
-
-    const mult = (num1, num2) => {
-        return parseInt(num1) * parseInt(num2)
-    }
-    const divide = (num1, num2) => {
-        return parseInt(num1) / parseInt(num2)
-    }
-    const add = (num1, num2) => {
-    return parseInt(num1) + parseInt(num2)
-    }
-    const sub = (num1, num2) => {
-        return parseInt(num1) - parseInt(num2) 
     }
 
     const solve = () => {
-        
-        inputs.push(num)
-        for (let i =0; i < inputs.length; i++)
-            if (ops === '+') {
-                (add(inputs[i-1], inputs[i+1]))
-                
-            }
+        let evalNum = `${eval(inputs)}`
+        setEvalutation(evalNum)
+        setInputs('')
+        console.log(evaluation)
     }
 
-    const clearBtn = () => {
-        setNum('')
-        setInput([])
+    const clearBtn = () => {    
+        setInputs('')
+        setEvalutation('')
     }
-    
 
     return (
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                <p>Values: </p>
-                <div className="answer-box">{equation}</div>
+                <p>Values: {evaluation} </p>
+                <div className="answer-box">{inputs}{evaluation}</div>
                 <div className="calc-row">
                 {/* clear button(clear the state) */}
                     <button onClick={clearBtn}
@@ -100,8 +73,10 @@ const Calculator = props => {
                     className="calc-button calc-button-op">+</button>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button width-2">0</button>
-                    <button className="calc-button">.</button>
+                    <button onClick={() => { inputNum('0') }}
+                    className="calc-button width-2">0</button>
+                    <button onClick={() => { inputOps('.') }}
+                    className="calc-button">.</button>
                     <button  onClick={solve}
                     className="calc-button calc-button-op">=</button>
                 </div>
