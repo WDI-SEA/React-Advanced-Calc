@@ -26,7 +26,7 @@ const Calculator = props => {
     }
 
     
-    const calcResult = (e) => {
+    const result = (e) => {
        
         if(op === '+') {
             let result = parseInt(num) + parseInt(num)
@@ -87,7 +87,7 @@ const Calculator = props => {
                 <div className="calc-row">
                     <button className="calc-button width-2" onClick={addInput}>0</button>
                     <button className="calc-button">.</button>
-                    <button className="calc-button calc-button-op" onClick={calcResult}>=</button>
+                    <button className="calc-button calc-button-op" onClick={result}>=</button>
                 </div>
             </div>
         </div>
