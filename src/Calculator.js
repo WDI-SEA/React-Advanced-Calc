@@ -60,11 +60,11 @@ const Calculator = props => {
     }
 
     const periodInput = (e) => {
-        if (!previousnum){
+        if (!previousnum && !currentNum){
             setpreviousnum(0 + e.target.value)
         } else if (previousnum.includes(e.target.value)){
         } else {
-            setpreviousnum(previousnum + e.target.value)
+            setCurrentNum(currentNum + e.target.value)
         }
     }
     
@@ -72,7 +72,7 @@ const Calculator = props => {
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                {/* <p>{previousnum}|{currentNum}|{operator}</p> */}
+                <p>{previousnum}|{currentNum}|{operator}</p>
                 <div className="answer-box">{previousnum}{currentNum}{operator}</div>
                 <div className="calc-row">
                     <Button style={{ "background-color": "#8c8c8c", "color": "white" }} className="calc-button calc-button-top" onClick={clearBox}>AC</Button>
