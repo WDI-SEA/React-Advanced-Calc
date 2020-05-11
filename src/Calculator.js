@@ -7,6 +7,7 @@ const Calculator = props => {
     // let [currentNum, setCurrentNum] = useState('')
     let [num, setNum] = useState('')
     let [equation, setEquation] = useState('')
+    let [answer, setAnswer] = useState('')
     //let [ops, setOps] = useState('')
     let [inputs, setInputs] = useState([])
     let [newInputs, setNewInputs] = useState([])
@@ -33,6 +34,8 @@ const Calculator = props => {
         setNum('')
         setInputs([])
         setEquation('')
+        setAnswer('')
+        setNewInputs([])
     }
 
     const add = (num1, num2) => {
@@ -112,8 +115,8 @@ const Calculator = props => {
             
         }
         console.log(newInputs[newInputs.length -1])
-        setEquation(newInputs[newInputs.length -1])
-      
+        setAnswer(newInputs[newInputs.length -1])
+        setEquation('')
         setNum('')
         setInputs([])
         
@@ -124,8 +127,8 @@ const Calculator = props => {
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                <p>Values: </p>
-                <div className="answer-box"> {equation} </div>
+                <p>Values: {equation} </p>
+                <div className="answer-box"> {answer} </div>
                 <div className="calc-row"> 
                     <button onClick={clearBut} 
                     className="calc-button calc-button-top">AC</button>
