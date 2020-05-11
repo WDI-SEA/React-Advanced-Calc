@@ -54,7 +54,18 @@ const Calculator = props => {
             setCurrentNum(currentNum + '.')
         }
     }
-
+    
+    // ALTERNATIVE % FUNCTIONALITY
+    // const percentClick = () => {
+    //     if (currentNum) {
+    //         let tempAnswer = Number(currentNum) / 100
+    //         setCurrentNum(tempAnswer.toString().slice(0, 10))
+    //     }
+    //     else {
+    //         setError('Please Enter a number first!')
+    //     }
+    // }
+    
     const solve = () => {
         // console.log('Calculate the answer')
         if (!num1 || !operator) {
