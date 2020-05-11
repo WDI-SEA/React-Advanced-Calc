@@ -6,13 +6,11 @@ const Calculator = props => {
     let [num1, setNum1] = useState('')
     let [num2, setNum2] = useState('')
     let [answer, setAnswer] = useState('')
-    let [display, setDisplay] = useState('')
 
     const allClear = () => {
         setOperator('')
         setNum1('')
         setNum2('')
-        setDisplay('')
         setAnswer('')
         console.log('allClear has run')
     }
@@ -41,19 +39,19 @@ const Calculator = props => {
     const calculate = () => {
         switch (operator){
             case '/':
-                setAnswer(num1 / num2)
+                setAnswer(Number(num1) / Number(num2))
             break;
             case '*':
-                setAnswer(num1 * num2)
+                setAnswer(Number(num1) * Number(num2))
             break;
             case '+':
-                setAnswer(num1 + num2)
+                setAnswer(Number(num1) + Number(num2))
             break;
             case '-':
-                setAnswer(num1 - num2)
+                setAnswer(Number(num1) - Number(num2))
             break;
             case '%':
-                setAnswer(num1/100)
+                setAnswer(Number(num1) /100)
             break;
         }
         console.log(num1)
