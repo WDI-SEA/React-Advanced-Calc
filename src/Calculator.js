@@ -10,22 +10,26 @@ const Calculator = props => {
         let x = e.target
         //if a click's value is between 0-9, add to the equation string
         if (x.value.match(/[0-9]/)) {
-            console.log("VALUE IS", x.value)
-            setEquation(equation += x.value)
-            console.log("EQUATION is----", equation)
-            setDisplay(equation)
-        //if the click is an operator & the equation has been started, add the operators
-        } else if (x.value.match(/[-+*\/]/) && (equation)) {
-            //if the last letter was an operand, don't add selection to equation
-            if (equation.charAt(equation.length -1).match(/[-+*\/]/)){
-                console.log("invalid equation")
+            if (x.value === '0' & equation.length < 1) {
+                setEquation('')
+                alert("STOP THAT! Don't zero me 👿")
             } else {
                 setEquation(equation += x.value)
-                console.log('NEW EQUATION WHATT', equation)
+                setDisplay(equation)
+            }         
+        //if the click is an operator & the equation has been started, add the operators
+        } else if (x.value.match(/[-+*\/%]/) && (equation)) {
+            //if the last letter was an operand, don't add selection to equation
+            if (equation.charAt(equation.length -1).match(/[-+*\/%]/)){
+                alert("STOP THAT! Don't double operator me 👿")
+            } else {
+                setEquation(equation += x.value)
+                console.log('NEW EQUATION WHAT', equation)
             }    
-        } else if (x.value === "="){
+        } else if ((x.value === "=") && (!equation.charAt(equation.length -1).match(/[-+*\/%]/))){
             setResult(eval(equation))
-            console.log("WHAT BEAUTIFUL RESUTLS---", equation, result)
+            console.log("WHAT BEAUTIFUL RESULTS---", equation, result)
+            setEquation('')
         //clear equation and display
         } else if (x.value === 'AC') {
             setEquation('')
@@ -41,8 +45,8 @@ const Calculator = props => {
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                    <p>{equation || "Let's math"}</p>
-            <div className="answer-box">{result}</div>
+                    <p>{equation || "Let's math 🤓"}</p>
+            <div className="answer-box">{result||"0"}</div>
                 <div className="calc-row">
                     <button className="calc-button calc-button-top" value="AC" onClick={handleClick}>AC</button>
                     <button className="calc-button calc-button-top">+/-</button>
@@ -69,7 +73,7 @@ const Calculator = props => {
                 </div>
                 <div className="calc-row">
                     <button className="calc-button width-2" value="0" onClick={handleClick}>0</button>
-                    <button className="calc-button">.</button>
+                    <button className="calc-button" value="." onClick={handleClick}>.</button>
                     <button className="calc-button calc-button-op" value="=" onClick={handleClick}>=</button>
                 </div>
             </div>
