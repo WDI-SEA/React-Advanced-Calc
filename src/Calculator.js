@@ -38,7 +38,7 @@ const Calculator = props => {
             } else {
                 setCurrentNum(currentNum + e.target.value)
             }
-        }
+    }
     
     //Handles the clear function which sets all states to null
     const clearBox = () => {
@@ -88,9 +88,10 @@ const Calculator = props => {
 
     //sets the period for the input and checks to see if there is already a period in the input
     const periodInput = (e) => {
-        if (!previousnum && !currentNum){
+        if (!currentNum){
             setpreviousnum(0 + e.target.value)
-        } else if (previousnum.includes(e.target.value) || currentNum.includes(e.target.value)){
+        } else if (currentNum.includes(e.target.value)){
+        } else if (currentNum && operator) {
         } else {
             setCurrentNum(currentNum + e.target.value)
         }
@@ -100,7 +101,7 @@ const Calculator = props => {
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                {/* <p>{previousnum}|{currentNum}|{operator}</p> */}
+                <p>{previousnum}|{currentNum}|{operator}</p>
                 <div className="answer-box">{previousnum}{currentNum}{operator}</div>
                 <div className="calc-row">
                     <Button style={{ "background-color": "#8c8c8c", "color": "white" }} className="calc-button calc-button-top" onClick={clearBox}>AC</Button>
