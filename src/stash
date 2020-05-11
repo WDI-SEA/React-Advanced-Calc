@@ -1,0 +1,38 @@
+let [num, setNum] = useState('')
+    let [temp, setTemp] = useState('')
+    let [display, setDisplay] = useState('0')
+    let result = 0
+
+
+    let handleClick = (e) => {
+        if ((e.target.value === 'AC') || (e.target.value === '0' && num.length < 1)) {
+            setDisplay('0')
+            setTemp('0')
+            setNum('')
+        } else {
+            setNum(num += e.target.value)
+            console.log(num, "length", num.length)
+            setDisplay(num)
+        }
+        return display
+    }
+    let handleMath = (e) => {
+        console.log("MY NUMBER ----", num)
+        setTemp(num)
+        console.log("MF RESULT", temp)
+        if (temp && num) {
+            if (e.target.value === '+') {
+                result = parseInt(temp) + parseInt(num)
+            } else if (e.target.value === '-') {
+                result = parseInt(temp) - parseInt(num)
+            } else if (e.target.value === '/') {
+                result = parseInt(temp) / parseInt(num)
+            } else if (e.target.value === 'x') {
+                result = parseInt(temp) * parseInt(num)
+                console.log(result)
+            }
+            setTemp(result)
+            setNum('')
+            return setDisplay(temp)
+        }
+    }
