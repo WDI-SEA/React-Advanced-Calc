@@ -5,29 +5,42 @@ import {orange} from '@ant-design/colors'
 import {Button} from 'antd'
 
 const Calculator = props => {
+
+    //sets and holds the operator value (+, -, *, /)
     let [operator, setoperator] = useState('')
+    //sets and holds the current number input
     let [currentNum, setCurrentNum] = useState('')
+    //sets and holds the string of previous inputs
     let [previousnum, setpreviousnum] = useState('')
     // Declare state variables
-    //stuff
+  
+
+
+    //Handles the 0-9 key inputs
     const numInput = (e) => {
+        //first if statement for controlling the 0 input
         if (!previousnum && !currentNum && e.target.value == '0') {
-        } else if (previousnum.length + currentNum.length > 7){
-            setpreviousnum('')
-            setCurrentNum('')
-            setoperator('')
-            console.log('error')
-        } else if(operator) {
-        setpreviousnum(previousnum + currentNum + operator)
-        setCurrentNum(e.target.value)
-        setoperator('')
-        } else {
-            setCurrentNum(currentNum + e.target.value)
-        }
-        // } else 
-        //     console.log("can't have zero first")
-        }
+
+        // 2nd statement controls the length of the input field
+            } else if (previousnum.length + currentNum.length > 7){
+                setpreviousnum('')
+                setCurrentNum('')
+                setoperator('')
+                console.log('error')
+
+        // 3rd if statement checks for an operator
+            } else if(operator) {
+                setpreviousnum(previousnum + currentNum + operator)
+                setCurrentNum(e.target.value)
+                setoperator('')
         
+        // if there are no operators continue concat to the currentNum
+            } else {
+                setCurrentNum(currentNum + e.target.value)
+            }
+        }
+    
+    //Handles the clear function which sets all states to null
     const clearBox = () => {
         console.log(operator)
         setoperator('')
@@ -35,6 +48,8 @@ const Calculator = props => {
         setCurrentNum('')
     }
 
+
+    //negative input function takes the current number and sets it negative/positive.
     const negInput = (e) => {
         if(!previousnum){
             setCurrentNum(currentNum * e.target.value)
@@ -45,6 +60,8 @@ const Calculator = props => {
         }
     }
 
+
+    //this function takes current input concats it to a string then evaluates that string.
     const calcEval = () => {
         let evalnum = (previousnum + operator + currentNum)
         evalnum = `${eval(evalnum)}`
@@ -58,6 +75,8 @@ const Calculator = props => {
         console.log(operator)
     }
 
+
+    // this function sets the operator input and
     const operInput = (e) => {
         if(!currentNum){
         } else if(operator){
@@ -67,10 +86,11 @@ const Calculator = props => {
         }
     }
 
+    //sets the period for the input and checks to see if there is already a period in the input
     const periodInput = (e) => {
         if (!previousnum && !currentNum){
             setpreviousnum(0 + e.target.value)
-        } else if (previousnum.includes(e.target.value)){
+        } else if (previousnum.includes(e.target.value) || currentNum.includes(e.target.value)){
         } else {
             setCurrentNum(currentNum + e.target.value)
         }
