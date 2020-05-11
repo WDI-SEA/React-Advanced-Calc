@@ -1,111 +1,112 @@
-import React, { useState, useEffect } from 'react'
-
-let DEFAULT_VALUE = 0;
-let DEFAULT_OPERATOR = ''
+import React, { useState } from 'react'
 
 
 const Calculator = props => {
-    // Declare state variables
-  let [number, setNumber] = useState(DEFAULT_VALUE);
-  let [operator, setOperator] = useState(DEFAULT_OPERATOR);
-  let [answer, setAnswer] = useState(DEFAULT_VALUE);
-  let [choice, setChoice] = useState(DEFAULT_VALUE);
-
-  useEffect( () => {
-          const getAnswer = async () => {
-              let calc;
-              switch (operator) {
-                case 'sub':
-                    calc = choice - number;
-                    break;
-                case 'add':
-                    calc = choice + number;
-                    break;
-                case 'mod':
-                    calc = choice % number;
-                    break;
-                  case 'div':
-                      calc = choice / number;
-                      break;
-                  case 'mul':
-                      calc = choice * number;
-                      break;
-                  default:
-                      setChoice('my Calc')
-              }
+      // Declare state variables
+      let [answer, setAnswer] = useState('0')
+      let [num1, setNum1] = useState('')
+      let [error, setError]= useState('')
+      let [currentNum, setCurrentNum] = useState('')
+      let [operator, setOperator] = useState('');
 
 
-              setAnswer(calc);
-              setChoice(calc);
-              console.log(calc);
-              console.log(answer);
-              console.log(operator);
+      // Event Handlers
+      const numClick = e => {
+        if (currentNum || e.target.value !== '0' ) {
+          setCurrentNum(currentNum + e.target.value)
+        }
+      }
+
+      const opClick = e => {
+        if (operator) {
+          setError('operator already set')
+        }
+        else if(!currentNum){
+          setError('Please enter a number')
+        }
+        else {
+          //Everything is all good
+          setNum1(currentNum)
+          setOperator(e.target.value)
+          setError('')
+          setCurrentNum('')
+        }
+      }
+
+      const clear =() => {
+        setAnswer('0')
+        setError('')
+        setCurrentNum('')
+        setNum1('')
+        setOperator('')
+      }
+
+
+      const solve = () => {
+        if (!num1 || !operator) {
+          setError('Please enter a valid expression')
+        }
+        else if(!currentNum){
+          setError('Enter a second number!')
+        }
+        else{
+          let tempAnswer
+          if(operator === '+' ){
+            tempAnswer = Number(num1) + Number(currentNum)
           }
-
-        ;
-      },);
-
-
-//clear AC
-const Clear = () => {
-  setNumber(DEFAULT_VALUE);
-  setOperator(DEFAULT_OPERATOR);
-  setChoice(DEFAULT_VALUE);
-  setAnswer(DEFAULT_VALUE);
-}
-// Const op = opperation caller
-const changeOperator = (e) => {
-  if(e.target.value === 'equal') {
-    getAnswer(answer)
-  }
-    setOperator(e.target.value);
-    }
-
-
-const changeView = (e) => {
-        let View = e.target.value;
-        setChoice(View);
-        setNumber(View);
-    }
-
-
-
+          else if(operator === '-' ){
+            tempAnswer = Number(num1) - Number(currentNum)
+          }
+          else if(operator === '/' ){
+            tempAnswer = Number(num1) / Number(currentNum)
+          }
+          else if(operator === 'x' ){
+            tempAnswer = Number(num1) * Number(currentNum)
+          }
+          setAnswer(tempAnswer.toString().slice(0, 10))
+          setError('')
+          setCurrentNum(tempAnswer.toString().slice(0, 10))
+          setNum1('')
+          setOperator('')
+        }
+      }
     return (
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                <p>Values: </p>
-                <div className="answer-box" >{choice}</div>
+                <p>Values: {num1 || currentNum} {operator} {operator ? currentNum : ''}</p>
+                <div className="answer-box" ></div>
                 <div className="calc-row">
-                    <button className="calc-button calc-button-top" onClick={Clear}>AC</button>
+                    <button className="calc-button calc-button-top" onClick={clear} >AC</button>
                     <button className="calc-button calc-button-top" >+/-</button>
-                    <button className="calc-button calc-button-top" onClick={changeOperator} value={'mul'} >%</button>
-                    <button className="calc-button calc-button-op" onClick={changeOperator} value={'divide'} >/</button>
+                    <button className="calc-button calc-button-top" onClick={opClick} value= '%' >%</button>
+                    <button className="calc-button calc-button-op" onClick={opClick} value= '/' >/</button>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button" onClick={changeView} value={7} >7</button>
-                    <button className="calc-button" onClick={changeView} value={8} >8</button>
-                    <button className="calc-button" onClick={changeView} value={9} >9</button>
-                    <button className="calc-button calc-button-op" onClick={changeOperator} value={'mul'} >x</button>
+                    <button className="calc-button" onClick={numClick} value= '7' >7</button>
+                    <button className="calc-button" onClick={numClick} value='8' >8</button>
+                    <button className="calc-button" onClick={numClick} value='9' >9</button>
+                    <button className="calc-button calc-button-op" onClick={opClick} value='x' >x</button>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button" onClick={changeView} value={4} >4</button>
-                    <button className="calc-button" onClick={changeView} value={5} >5</button>
-                    <button className="calc-button" onClick={changeView} value={6} >6</button>
-                    <button className="calc-button calc-button-op" onClick={changeOperator} value={'sub'} >-</button>
+                    <button className="calc-button" onClick={numClick} value= '4' >4</button>
+                    <button className="calc-button" onClick={numClick} value='5' >5</button>
+                    <button className="calc-button" onClick={numClick} value='6' >6</button>
+                    <button className="calc-button calc-button-op" onClick={opClick} value='-' >-</button>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button" onClick={changeView} value={1} >1</button>
-                    <button className="calc-button" onClick={changeView} value={2} >2</button>
-                    <button className="calc-button" onClick={changeView} value={3} >3</button>
-                    <button className="calc-button calc-button-op" onClick={changeOperator} value={'add'} >+</button>
+                    <button className="calc-button" onClick={numClick} value='1' >1</button>
+                    <button className="calc-button" onClick={numClick} value='2' >2</button>
+                    <button className="calc-button" onClick={numClick} value='3' >3</button>
+                    <button className="calc-button calc-button-op" onClick={opClick} value='+' >+</button>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button width-2" onClick={changeView} value={0}  >0</button>
-                    <button className="calc-button" onClick={changeView} >.</button>
-                    <button className="calc-button calc-button-op" onClick={changeOperator} value={'equal'}>=</button>
+                    <button className="calc-button width-2" onClick={numClick} value= '0'  >0</button>
+                    <button className="calc-button" onClick={numClick}  value='.'>.</button>
+                    <button className="calc-button calc-button-op" onClick={solve} value='='>=</button>
                 </div>
             </div>
+            <p className='error'>{error}</p>
         </div>
     )
 }
