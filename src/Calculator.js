@@ -5,8 +5,8 @@ const Calculator = props => {
     let [operator, setOperator] = useState('')
     let [num1, setNum1] = useState('')
     let [num2, setNum2] = useState('')
-    let [display, setDisplay] = useState('')
     let [answer, setAnswer] = useState('')
+    let [display, setDisplay] = useState('')
 
     const allClear = () => {
         setOperator('')
@@ -17,30 +17,22 @@ const Calculator = props => {
         console.log('allClear has run')
     }
 
-    const handleDisplay = (input) => {
-        let currentDisplay = display.slice()
-        setDisplay(currentDisplay + input)
-    }
-
     const handleNumberClick = (e) => {
         if (operator) {
             let currentNum2 = num2.slice()
             setNum2(currentNum2 + e.target.value)
-            handleDisplay(num2)
             console.log(num2)
         }
         else {
             let currentNum1 = num1.slice()
             setNum1(currentNum1 + e.target.value)
-            handleDisplay(num1)
             console.log(num1)
         }
     }
 
     const handleOpClick = (e) => {
         if ( num1 && !operator && !num2 ) {
-            setOperator(e.target.value) 
-            handleDisplay(operator) 
+            setOperator(e.target.value)  
         }
         
         console.log(operator)
@@ -75,7 +67,7 @@ const Calculator = props => {
             <h1>React Calculator</h1>
             <div className="calc-container">
                 <div className="display">
-                <p>{display}</p>
+                <p>{num1 || num2} {operator} {operator ? num2 : ''}</p>
                 </div>
                 <div className="answer-box">{answer}</div>
                 <div className="calc-row">
