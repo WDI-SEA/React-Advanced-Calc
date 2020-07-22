@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState } from 'react'
-import Output from './Output'
-// import Functions from './Functions'
+import Current from './Current'
+// import Output from './Output'
 
 const Calculator = props => {
     // Declare state variables
@@ -122,7 +122,7 @@ const Calculator = props => {
         setMode('')
     }
     
-    //handler click for equals sign, triggers runregister if buffer AND buffer2 aren't in default state
+    //handler click for equals sign, triggers runregister if mode, buffer, buffer2 aren't in default state
     const equalsClick = (e) => {
         // console.log(e.target)
         if (mode === emptyMode || buffer === emptyBuffer || buffer2 === emptyBuffer) {return false} 
@@ -177,6 +177,7 @@ const Calculator = props => {
                     <button className="calc-button decimal">.</button>
                     <button className="calc-button calc-button-op" onClick={equalsClick}>=</button>
                 </div>
+                <Current mode={mode} buffer2={buffer2} getOperator={getOperator} /> 
         </div>
     )
 
