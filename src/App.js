@@ -14,51 +14,50 @@ function App() {
   // user input consists of two numbers 
   let [nextNumber, setNextNumber] = useState(0);
 
-  // handle when certain button operators are clicked
-
-  // probably need an onclick handler 
-
   // clear button handler
   const allClear = () => {
-    //set all states back to their "zeroed-out condition"
-    setTotal(0);
-    setOperator("");
-    setErrMessage("");
-    setNextNumber(0);
+      //set all states back to their "zeroed-out condition"
+      setTotal(0);
+      setOperator("");
+      setErrMessage("");
+      setNextNumber(0);
   }
 
   // grab the number
   const handleNumberClick = (e) => {
-    let value = parseInt(e.target.innerText);
-    console.log(value);
-    setNextNumber(value);
+      let value = parseInt(e.target.innerText);
+      console.log(value);
+      setNextNumber(value);
   }
 
-  // calc logic
-  const calculatorLogic = () => {
-    if (operator === "+") {
-      setTotal(total + nextNumber)
-    }
-    else if (operator === "-") {
-      setTotal(total - nextNumber) 
-    }
-    else if (operator === "*") {
-      setTotal(total * nextNumber)
-    }
-    else if (operator === "/") {
-      setTotal(total / nextNumber)
-    }
-    else if (operator === "%") {
-      console.log("we haven't handled this yet")
-    }
-  }
+  // calc logic when equal button is clicked
+  // handle when certain button operators are clicked
+  const handleEqualClick = (e) => {   
+      console.log(e, total, operator, nextNumber)
+      if (operator = "+") {
+          setTotal(total = total + nextNumber)
+      }
+      else if (operator = "-") {
+          setTotal(total = total - nextNumber)
+      }
+      else if (operator = "*") {
+          setTotal(total = total * nextNumber)
+      }
+      else if (operator = "/") {
+          setTotal(total = total / nextNumber)
+      }
+      else if (operator = "%") {
+          console.log("we haven't handled this yet")
+      }
+  } 
 
   return (
     <div className="App">
       <Calculator 
-      logic={calculatorLogic}
+      logic={handleEqualClick}
       clickNumber={handleNumberClick}
-      clear={allClear}/>
+      clear={allClear}
+      total={total}/>
     </div>
   );
 }

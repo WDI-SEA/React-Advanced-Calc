@@ -8,7 +8,7 @@ const Calculator = props => {
             <h1>React Calculator</h1>
             <div className="calc-container">
                 <p>Values: </p>
-                <div className="answer-box">TBD</div>
+                <div className="answer-box">{props.total}</div>
                 <div className="calc-row">
                     <button className="calc-button calc-button-top" onClick={() => props.clear()}>AC</button>
                     <button className="calc-button calc-button-top">+/-</button>
@@ -36,7 +36,7 @@ const Calculator = props => {
                 <div className="calc-row">
                     <button className="calc-button width-2" onClick={(e) => props.clickNumber(e)}>0</button>
                     <button className="calc-button">.</button>
-                    <button className="calc-button calc-button-op">=</button>
+                    <button className="calc-button calc-button-op"onClick={(e) => props.logic(e)}>=</button>
                 </div>
             </div>
         </div>
