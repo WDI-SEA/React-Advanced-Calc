@@ -2,6 +2,14 @@ import React, { useState } from 'react'
 
 const Calculator = props => {
     // Declare state variables
+    let [clear, setClear] = useState(true)
+    let [number, setNumber] = useState([
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+    ])
+    let [operator, setOperator] = useState([
+        '+', '-', '*', '/'
+    ])
+    let [display, setDisplay] = useState{[]}
 
 
     return (
