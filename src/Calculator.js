@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 
 const Calculator = props => {
     let [inputNumber, setInputNumber] = useState('')
+    let [operator, setOperator] = useState('')
+    let [firstValue, setFirstValue] = useState('')
     // Declare state variables
     const calcAction = (e) => {
         console.log("action press")
@@ -11,16 +13,45 @@ const Calculator = props => {
 
     const operatorAction = (e) => {
         console.log(e.target.value)
+        console.log(inputNumber)
+        setFirstValue(inputNumber)
+        setOperator(e.target.value)
+        setInputNumber('')
+        
+    }
+
+    const clearAction = (e) => {
+        setOperator('')
+        setInputNumber('')
+        setFirstValue('')
+    }
+    const equalAction = (e) => {
+        console.log("CALCULATE")
+        console.log(inputNumber)
+        console.log(firstValue)
+        console.log(operator)
+        let output = ''
+        if(operator === "+") {
+            output = Number(firstValue) + Number(inputNumber)
+        }
+        if(operator === "-") {
+            output = Number(firstValue) - Number(inputNumber)
+        }
+        if(operator === "-") {
+            output = Number(firstValue) - Number(inputNumber)
+        }
+    
+        console.log(output)
     }
 
     return (
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                <p>Values: {inputNumber} </p>
+                <p>Values: {inputNumber} {operator} </p>
                 <div className="answer-box">TBD</div>
                 <div className="calc-row">
-                    <button className="calc-button calc-button-top">AC</button>
+                    <button className="calc-button calc-button-top" onClick={clearAction}>AC</button>
                     <button className="calc-button calc-button-top" >+/-</button>
                     <button className="calc-button calc-button-top" >%</button>
                     <button className="calc-button calc-button-op" onClick={operatorAction} value="/">/</button>
@@ -46,7 +77,7 @@ const Calculator = props => {
                 <div className="calc-row">
                     <button className="calc-button width-2" onClick={calcAction}>0</button>
                     <button className="calc-button">.</button>
-                    <button className="calc-button calc-button-op">=</button>
+                    <button className="calc-button calc-button-op" onClick={equalAction}>=</button>
                 </div>
             </div>
         </div>
