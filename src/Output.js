@@ -4,11 +4,11 @@ import React from 'react'
 const Output = (props) => {
 
     // let history = props.outputs
-    // let reverseHistory = props.outputs.reverse()
+    let reverseHistory = props.outputs.reverse()
     // console.log('should be reverse',reverseHistory)
     // console.log('should be forwards', history)
 
-    let display = props.outputs.map((item) => {
+    let display = reverseHistory.map((item) => {
         return (
             <div className="output-item">
                 {item}

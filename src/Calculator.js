@@ -19,7 +19,8 @@ const Calculator = props => {
     }
 
     const subtractStrings = (a,b) => {
-        return parseInt(b)-parseInt(a)
+        console.log(a,b)
+        return (parseInt(b) - parseInt(a))
     }
 
     const multiplyStrings = (a,b) => {
@@ -48,6 +49,25 @@ const Calculator = props => {
             break
         case 'divide':
             return divideStrings(buffer,buffer2)
+            break
+        default:
+            console.log('no mode set')
+        }
+    } 
+ 
+    function getOperator(m) {
+    switch(m) {
+        case 'plus':
+            return "+"
+            break
+        case 'minus':
+            return "-"
+            break
+        case 'multiply':
+            return "*"
+            break
+        case 'divide':
+            return "/"
             break
         default:
             console.log('no mode set')
@@ -90,7 +110,7 @@ const Calculator = props => {
     //calculates based on mode, buffer,buffer2, also sends result to history
     const runRegister = (e) => {
         console.log('total:',process(mode),'typeof:',typeof(process(mode)))
-        props.updateHistory(`${buffer} ${mode} ${buffer2} = ${process(mode).toString()}`)
+        props.updateHistory(`${buffer2} ${getOperator(mode)} ${buffer} = ${process(mode).toString()}`)
         setBuffer(emptyBuffer)
         setBuffer2(process(mode).toString())
         setMode('')
