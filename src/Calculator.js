@@ -10,26 +10,26 @@ const Calculator = props => {
     useEffect(() => {
         let answer
         if (operator === '+') {
-            answer = parseInt(numOne) + parseInt(numTwo)
+            answer = parseFloat(numOne) + parseFloat(numTwo)
             setDisplay(answer)
         }
         if (operator === '-') {
-            answer = parseInt(numOne) - parseInt(numTwo)
+            answer = parseFloat(numOne) - parseFloat(numTwo)
             setDisplay(answer)
         }
         if (operator === 'x') {
-            answer = parseInt(numOne) * parseInt(numTwo)
+            answer = parseFloat(numOne) * parseFloat(numTwo)
             setDisplay(answer)
         }
         if (operator === '/') {
-            answer = parseInt(numOne) / parseInt(numTwo)
+            answer = parseFloat(numOne) / parseFloat(numTwo)
             setDisplay(answer)
         }
         setMessage('')
     }, [numTwo])
 
     const numClick = (e) => {
-        if (display > 0) {
+        if (display !== 0) {
             setDisplay(display + e.target.textContent)
         } else {
             setDisplay(e.target.textContent)
@@ -58,12 +58,14 @@ const Calculator = props => {
         setMessage('')
     }
 
+    const setDecimal = () => {
+        setDisplay(display + '.')
+    }
 
     return (
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                <p>Values: </p>
                 <div className="answer-box">{display}</div>
                 <div className="calc-row">
                     <button className="calc-button calc-button-top" onClick={clearButton}>AC</button>
@@ -91,7 +93,7 @@ const Calculator = props => {
                 </div>
                 <div className="calc-row">
                     <button className="calc-button width-2" onClick={numClick}>0</button>
-                    <button className="calc-button">.</button>
+                    <button className="calc-button" onClick={setDecimal}>.</button>
                     <button className="calc-button calc-button-op" onClick={runOperation}>=</button>
                 </div>
             </div>
