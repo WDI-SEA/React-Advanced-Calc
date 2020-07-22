@@ -24,9 +24,14 @@ const Calculator = props => {
     }
 
     const operatorClick = (e) => {
-        setStoredNumber(output);
-        setStoredOperation(e.target.innerHTML);
-        setStartNewNumber(true);
+        if (e.target.innerHTML === "-" && startNewNumber){
+            setOutput("-");
+            setStartNewNumber(false);
+        } else {
+            setStoredNumber(output);
+            setStoredOperation(e.target.innerHTML);
+            setStartNewNumber(true);
+        }
     }
     //TODO: Make operator clicks able to chain together operations if, say, the user type 9 + 3 - 5
     // Right now, that sequence will give -2 as a result (i.e. 3 - 5)
