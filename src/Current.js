@@ -3,7 +3,11 @@ import React from 'react'
 const Current = (props) => {
     return(
         <div>
-            <h4>mode is: {props.getOperator(props.mode)}, current value is: {props.buffer2}</h4>
+            <h5>mode:</h5>
+            <h2>{props.getOperator(props.mode)}</h2>
+            <br/>
+             <h5>current value:</h5>
+             <h2>{props.buffer2}</h2>
         </div>
     )
 }
