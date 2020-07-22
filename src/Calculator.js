@@ -62,14 +62,25 @@ const Calculator = props => {
         setDisplay(display + '.')
     }
 
+    const reverseNumber = () => {
+        let displayNum = parseFloat(display)
+        if (displayNum >= 0) {
+            displayNum = Math.abs(displayNum) * -1
+            setDisplay(displayNum)
+        } else {
+            displayNum = Math.abs(displayNum)
+            setDisplay(displayNum)
+        }
+    }
+
     return (
         <div className="container">
-            <h1>React Calculator</h1>
+            <h1>Most Definitely Just Like The Mac Calculator</h1>
             <div className="calc-container">
                 <div className="answer-box">{display}</div>
                 <div className="calc-row">
                     <button className="calc-button calc-button-top" onClick={clearButton}>AC</button>
-                    <button className="calc-button calc-button-top">+/-</button>
+                    <button className="calc-button calc-button-top" onClick={reverseNumber}>+/-</button>
                     <button className="calc-button calc-button-top">%</button>
                     <button className="calc-button calc-button-op" onClick={operatorClick}>/</button>
                 </div>
