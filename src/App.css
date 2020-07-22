@@ -10,14 +10,14 @@
 }
 
 .calc-button {
-  width: 35px;
-  min-height: 10px;
+  width: 50px;
+  min-height: 50px;
   color: #333;
   background-color: #ccc;
 }
 
 .width-2 {
-  width: 70px !important;
+  width: 100px !important;
 }
 
 .calc-button-op {
