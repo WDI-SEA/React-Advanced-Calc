@@ -38,6 +38,7 @@ const Calculator = props => {
     }
 
     const operatorClick = (e) => {
+        console.log("in operator click");
         setStoredNumber(output);
         setStoredOperation(e.target.innerHTML);
         setStartNewNumber(true);
@@ -45,7 +46,7 @@ const Calculator = props => {
     //TODO: Make operator clicks able to chain together operations if, say, the user type 9 + 3 - 5
     // Right now, that sequence will give -2 as a result (i.e. 3 - 5)
 
-    const equalsClick = () => {
+    const equalsClick = () => {     // For simplicity, this method is the only place values are converted to numbers.  Everywhere else they are strings.
         switch (storedOperation) {
             case "+":
                 setOutput(String(Number(storedNumber) + Number(output)))
@@ -58,6 +59,9 @@ const Calculator = props => {
                 break;
             case "/":
                 setOutput(String(Number(storedNumber) / Number(output)))
+                break;
+            case "%":
+                setOutput(String(Number(storedNumber) % Number(output)))
         }
         setStoredOperation("");
         setStoredNumber("");
@@ -76,7 +80,7 @@ const Calculator = props => {
                 <div className="calc-row">
                     <button className="calc-button calc-button-top" onClick={() => clearAll()}>AC</button>
                     <button className="calc-button calc-button-top" onClick={() => toggleSign()}>+/-</button>
-                    <button className="calc-button calc-button-top">%</button>
+                    <button className="calc-button calc-button-top"onClick={(e) => operatorClick(e)}>%</button>
                     <button className="calc-button calc-button-op" onClick={(e) => operatorClick(e)}>/</button>
                 </div>
                 <div className="calc-row">
