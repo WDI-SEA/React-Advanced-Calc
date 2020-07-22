@@ -37,14 +37,25 @@ const Calculator = props => {
         }
     }
 
+    const dotClick = () => {
+        if (output.includes(".")){
+            setErrorDisplay("Only one decimal point allowed");
+        } else if (startNewNumber) {
+            setOutput("0.");
+            setStartNewNumber(false);
+        } else {
+            setOutput(output.concat("."));
+        }
+    }
+
     const operatorClick = (e) => {
         if (storedOperation && storedOperation != e.target.innerHTML) setErrorDisplay(`Switching ${storedOperation} to ${e.target.innerHTML}`);
         setStoredNumber(output);
         setStoredOperation(e.target.innerHTML);
         setStartNewNumber(true);
     }
-    //TODO: Make operator clicks able to chain together operations if, say, the user type 9 + 3 - 5
-    // Right now, that sequence will give -2 as a result (i.e. 3 - 5)
+    //TODO: Make operator clicks able to chain together operations.
+    // Right now, if, say, the user types 9 + 3 - 5, that sequence will give -2 as a result (i.e. 3 - 5)
 
     const equalsClick = () => {     // For simplicity, this method is the only place values are converted to numbers.  Everywhere else they are strings.
         switch (storedOperation) {
@@ -67,8 +78,8 @@ const Calculator = props => {
         setStoredNumber("");
         setStartNewNumber(true);
     }
-    // TODO: Make consecutive clicks of the Equals button repeat the last operation
-    // TODO: Round answers to an appropriate # of digits so that long answers don't make calc render weirdly
+    // TODO: Make consecutive clicks of the Equals button repeat the last operation, like normal calculators do
+    // TODO: Round answers to an appropriate # of digits so that long answers don't make calculator render weirdly wide
 
 
     return (
@@ -103,7 +114,7 @@ const Calculator = props => {
                 </div>
                 <div className="calc-row">
                     <button className="calc-button width-2" onClick={(e) => numberClick(e)}>0</button>
-                    <button className="calc-button">.</button>
+                    <button className="calc-button" onClick={() => dotClick()}>.</button>
                     <button className="calc-button calc-button-op"onClick={(e) => equalsClick(e)}>=</button>
                 </div>
             </div>
