@@ -5,29 +5,27 @@ const Calculator = props => {
     const [numOne, setNumOne] = useState(0)
     const [numTwo, setNumTwo] = useState(0)
     const [operator, setOperator] = useState()
+    const [message, setMessage] = useState('')
 
     useEffect(() => {
         let answer
         if (operator === '+') {
             answer = parseInt(numOne) + parseInt(numTwo)
-            console.log(`Answer: ${answer}`)
             setDisplay(answer)
         }
         if (operator === '-') {
             answer = parseInt(numOne) - parseInt(numTwo)
-            console.log(`Answer: ${answer}`)
             setDisplay(answer)
         }
         if (operator === 'x') {
             answer = parseInt(numOne) * parseInt(numTwo)
-            console.log(`Answer: ${answer}`)
             setDisplay(answer)
         }
         if (operator === '/') {
             answer = parseInt(numOne) / parseInt(numTwo)
-            console.log(`Answer: ${answer}`)
             setDisplay(answer)
         }
+        setMessage('')
     }, [numTwo])
 
     const numClick = (e) => {
@@ -39,9 +37,13 @@ const Calculator = props => {
     }
 
     const operatorClick = (e) => {
-        setNumOne(display)
-        setDisplay(0)
-        setOperator(e.target.textContent)
+        if (!operator) {
+            setNumOne(display)
+            setDisplay(0)
+            setOperator(e.target.textContent)
+        } else {
+            setMessage('Two operators? Nonsense.')
+        }
     }
 
     const runOperation = () => {
@@ -53,6 +55,7 @@ const Calculator = props => {
         setNumTwo(0)
         setOperator()
         setDisplay(0)
+        setMessage('')
     }
 
 
@@ -92,6 +95,7 @@ const Calculator = props => {
                     <button className="calc-button calc-button-op" onClick={runOperation}>=</button>
                 </div>
             </div>
+            <div>{message}</div>
         </div>
     )
 }
