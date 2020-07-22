@@ -20,7 +20,7 @@ const Calculator = props => {
                     <button className="calc-button" onClick={(e) => props.addToInput(e)}>7</button>
                     <button className="calc-button" onClick={(e) => props.addToInput(e)}>8</button>
                     <button className="calc-button" onClick={(e) => props.addToInput(e)}>9</button>
-                    <button className="calc-button calc-button-op">x</button>
+                    <button className="calc-button calc-button-op" onClick={(e) => props.calculate(e)}>x</button>
                 </div>
                 <div className="calc-row">
                     <button className="calc-button" onClick={(e) => props.addToInput(e)}>4</button>

@@ -5,6 +5,8 @@ import Calculator from './Calculator'
 function App() {
   const [input, setInput] = useState([])
   const [negative, setNegative] = useState(false)
+  const [operator, setOperator] = useState([])
+  const [num1, setNum1] = useState("")
 
   const addToInput = (e) => {
     let value = e.target.innerText
@@ -30,14 +32,16 @@ function App() {
     }
   }
 
-  // const multiply = (e) => {
+  const calculate = (e) => {
+    setNum1(Number(input.toString()))
+    setInput([])
+    console.log(num1)
+  }
 
-
-  // }
 
   return (
     <div className="App">
-      <Calculator input={input} addToInput={addToInput} clear={clearInput} isNegative={isNegative}/>
+      <Calculator input={input} addToInput={addToInput} clear={clearInput} isNegative={isNegative} calculate={calculate}/>
     </div>
   );
 }
