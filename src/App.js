@@ -47,7 +47,7 @@ function App() {
           setTotal(total = total / nextNumber)
       }
       else if (operator = "%") {
-          console.log("we haven't handled this yet")
+          setTotal(total = total * (nextNumber / 100))
       }
   } 
 
