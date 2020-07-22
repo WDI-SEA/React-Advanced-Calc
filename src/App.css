@@ -36,3 +36,9 @@
   text-align: right;
   min-height: 25px;
 }
+
+.ouput-display {
+    width: auto;
+    height: auto;
+    display: flex;
+}

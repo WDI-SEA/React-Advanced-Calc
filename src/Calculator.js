@@ -30,7 +30,7 @@ const Calculator = props => {
     }
 
     function updateHistory(s) {
-        setHistory([s, ...history])
+        setHistory([history, ...s])
         console.log(s)
     }
 
@@ -67,6 +67,7 @@ const Calculator = props => {
         setBuffer(emptyBuffer)
         setBuffer2(emptyBuffer)
         setMode(emptyBuffer)
+        setHistory([])
     }
 
 
@@ -75,8 +76,12 @@ const Calculator = props => {
         console.log('mode clicked is ', e.target.id)
         updateHistory(e.target.id)
         setMode(e.target.id) 
+        if (buffer2 === emptyBuffer)
+        {
         setBuffer2(buffer)
         setBuffer(emptyBuffer)
+        }
+        console.log(false)
     }
 
 
@@ -114,39 +119,39 @@ const Calculator = props => {
     return (
         <div className="container">
             <h1>React Calculator</h1>
-            <div className="calc-container">
-                <p>Values: </p>
-                <div className="answer-box">{display}</div>
-                <div className="calc-row">
-                    <button onClick={allClear} className="calc-button calc-button-top">AC</button>
-                    <button className="calc-button calc-button-top">+/-</button>
-                    <button id="modulus" className="calc-button calc-button-top">%</button>
-                    <button id="divide" className="calc-button calc-button-op" onClick={modeClick}>/</button>
-                </div>
-                <div className="calc-row">
-                    <button className="calc-button" onClick={numberClick}>7</button>
-                    <button className="calc-button" onClick={numberClick}>8</button>
-                    <button className="calc-button" onClick={numberClick}>9</button>
-                    <button id="multiply" className="calc-button calc-button-op" onClick={modeClick}>x</button>
-                </div>
-                <div className="calc-row">
-                    <button className="calc-button" onClick={numberClick}>4</button>
-                    <button className="calc-button" onClick={numberClick}>5</button>
-                    <button className="calc-button" onClick={numberClick}>6</button>
-                    <button id="minus" className="calc-button calc-button-op" onClick={modeClick}>-</button>
-                </div>
-                <div className="calc-row">
-                    <button className="calc-button" onClick={numberClick}>1</button>
-                    <button className="calc-button" onClick={numberClick}>2</button>
-                    <button className="calc-button" onClick={numberClick}>3</button>
-                    <button className="calc-button calc-button-op" id="plus" onClick={modeClick}>+</button>
-                </div>
-                <div className="calc-row">
-                    <button className="calc-button width-2" onClick={numberClick}>0</button>
-                    <button className="calc-button decimal">.</button>
-                    <button className="calc-button calc-button-op" onClick={equalsClick}>=</button>
-                </div>
-            </div>
+                 <div className="calc-container">
+                    <p>Values: </p>
+                    <div className="answer-box">{display}</div>
+                    <div className="calc-row">
+                        <button onClick={allClear} className="calc-button calc-button-top">AC</button>
+                        <button className="calc-button calc-button-top">+/-</button>
+                        <button id="modulus" className="calc-button calc-button-top">%</button>
+                        <button id="divide" className="calc-button calc-button-op" onClick={modeClick}>/</button>
+                    </div>
+                    <div className="calc-row">
+                        <button className="calc-button" onClick={numberClick}>7</button>
+                        <button className="calc-button" onClick={numberClick}>8</button>
+                        <button className="calc-button" onClick={numberClick}>9</button>
+                        <button id="multiply" className="calc-button calc-button-op" onClick={modeClick}>x</button>
+                    </div>
+                    <div className="calc-row">
+                        <button className="calc-button" onClick={numberClick}>4</button>
+                        <button className="calc-button" onClick={numberClick}>5</button>
+                        <button className="calc-button" onClick={numberClick}>6</button>
+                        <button id="minus" className="calc-button calc-button-op" onClick={modeClick}>-</button>
+                    </div>
+                    <div className="calc-row">
+                        <button className="calc-button" onClick={numberClick}>1</button>
+                        <button className="calc-button" onClick={numberClick}>2</button>
+                        <button className="calc-button" onClick={numberClick}>3</button>
+                        <button className="calc-button calc-button-op" id="plus" onClick={modeClick}>+</button>
+                    </div>
+                    <div className="calc-row">
+                        <button className="calc-button width-2" onClick={numberClick}>0</button>
+                        <button className="calc-button decimal">.</button>
+                        <button className="calc-button calc-button-op" onClick={equalsClick}>=</button>
+                    </div>
+                 </div>
             <div className="output-display">
                 <Output outputs={history} />
             </div>
