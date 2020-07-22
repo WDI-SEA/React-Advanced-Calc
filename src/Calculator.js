@@ -4,6 +4,7 @@ const Calculator = props => {
     let [inputNumber, setInputNumber] = useState('')
     let [operator, setOperator] = useState('')
     let [firstValue, setFirstValue] = useState('')
+    let [solution, setSolution] = useState('0')
     // Declare state variables
     const calcAction = (e) => {
         console.log("action press")
@@ -12,6 +13,9 @@ const Calculator = props => {
     }
 
     const operatorAction = (e) => {
+        if(operator) {
+            console.log("ERROR")
+        }
         console.log(e.target.value)
         console.log(inputNumber)
         setFirstValue(inputNumber)
@@ -24,6 +28,7 @@ const Calculator = props => {
         setOperator('')
         setInputNumber('')
         setFirstValue('')
+        setSolution('')
     }
     const equalAction = (e) => {
         console.log("CALCULATE")
@@ -37,9 +42,13 @@ const Calculator = props => {
         if(operator === "-") {
             output = Number(firstValue) - Number(inputNumber)
         }
-        if(operator === "-") {
-            output = Number(firstValue) - Number(inputNumber)
+        if(operator === "*") {
+            output = Number(firstValue) * Number(inputNumber)
         }
+        if(operator === "/") {
+            output = Number(firstValue) / Number(inputNumber)
+        }
+        setSolution(output)
     
         console.log(output)
     }
@@ -49,7 +58,7 @@ const Calculator = props => {
             <h1>React Calculator</h1>
             <div className="calc-container">
                 <p>Values: {inputNumber} {operator} </p>
-                <div className="answer-box">TBD</div>
+                <div className="answer-box">{solution}</div>
                 <div className="calc-row">
                     <button className="calc-button calc-button-top" onClick={clearAction}>AC</button>
                     <button className="calc-button calc-button-top" >+/-</button>
