@@ -36,3 +36,8 @@
   text-align: right;
   min-height: 25px;
 }
+
+.error-display {
+  height: 10px;
+  font-size: 10px;
+}

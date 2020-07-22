@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 const Calculator = props => {
     const [output, setOutput] = useState("0");
+    const [errorDisplay, setErrorDisplay] = useState("");
     const [storedNumber, setStoredNumber] = useState("");
     const [storedOperation, setStoredOperation] = useState("");
     const [startNewNumber, setStartNewNumber] = useState(true);
@@ -12,6 +13,7 @@ const Calculator = props => {
     const clearAll = () => {
         setOutput("0");
         setStartNewNumber(true);
+        setErrorDisplay("");
     }
 
     const numberClick = (e) => {
@@ -23,15 +25,22 @@ const Calculator = props => {
         setStartNewNumber(false);
     }
 
-    const operatorClick = (e) => {
-        if (e.target.innerHTML === "-" && startNewNumber){
-            setOutput("-");
-            setStartNewNumber(false);
+    const toggleSign = () => {
+        if (startNewNumber){
+            setErrorDisplay("Sign toggle requires a number");
         } else {
-            setStoredNumber(output);
-            setStoredOperation(e.target.innerHTML);
-            setStartNewNumber(true);
+            if (output.charAt(0) === "-"){
+                setOutput(output.slice(1));
+            } else {
+                setOutput("-" + output);
+            }
         }
+    }
+
+    const operatorClick = (e) => {
+        setStoredNumber(output);
+        setStoredOperation(e.target.innerHTML);
+        setStartNewNumber(true);
     }
     //TODO: Make operator clicks able to chain together operations if, say, the user type 9 + 3 - 5
     // Right now, that sequence will give -2 as a result (i.e. 3 - 5)
@@ -62,11 +71,11 @@ const Calculator = props => {
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                <p>Values: </p>
+                <p className="error-display">{errorDisplay}</p>
                 <div className="answer-box">{output}</div>
                 <div className="calc-row">
                     <button className="calc-button calc-button-top" onClick={() => clearAll()}>AC</button>
-                    <button className="calc-button calc-button-top">+/-</button>
+                    <button className="calc-button calc-button-top" onClick={() => toggleSign()}>+/-</button>
                     <button className="calc-button calc-button-top">%</button>
                     <button className="calc-button calc-button-op" onClick={(e) => operatorClick(e)}>/</button>
                 </div>
