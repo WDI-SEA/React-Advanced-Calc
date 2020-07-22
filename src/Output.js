@@ -3,11 +3,10 @@ import React from 'react'
 
 const Output = (props) => {
 
-    // let history = props.outputs
+    // reverses history array to display from top to bottom
     let reverseHistory = props.outputs.reverse()
-    // console.log('should be reverse',reverseHistory)
-    // console.log('should be forwards', history)
 
+    // iterates over history.reverse() to return draw data (app.js)
     let display = reverseHistory.map((item) => {
         return (
             <div className="output-item">

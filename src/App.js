@@ -7,6 +7,7 @@ import Output from './Output'
 
 function App() {
 
+    // history is drawn by output.js
     const [history,setHistory] = useState([])
 
     function updateHistory(s) {

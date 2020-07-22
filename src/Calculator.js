@@ -6,14 +6,16 @@ const Calculator = props => {
     // Declare state variables
 
     // const [result,setResult] = useState(0)
-    const emptyBuffer=''
-    const emptyMode=''
-    const [buffer,setBuffer] = useState(emptyBuffer)
-    const [buffer2,setBuffer2] = useState(emptyBuffer)
-    const [display,setDisplay] = useState(buffer)
-    const [mode,setMode] = useState(emptyMode)
+    const emptyBuffer='' //buffer default state
+    const emptyMode=''  //mode default state
+    const [buffer,setBuffer] = useState(emptyBuffer) //input value
+    const [buffer2,setBuffer2] = useState(emptyBuffer)  //second input value
+    const [display,setDisplay] = useState(buffer)  //display value
+    const [mode,setMode] = useState(emptyMode)  //mode value
     // const [history,setHistory] = useState([])
 
+
+    // operation methods for calculating results (buffer,buffer2)
     const addStrings = (a,b) => {
         return parseInt(b)+parseInt(a)
     }
@@ -36,6 +38,7 @@ const Calculator = props => {
     //     console.log(s)
     // }
 
+    //  returns calculation based on state 'mode'
     function process(m) {
     switch(m) {
         case 'plus':
@@ -55,6 +58,7 @@ const Calculator = props => {
         }
     } 
  
+    // string value for output (app.js)
     function getOperator(m) {
     switch(m) {
         case 'plus':
@@ -74,6 +78,7 @@ const Calculator = props => {
         }
     } 
 
+    // changes display to current value
     useLayoutEffect (() => {
         // console.log(process(mode))
         console.log('buffer1 current',buffer)
@@ -84,7 +89,7 @@ const Calculator = props => {
     [buffer]
     )
 
-    //resets state
+    // resets state
     const allClear = () => {
         setBuffer(emptyBuffer)
         setBuffer2(emptyBuffer)
@@ -107,7 +112,8 @@ const Calculator = props => {
         console.log(false)
     }
 
-    //calculates based on mode, buffer,buffer2, also sends result to history
+    // calculates based on mode, buffer,buffer2, also sends result to history
+    // sets buffer2 to calculated value, buffer to default, mode to default
     const runRegister = (e) => {
         console.log('total:',process(mode),'typeof:',typeof(process(mode)))
         props.updateHistory(`${buffer2} ${getOperator(mode)} ${buffer} = ${process(mode).toString()}`)
@@ -116,7 +122,7 @@ const Calculator = props => {
         setMode('')
     }
     
-    //handler click for equals sign, triggers runregister if buffer and buffer2 aren't in default state
+    //handler click for equals sign, triggers runregister if buffer AND buffer2 aren't in default state
     const equalsClick = (e) => {
         // console.log(e.target)
         if (mode === emptyMode || buffer === emptyBuffer || buffer2 === emptyBuffer) {return false} 
@@ -125,7 +131,7 @@ const Calculator = props => {
         runRegister(e) //this runs if buffer and buffer2 have both been given value
     }
 
-    //click handler for number keys
+    // click handler for number keys
     const numberClick = (e) => {
         // props.updateHistory(e.target.innerHTML)
         if (e.target.innerHTML === '0' && buffer === "")
@@ -136,7 +142,7 @@ const Calculator = props => {
         console.log('buffer is type', typeof(buffer))
     }
 
-
+    //
     return (
         <div className="container">
             <h1>React Calculator</h1>
