@@ -1,8 +1,30 @@
 import React, { useState } from 'react'
 
 const Calculator = props => {
-    // Declare state variables
+    const [firstNumber, setFirstNumber] = useState() 
+    const [secondNumber, setSecondNumber] = useState()
+    const [operator, setOperator] = useState()
 
+            let numberOptions = document.getElementsByClassName("calc-button").value
+            let operatorOptions = document.getElementsByClassName("calc-button-op").value
+    
+
+        const setNumbers = (e) => {
+            if (firstNumber === null) {
+                firstNumber = e.target.innerText
+                setFirstNumber(firstNumber)
+            }else if (firstNumber !== null) {
+                secondNumber = e.target.innerText
+                setSecondNumber(secondNumber)
+        }
+
+        const setOperator = (e) => {
+            operator = e.target.innerText
+            setOperator(operator)
+        }
+   
+        const findNumbers = numberOptions.useEventListener("click", setNumbers)
+        const findOperator = operatorOptions.useEventListener("click", setOperator)
 
     return (
         <div className="container">
@@ -37,7 +59,7 @@ const Calculator = props => {
                 <div className="calc-row">
                     <button className="calc-button width-2">0</button>
                     <button className="calc-button">.</button>
-                    <button className="calc-button calc-button-op">=</button>
+                    <button onClick={ (e) => solveEquation()} className="calc-button calc-button-op">=</button>
                 </div>
             </div>
         </div>
