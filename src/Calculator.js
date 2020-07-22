@@ -12,7 +12,7 @@ const Calculator = props => {
                 <div className="answer-box">{props.input}</div>
                 <div className="calc-row">
                     <button className="calc-button calc-button-top"  onClick={(e) => props.clear(e)}>AC</button>
-                    <button className="calc-button calc-button-top">+/-</button>
+                    <button className="calc-button calc-button-top" onClick={(e) => props.isNegative(e)}>+/-</button>
                     <button className="calc-button calc-button-top">%</button>
                     <button className="calc-button calc-button-op">/</button>
                 </div>
