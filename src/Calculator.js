@@ -38,7 +38,7 @@ const Calculator = props => {
     }
 
     const operatorClick = (e) => {
-        console.log("in operator click");
+        if (storedOperation && storedOperation != e.target.innerHTML) setErrorDisplay(`Switching ${storedOperation} to ${e.target.innerHTML}`);
         setStoredNumber(output);
         setStoredOperation(e.target.innerHTML);
         setStartNewNumber(true);
