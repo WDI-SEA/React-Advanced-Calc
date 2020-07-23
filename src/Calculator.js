@@ -46,6 +46,18 @@ const Calculator = () => {
         if (operator === '+') {
             answer = Number(input1) + Number(input2)
         }            
+        else if (operator === '-') {
+            answer = Number(input1) - Number(input2)
+        }            
+        else if (operator === 'x') {
+            answer = Number(input1) * Number(input2)
+        }            
+        else if (operator === '/') {
+            answer = Number(input1) / Number(input2)
+        }                    
+        else if (operator === '%') {
+            answer = Number(input1) % Number(input2)
+        }            
         console.log(answer)         
     }
 
