@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Calculator from './Calculator'
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <Calculator />
