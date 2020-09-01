@@ -2,15 +2,80 @@ import React, { useState } from 'react'
 
 const Calculator = props => {
     // Declare state variables
-    constructor(props){
-        super()
-        this.state = {
-            number: " ",
-            newNum: " ",
-            results: "results"
+    const [value, setValue] = useState("0") //number you are entering in
+    const [operator, setOperator] = useState(" ") // + ,-, % etc
+    const [calculate, setCalculate] = useState(false) //math part
+    const [result, setResult] = useState("0") //result of calculate
+
+    //setup functions
+    function setNum(e) {
+        let tempNum = value //setting first number to a value
+        if(e.target.value === tempNum && tempNum === ".") {
+        } else {
+            if(calculate) {
+                setCalculate(false)
+                setResult(value)
+                let newValue = `${e.target.value}` //value is what you put in
+                setValue(newValue)
+            } else {
+                if (value === "0") {
+                    let newValue = `${e.target.value}`
+                    setValue(newValue)
+                } else {
+                    let newValue = `${value}${e.target.value}`
+                    setValue(newValue)
+                }
+            }
         }
     }
 
+    function operation(e){
+        setCalculate(true)
+        let newOperator = e.target.value
+        setOperator(newOperator)
+    }
+
+    function clearAll(){
+        setValue(0)
+        setOperator(" ")
+        setResult(0)
+    }
+
+    // when you press = sign
+    function calculateResults (){
+        setCalculate(true)
+        let num1 = Number(result)
+        let num2 = Number(value)
+        let op = operator
+        
+        if (op === "+") {
+            let newResult = num1 + num2
+            setResult(newResult)
+            setValue(newResult)
+          } else if (op === "-") {
+            let newResult = num1 - num2
+            setResult(newResult)
+            setValue(newResult)
+          } else if (op === "*") {
+            let newResult = num1 * num2
+            setResult(newResult)
+            setValue(newResult)
+          } else if (op === "/") {
+            let newResult = num1 / num2
+            setResult(newResult)
+            setValue(newResult)
+          } else if (op === "%") {
+            let newResult = num1 % num2
+            setResult(newResult)
+            setValue(newResult)
+          }
+    }
+
+    function togglePlusMinus(){
+        let neg = -value
+        setValue(neg)
+    }
+    
     return (
         <div className="container">
             <h1>React Calculator</h1>
@@ -50,5 +115,6 @@ const Calculator = props => {
         </div>
     )
 }
+
 
 export default Calculator
