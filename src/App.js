@@ -59,7 +59,16 @@ function App() {
   let handleButtons = (e) => {
     e.preventDefault();
     console.log('please work')
+    if (num || e.target.value !== '0') {
+      setNum(num + e.target.value)
+    }
+    console.log(num)
+  }
 
+  let handleOperator = (e) => {
+    e.preventDefault();
+    console.log(e.target.value)
+    setOperator(e.target.value )
   }
 
   return (
@@ -73,6 +82,8 @@ function App() {
       error={error}
       //currentNum={currentNum}
       handleButtons={handleButtons}
+      num={num}
+      handleOperator={handleOperator}
       />
     </div>
   );
