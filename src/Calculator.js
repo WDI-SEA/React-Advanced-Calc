@@ -2,6 +2,17 @@ import React, { useState } from 'react'
 
 const Calculator = props => {
     // Declare state variables
+    //for function
+    let [fun, setFun] = useState()
+    //for number value
+    let [num, setNum] = useState(0)
+    let [num1, setNum1] = useState('')
+    //on selecting a function button, make num1 = num, let num=0, let fun = value of button
+    function funtimes(e){
+
+    }
+    //equals button and run values
+    //error handling
 
 
     return (
@@ -9,9 +20,9 @@ const Calculator = props => {
             <h1>React Calculator</h1>
             <div className="calc-container">
                 <p>Values: </p>
-                <div className="answer-box">TBD</div>
+                <div className="answer-box">{num}</div>
                 <div className="calc-row">
-                    <button className="calc-button calc-button-top">AC</button>
+                    <button className="calc-button calc-button-top" onClick= {() => { setNum(0); setFun();}}>AC</button>
                     <button className="calc-button calc-button-top">+/-</button>
                     <button className="calc-button calc-button-top">%</button>
                     <button className="calc-button calc-button-op">/</button>
