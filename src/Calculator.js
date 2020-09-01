@@ -2,7 +2,14 @@ import React, { useState } from 'react'
 
 const Calculator = props => {
     // Declare state variables
-
+    constructor(props){
+        super()
+        this.state = {
+            number: " ",
+            newNum: " ",
+            results: "results"
+        }
+    }
 
     return (
         <div className="container">
