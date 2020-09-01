@@ -8,8 +8,8 @@ const Calculator = props => {
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                <p>Values: </p>
-                <div className="answer-box">TBD</div>
+                <p>Values: </p> 
+                <div className="answer-box">{props.total}</div>
                 <div className="calc-row">
                     <button className="calc-button calc-button-top">AC</button>
                     <button className="calc-button calc-button-top">+/-</button>
@@ -37,7 +37,8 @@ const Calculator = props => {
                 <div className="calc-row">
                     <button className="calc-button width-2">0</button>
                     <button className="calc-button">.</button>
-                    <button className="calc-button calc-button-op">=</button>
+                    <button className="calc-button calc-button-op" 
+                        onClick={() => props.formula()}>=</button>
                 </div>
             </div>
         </div>
