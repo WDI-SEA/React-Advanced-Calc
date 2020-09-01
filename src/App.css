@@ -4,20 +4,24 @@
 }
 .calc-container {
   border: 1px solid #333;
-  border-radius: 2px;
+  border-radius: 10px;
   display: inline-block;
   background-color: #ddd;
+  font-size: 20px;
 }
 
 .calc-button {
-  width: 35px;
-  min-height: 10px;
+  width: 55px;
+  height: 40px;
+  min-height: 20px;
   color: #333;
   background-color: #ccc;
+  font-size: 20px;
 }
 
 .width-2 {
-  width: 70px !important;
+  width: 110px !important;
+  height: 40px;
 }
 
 .calc-button-op {
@@ -35,4 +39,6 @@
   color: #fff;
   text-align: right;
   min-height: 25px;
+  height: 30px;
+  font-size: 20px;
 }
