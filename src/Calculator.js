@@ -16,31 +16,33 @@ const Calculator = props => {
       setTotal(0);
       setNum("");
       setOperator("");
+      setNum2("");
     }
   
     //operator function for my +, -, *, /, and i guess % <- need to look up
     const formula = () => {
-      if (operator === '+') {
-        setTotal ( parseInt(num) + parseInt(num2))
-      } else if (operator === '-') {
-        setTotal ( parseInt(num) - parseInt(num2))
-      } else if (operator === '/') {
-        setTotal ( parseInt(num) / parseInt(num2))
-      } else if (operator === '*') {
-        setTotal ( parseInt(num) * parseInt(num2))
-      } else if (operator === '%') {
-        // 100 % 7 = 2 
-        // // a = 100, n = 7
-        // 100 - (7 * floor(100/7)) = 2 | (total / num) = totalOne | (num * totalOne) = totalTwo | total - totalTwo = whatsLeft
-        let total1 = total / parseInt(num);
-        let total2 = num * Math.floor(total1);
-        let whatsLeft = total - total2;
-        setTotal(Math.round(whatsLeft));
+      if ( !num || !num2 || !operator ) {
+          setError('Enter valid expression')
+      }  else if (!num) {
+          setError('Enter a number')
+      } else {
+        if (operator === '+') {
+            setTotal ( parseInt(num) + parseInt(num2))
+          } else if (operator === '-') {
+            setTotal ( parseInt(num) - parseInt(num2))
+          } else if (operator === '/') {
+            setTotal ( parseInt(num) / parseInt(num2))
+          } else if (operator === '*') {
+            setTotal ( parseInt(num) * parseInt(num2))
+          } else if (operator === '%') {
+            setTotal (parseInt(num) % parseInt(num2))
+          }
+        }
       }
-    }
   
     let handleButtons = (e) => {
-      if (operator == '') {
+        e.preventDefault();
+        if (operator == '') {
         setWorking(false)
         setNum(num + e.target.value)
         // formula()
