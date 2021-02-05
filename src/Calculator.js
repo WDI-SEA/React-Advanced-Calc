@@ -8,7 +8,8 @@ class Calculator extends Component {
         numsArray: [], // Array of numbers.
         currentNum: '', // For storing current number (until operator is pressed)
         operator: null, // Currently only allowed to use one operator. Will have to display error message if user tries to use two.
-        result: null
+        result: null,
+        messages: ''
     }
 
     handleEvaluatorClick = () => { // For clicking = sign.
@@ -24,7 +25,8 @@ class Calculator extends Component {
             numsArray: [],
             currentNum: '',
             operator: null,
-            display: display
+            display: display,
+            messages: ''
         })
         
     }
@@ -47,13 +49,13 @@ class Calculator extends Component {
                 numsArray: array,
                 currentNum: '',
                 operator: operator,
-                display: display
+                display: display,
+                messages: ''
             })
             console.log(this.state.currentNum)
         } else {
-            console.log("You can only choose one operator. The most recent operator will be used.")
             this.setState({
-                operator: e.target.innerText
+                messages: "Only one operator can be selected at a time."
             })
         }
     }
@@ -66,11 +68,14 @@ class Calculator extends Component {
         if (!this.state.operator) { // If this is the first number.
             this.setState({
                 currentNum: num,
-                display: num})
+                display: num,
+                messages: ''
+            })
         } else {
             this.setState({
                 currentNum: num,
-                display: `${this.state.numsArray[0]} ${this.state.operator} ${e.target.innerText}`
+                display: `${this.state.numsArray[0]} ${this.state.operator} ${e.target.innerText}`,
+                messages: ''
             })
         }
         // console.log(this.state.currentNum)
@@ -82,7 +87,8 @@ class Calculator extends Component {
             display: '',
             numsArray: [],
             operator: '',
-            currentNum: ''
+            currentNum: '',
+            messages: ''
         })
     }
 
@@ -145,6 +151,7 @@ render(){
                     className="calc-button calc-button-op">=</button>
                 </div>
             </div>
+            <div className="error-messages">{this.state.messages}</div>
         </div>
     )
 }
