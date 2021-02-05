@@ -4,6 +4,7 @@ class Calculator extends Component {
     // Declare state variables
     state={
         input:'',
+        number:'',
         result:"TBD"
     }
     findNumber=(num)=>{
@@ -11,8 +12,10 @@ class Calculator extends Component {
             if(num=='-'){
 
                 this.setState({input:num+this.state.input})
+                this.setState({number:num+this.state.number})
             }else{
-
+                
+                this.setState({number:this.state.number+num})
                 this.setState({input:this.state.input+num})
             }
         }
@@ -20,13 +23,15 @@ class Calculator extends Component {
     findOperator=(op)=>{
         if(!this.state.input==''){
             this.setState({input:this.state.input+op})
+            this.setState({number:''})
         }
     }
   
     findResult=()=>{
 
         let test=eval(this.state.input)
-        this.setState({result:test})
+        this.setState({number:test})
+        this.setState({input:test})
         console.log(test)
 
     }
@@ -39,8 +44,8 @@ render(){
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                <p>{this.state.input}</p>
-                <div className="answer-box">{this.state.result}</div>
+                <p>values: </p>
+                <div className="answer-box">{this.state.number}</div>
                 <div className="calc-row">
                     <button className="calc-button calc-button-top" onClick={()=>this.clearInput()}>AC</button>
                     <button className="calc-button calc-button-top" onClick={()=>this.findNumber("-")}>+/-</button>
