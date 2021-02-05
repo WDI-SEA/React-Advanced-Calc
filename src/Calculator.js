@@ -4,11 +4,11 @@ import Number from './Number'
 class Calculator extends Component {
     // Declare state variables
     state ={
-        display: null, // String for a display of your input history. 
+        display: '', // String for a display of your input history. 
         numsArray: [], // Array of numbers.
         currentNum: '', // For storing current number (until operator is pressed)
-        operator: null, // Currently only allowed to use one operator. Will have to display error message if user tries to use two.
-        result: null,
+        operator: '', // Currently only allowed to use one operator. Will have to display error message if user tries to use two.
+        result: '',
         messages: ''
     }
 
@@ -28,7 +28,7 @@ class Calculator extends Component {
             result: result,
             numsArray: [],
             currentNum: '',
-            operator: null,
+            operator: '',
             display: display,
             messages: ''
         })
@@ -108,9 +108,9 @@ class Calculator extends Component {
             let num = this.state.currentNum
             num = `${this.state.currentNum}.`
             this.setState({
-                currentNum: num
+                currentNum: num,
+                display: `${this.state.numsArray[0] ? this.state.numsArray[0] : ''} ${this.state.operator} ${num}` // Universal display message, since eveything is an empty string if it doesn't exist. 
             }) 
-            this.updateDisplay()
         }
     }
 
