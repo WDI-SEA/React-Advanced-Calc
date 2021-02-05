@@ -14,12 +14,16 @@ class Calculator extends Component {
 
     handleEvaluatorClick = () => { // For clicking = sign.
         console.log("Handling evaluator click")
+        if (!this.state.operator || !this.state.currentNum) { // If it's just one number and there was no operator, OR if the last thing was an operator and as a result there's no currentNum.
+            return
+        }
         let array = this.state.numsArray
-        array.push(parseInt(this.state.currentNum))
+        array.push(parseFloat(this.state.currentNum))
         
         let display = (`${this.state.numsArray[0]} ${this.state.operator} ${this.state.numsArray[1]}`)
 
         let result = eval(`${this.state.numsArray[0]} ${this.state.operator} ${this.state.numsArray[1]}`)
+            // result = result.toFixed(3) // Only want max of 3 decimal places, but would need to look at indexOf decimal point (if any) in display and see if there are more than 3 decimal points. Otherwise, you'll get values like 25.000.
         this.setState({
             result: result,
             numsArray: [],
@@ -32,16 +36,13 @@ class Calculator extends Component {
     }
     handleOperatorClick = (e) => {
         console.log("Handling operator click", e.target.innerText)
-        
         let operator = e.target.innerText
-
         if (e.target.innerText == "x") {
             operator = '*'
         }
-        
         if (this.state.currentNum) { // If the previous button pressed was a number.
             let array = this.state.numsArray
-            array.push(parseInt(this.state.currentNum))
+            array.push(parseFloat(this.state.currentNum))
 
             let display = (`${this.state.numsArray[0]} ${operator}`)
 
@@ -65,16 +66,20 @@ class Calculator extends Component {
         let num = e.target.innerText
         num = this.state.currentNum + num.toString()
         // this.setState({currentNum: num})
-        if (!this.state.operator) { // If this is the first number.
-            this.setState({
-                currentNum: num,
-                display: num,
-                messages: ''
-            })
+        if (!this.state.operator) { // If this is the first number
+            if (num === '0') { // If the only digit so far is 0.
+                return
+            } else {
+                this.setState({
+                    currentNum: num,
+                    display: num,
+                    messages: ''
+                })
+            }
         } else {
             this.setState({
                 currentNum: num,
-                display: `${this.state.numsArray[0]} ${this.state.operator} ${e.target.innerText}`,
+                display: `${this.state.numsArray[0]} ${this.state.operator} ${num}`,
                 messages: ''
             })
         }
@@ -90,6 +95,37 @@ class Calculator extends Component {
             currentNum: '',
             messages: ''
         })
+    }
+
+    handleDecimalClick = (e) => {
+        console.log("Handling decimal click!")
+        if (!this.state.currentNum) { // If this is a leading decimal. 
+            this.updateDisplay('0.')
+            this.setState({
+                currentNum: '0.',
+            })
+        } else {
+            let num = this.state.currentNum
+            num = `${this.state.currentNum}.`
+            this.setState({
+                currentNum: num
+            }) 
+            this.updateDisplay()
+        }
+    }
+
+    updateDisplay = (currentNum) => {
+        if (this.state.operator) { // If an operator exists, ie the first number is complete.
+            this.setState({
+                currentNum: currentNum,
+                display: `${this.state.numsArray[0]} ${this.state.operator} ${currentNum}`
+            })
+        } else {
+            this.setState({
+                currentNum: currentNum,
+                display: currentNum
+            })
+        }
     }
 
 render(){
@@ -146,7 +182,8 @@ render(){
                 </div>
                 <div className="calc-row">
                     <button onClick={this.handleNumberClick} className="calc-button width-2">0</button>
-                    <button className="calc-button">.</button>
+                    <button onClick={this.handleDecimalClick}
+                    className="calc-button">.</button>
                     <button onClick={this.handleEvaluatorClick}
                     className="calc-button calc-button-op">=</button>
                 </div>
