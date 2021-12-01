@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 
 class Calculator extends Component {
     // Declare state variables
+    state = {
+        value: 0
+    }
 
 render(){
     return (
@@ -9,7 +12,7 @@ render(){
             <h1>React Calculator</h1>
             <div className="calc-container">
                 <p>Values: </p>
-                <div className="answer-box">TBD</div>
+                <div className="answer-box">{this.state.value}</div>
                 <div className="calc-row">
                     <button className="calc-button calc-button-top">AC</button>
                     <button className="calc-button calc-button-top">+/-</button>
