@@ -11,7 +11,7 @@ class Calculator extends Component {
     //     this.inputNumber = this.inputNumber.bind(this);
     //     this.operator = this.operator.bind(this);
     //     this.equals = this.equals.bind(this);
-    //     this.handleCommaInput = this.handleCommaInput.bind(this);
+    //     this.decimal = this.decimal.bind(this);
     //     this.plusMinus = this.plusMinus.bind(this);
     //     this.reset = this.reset.bind(this);
     //   }
@@ -80,6 +80,15 @@ class Calculator extends Component {
         this.setState({ number: '', operator: '', result: Number(newResult) });
     }
 
+      // function to handle comma input
+  decimal() {
+    // concats "," to current number if number doesn't include one already
+    if (this.state.number)
+      this.setState({
+        number: !this.state.number.toString().includes('.') ? this.state.number + '.' : this.state.number,
+      });
+  }
+
     // Function to handle negation of number
     plusMinus() {
         if (!this.state.number && this.state.result) {
@@ -98,40 +107,47 @@ class Calculator extends Component {
                 <h1>React Calculator</h1>
                 <div className="calc-container">
                     <p>Values: </p>
-                    <div className="answer-box">TBD</div>
+                    <Display output={number ? number : result + operator} />
                     <div className="calc-row">
-                        <button className="calc-button calc-button-top" onClick={this.reset}>AC</button>
-                        <button className="calc-button calc-button-top" onClick={this.plusMinus}>+/-</button>
-                        <button className="calc-button calc-button-top" onClick={this.percent}>%</button>
-                        <button className="calc-button calc-button-op" onClick={this.operator}>/</button>
+                        <button value="AC" className="calc-button calc-button-top" onClick={this.reset}>AC</button>
+                        <button value="+/-" className="calc-button calc-button-top" onClick={this.plusMinus}>+/-</button>
+                        <button value="%" className="calc-button calc-button-top" onClick={this.percent}>%</button>
+                        <button value="/" className="calc-button calc-button-op" onClick={this.operator}>/</button>
                     </div>
                     <div className="calc-row">
-                        <button className="calc-button" onClick={this.inputNumber}>7</button>
-                        <button className="calc-button" onClick={this.inputNumber}>8</button>
-                        <button className="calc-button" onClick={this.inputNumber}>9</button>
-                        <button className="calc-button calc-button-op" onClick={this.operator}>x</button>
+                        <button value="7" className="calc-button" onClick={this.inputNumber}>7</button>
+                        <button value="8" className="calc-button" onClick={this.inputNumber}>8</button>
+                        <button value="9" className="calc-button" onClick={this.inputNumber}>9</button>
+                        <button value="x" className="calc-button calc-button-op" onClick={this.operator}>x</button>
                     </div>
                     <div className="calc-row">
-                        <button className="calc-button" onClick={this.inputNumber}>4</button>
-                        <button className="calc-button" onClick={this.inputNumber}>5</button>
-                        <button className="calc-button" onClick={this.inputNumber}>6</button>
-                        <button className="calc-button calc-button-op" onClick={this.operator}>-</button>
+                        <button value="4" className="calc-button" onClick={this.inputNumber}>4</button>
+                        <button value="5" className="calc-button" onClick={this.inputNumber}>5</button>
+                        <button value="6" className="calc-button" onClick={this.inputNumber}>6</button>
+                        <button value="-" className="calc-button calc-button-op" onClick={this.operator}>-</button>
                     </div>
                     <div className="calc-row">
-                        <button className="calc-button" onClick={this.inputNumber}>1</button>
-                        <button className="calc-button" onClick={this.inputNumber}>2</button>
-                        <button className="calc-button" onClick={this.inputNumber}>3</button>
-                        <button className="calc-button calc-button-op" onClick={this.operator}>+</button>
+                        <button value="1" className="calc-button" onClick={this.inputNumber}>1</button>
+                        <button value="2" className="calc-button" onClick={this.inputNumber}>2</button>
+                        <button value="3" className="calc-button" onClick={this.inputNumber}>3</button>
+                        <button value="+" className="calc-button calc-button-op" onClick={this.operator}>+</button>
                     </div>
                     <div className="calc-row">
-                        <button className="calc-button width-2" onClick={this.inputNumber}>0</button>
-                        <button className="calc-button">.</button>
-                        <button className="calc-button calc-button-op" onClick={this.equals}>=</button>
+                        <button value="0" className="calc-button width-2" onClick={this.inputNumber}>0</button>
+                        <button value="." className="calc-button" onClick={this.decimal}>.</button>
+                        <button value="=" className="calc-button calc-button-op" onClick={this.equals}>=</button>
                     </div>
                 </div>
             </div>
         )
     }
 }
+
+class Display extends Component {
+    render() {
+      const { output } = this.props;
+      return <div className="answer-box">{output}</div>;
+    }
+  }
 
 export default Calculator
