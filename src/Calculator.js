@@ -61,15 +61,24 @@ class Calculator extends Component {
         }
     
     }
+
     //setOperator()
     setOperator = (e) => {
+        let num2 = this.state.operand2
         let op = e.target.innerText
-        this.setState({
-            operator: op,
-            displayString: op
-        })
+        if (num2) {
+        
+        } else if (!num2) {
+            let op = e.target.innerText
+            this.setState({
+                operator: op,
+                displayString: op
+            })
+        }
         console.log('thsi.state.operator:', this.state.operator)
     }
+    
+
     //calculate()
     calculate = () => {
         let solution
@@ -102,6 +111,7 @@ class Calculator extends Component {
             operator: ''
         })
     }
+
     //allClear()
     allClear = () => {
         this.setState({
