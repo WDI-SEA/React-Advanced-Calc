@@ -20,12 +20,22 @@ changeOperator = (symbol) => {
 
 setNum = (value) => {
     // console.log(value)
-    if(this.state.operator === null ){
+    if(this.state.num1 === '' && value === 0 ){
+        this.setState({
+            num1: "",
+            display: ""
+        })
+    }else if(this.state.operator === null ){
         this.setState({
             num1: " " +  this.state.num1 + value,
             display: " " +  this.state.num1 + value,
         })
-    }else {
+    }else if(this.state.num2 === '' && value === 0 ){
+        this.setState({
+            num2: "", 
+            display: "" 
+        })
+    }else if(this.state.operator !== null ){
         this.setState({
             num2: " " +  this.state.num2 + value,
             display: " " +  this.state.num2 + value,
@@ -112,7 +122,7 @@ render(){
                 </div>
                 <div className="calc-row">
                     <button className="calc-button width-2"onClick={() => this.setNum(0)}>0</button>
-                    <button className="calc-button">.</button>
+                    <button className="calc-button" onClick={() => this.setNum('.')}>.</button>
                     <button className="calc-button calc-button-op" onClick={() => this.evaluate()}>=</button>
                 </div>
             </div>
