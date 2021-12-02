@@ -32,14 +32,13 @@ class Calculator extends Component {
         
             if(this.state.firstValue.includes('.') && e.target.innerText.includes('.')) {
                 }else{
-            if(this.state.currentState == 'input1'){
-                    
-                    let value = this.state.firstValue + e.target.innerText
-                    this.setState({
+                    if(this.state.currentState == 'input1'){    
+                        let value = this.state.firstValue + e.target.innerText
+                        this.setState({
                         firstValue: value,
                         display: value
-                    })
-                }
+                        })
+                    }
             }
         }
         if(this.state.secondValue.includes('.') && e.target.innerText.includes('.')) {
@@ -128,6 +127,36 @@ class Calculator extends Component {
 
     }
 
+    turnNegitve = (e) =>{
+        e.preventDefault()
+
+        if(this.state.firstValue == ''){
+
+        }else {
+            if(this.state.currentState == 'input1'){ 
+                    let number = Number(this.state.firstValue)*-1
+                    console.log(number)
+                    let str = number.toString()
+
+                    this.setState({
+                        firstValue: str,
+                        display: str
+                    })
+            }
+            if(this.state.currentState == 'input2'){ 
+                let number = Number(this.state.secondValue)*-1
+                console.log(number)
+                let str = number.toString()
+
+                this.setState({
+                    secondValue: str,
+                    display: this.state.firstValue + ' ' + this.state.math + ' ' + str
+                })
+            }
+        }
+
+    }
+
 
 render(){
 
@@ -139,7 +168,7 @@ render(){
                 <div className="answer-box">{this.state.display}</div>
                 <div className="calc-row">
                     <button onClick={this.clearState} className="calc-button calc-button-top">AC</button>
-                    <button className="calc-button calc-button-top">+/-</button>
+                    <button onClick={this.turnNegitve} className="calc-button calc-button-top">+/-</button>
                     <button onClick={this.handleOperators} className="calc-button calc-button-top">%</button>
                     <button onClick={this.handleOperators} className="calc-button calc-button-op">/</button>
                 </div>
