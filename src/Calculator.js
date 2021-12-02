@@ -28,9 +28,12 @@ class Calculator extends Component {
             numericalVal: [...this.state.numericalVal, e],
             //may need to set state of the current value
             //based on numerical value concatenation.
-            currentVal: this.state.numericalVal.concat()
+        }, () => {
+            this.setState({currentVal: this.state.numericalVal.concat()})
         })
     }
+
+    
 
     //Need a helper method for the equals button that will
     //take all the array elements and compute a result
