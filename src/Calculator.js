@@ -4,7 +4,7 @@ class Calculator extends Component {
     // Declare state variables
     state = {
         operator: "",
-        currentNumber: '',
+        currentNumber: [],
         equation: []
     }
     //current number display
@@ -20,7 +20,7 @@ class Calculator extends Component {
             console.log(newNumArray)
 
             this.setState({
-                currentNumber: currentNumberNew,
+                currentNumber:  [...this.state.currentNumber, currentNumberNew],
                 equation: newNumArray
             })
         }
@@ -40,6 +40,7 @@ class Calculator extends Component {
         oldArray.map(function(item) {
             return parseInt(item, 10);
         })
+       // let newNumArray = this.state.equation
         console.log(e.target.value)
         this.setState({
             operator: e.target.value,
