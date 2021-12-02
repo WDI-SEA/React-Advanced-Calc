@@ -36,42 +36,57 @@ class Calculator extends Component {
             return parseInt(item, 10);
         })
         if (newNumArray.length >= 2) {
-            if (e.target.value = "+") {
+            if (e.target.value === "+") {
                 this.setState({
                     operator: "+"
                 })
-            } else if(e.target.value = "-") {
-                    this.setState({
-                        operator: "-"
-                    })
-                }
+            } else if(e.target.value === "-") {
+                this.setState({
+                    operator: "-"
+                })
+            } else if(e.target.value === "x") {
+                this.setState({
+                    operator: "*"
+                })
+            }
         }
     }
-    equals = (e) => {
-        let sign= this.state.operator
+    equals = () => {
         let oldArray = this.state.equation
         let newNumArray = oldArray.map(function(item) {
             return parseInt(item, 10);
         })
         
         if (newNumArray.length >= 2) {
-            if (sign = "+") {
+            if (this.state.operator = "+") {
                 let numOne = parseInt(newNumArray[0])
                 let numTwo = parseInt(newNumArray[1])
                 let sum = numOne + numTwo
-                console.log(sum)
-                return this.setState({
+                this.setState({
                     currentNumber: sum
                 })
-            } else if (sign = "-"){
+            }  
+            
+             if (this.state.operator = "-"){
                 let numOne = parseInt(newNumArray[0])
                 let numTwo = parseInt(newNumArray[1])
-                let subtractSum = numOne - numTwo
-                console.log(subtractSum)
-                return this.setState({
-                    currentNumber: subtractSum
+                let sum = numOne - numTwo
+                console.log(sum)
+                this.setState({
+                    currentNumber: sum
                 })
-            }
+            } 
+            
+            if (this.state.operator === "*" && "is-active"){
+                let numOne = parseInt(newNumArray[0])
+                let numTwo = parseInt(newNumArray[1])
+                let sum = numOne * numTwo
+                console.log(sum)
+                this.setState({
+                    currentNumber: sum
+                })
+            } 
+           
         }
     }
         
