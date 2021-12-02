@@ -6,25 +6,29 @@ class Calculator extends Component {
         input: [],
         saved: 0,
         operator: '+',
-        view: 0,
-        final: 0
     }
+
     clearScreen = (e) => {
         console.log("Final total: ", this.state.final)
         this.setState({
             input: [],
-            saved: 0
+            saved: 0,
         })
     }
+
     buttonHandle = (e) => {
         let input = e.target.value
         this.setState({
             input: [...this.state.input, input]
         })
+        if (input[0] === '0') {
+            input.slice(0,1)
+        }
         this.setState({
             view: this.state.input
         })
     }
+
     operator = (e) => {
         console.log("This is the operator clicked: ", e.target.value)
         console.log("Current saved state: ", this.state.saved)
@@ -41,43 +45,45 @@ class Calculator extends Component {
     }
 
     evalute = () => {
-        console.log("This is the operator: ", this.state.operator)
-        // this.setState({
-        //     input: parseInt(this.state.input.join(""))
-        // })
-        console.log(`Saved# ${this.state.saved} + Current# ${this.state.input}`)
+        let first = parseInt(this.state.input.join(""))
         if (this.state.operator === '+') {
             this.setState({
-                final: parseInt(this.state.input.join("")) + this.state.saved
+                input: this.state.saved + first
             })
         }
-        if (this.state.operator === '/') {
+        else if (this.state.operator === '/') {
             this.setState({
-                final: parseInt(this.state.input.join("")) / this.state.saved
+                input: this.state.saved / first
             })
         }
-        if (this.state.operator === '*') {
+        else if (this.state.operator === '*') {
             this.setState({
-                final: parseInt(this.state.input.join("")) * this.state.saved
+                input: this.state.saved * first
             })
         }
-        if (this.state.operator === '-') {
+        else if (this.state.operator === '-') {
             this.setState({
-                final: parseInt(this.state.input.join("")) - this.state.saved
+                input: this.state.saved - first
+            })
+        }
+        else if (this.state.operator === '%') {
+            this.setState({
+                input: this.state.saved % first
             })
         }
     }
+
     render() {
         return (
             <div className="container">
                 <h1>React Calculator</h1>
                 <div className="calc-container">
                     <p>Values: </p>
-                    <div className="answer-box">{this.state.view}</div>
+                    <div className="answer-box">{this.state.input}</div>
                     <div className="calc-row">
                         <button onClick={this.clearScreen} className="calc-button calc-button-top">AC</button>
                         <button className="calc-button calc-button-top">+/-</button>
-                        <button className="calc-button calc-button-top" value="%">%</button>
+                        <button onClick={this.operator}className="calc-button calc-button-top" value="%">%</button>
                         <button onClick={this.operator} className="calc-button calc-button-op" value="/">/</button>
                     </div>
                     <div className="calc-row">
