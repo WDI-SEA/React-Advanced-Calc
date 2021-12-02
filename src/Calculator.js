@@ -19,6 +19,8 @@ class Calculator extends Component {
                 input: [e.target.value],
                 acceptingNewNum: false
             })
+        } else if (e.target.value=== '.' && this.state.input.includes('.')) {
+            console.log('only one decimal in a number')
         } else {
             console.log('you clicked:', e.target.value)
             this.inputNum(e.target.value)
@@ -46,7 +48,7 @@ class Calculator extends Component {
         }
     }
 
-    // sets state to add 
+    // edits display
     inputNum = (digit) => {
         this.setState({
             input: [...this.state.input, digit]
@@ -66,7 +68,6 @@ class Calculator extends Component {
     commitInput = () => {
         this.setState({
             savedInput: this.state.input.join(''),
-            // input: []
         })
     }
 
@@ -87,23 +88,31 @@ class Calculator extends Component {
         const currentInput = this.state.input.join('')
         if (this.state.operation === '+') {
             this.setState({
-                input: [parseInt(this.state.savedInput) + parseInt(currentInput)],
-                operation: ''
+                input: [parseFloat(this.state.savedInput) + parseFloat(currentInput)],
+                operation: '',
+                acceptingNewNum: true
+
             })
         } else if (this.state.operation === '-') {
             this.setState({
-                input: [parseInt(this.state.savedInput) - parseInt(currentInput)],
-                operation: ''
+                input: [parseFloat(this.state.savedInput) - parseFloat(currentInput)],
+                operation: '',
+                acceptingNewNum: true
+
             })
         } else if (this.state.operation === 'x') {
             this.setState({
-                input: [parseInt(this.state.savedInput) * parseInt(currentInput)],
-                operation: ''
+                input: [parseFloat(this.state.savedInput) * parseFloat(currentInput)],
+                operation: '',
+                acceptingNewNum: true
+
             })
         } else if (this.state.operation === '/') {
             this.setState({
-                input: [parseInt(this.state.savedInput) / parseInt(currentInput)],
-                operation: ''
+                input: [parseFloat(this.state.savedInput) / parseFloat(currentInput)],
+                operation: '',
+                acceptingNewNum: true
+
             })
         } else {
             this.setState({
@@ -147,8 +156,8 @@ class Calculator extends Component {
                     </div>
                     <div className="calc-row">
                         <button onClick={(e) => this.handleNumClick(e)} className="calc-button width-2" value="0">0</button>
-                        <button className="calc-button">.</button>
-                        <button onClick={this.handleEqualClick}className="calc-button calc-button-op">=</button>
+                        <button onClick={(e) => this.handleNumClick(e)} className="calc-button" value=".">.</button>
+                        <button onClick={this.handleEqualClick} className="calc-button calc-button-op">=</button>
                     </div>
                 </div>
             </div>
