@@ -21,10 +21,18 @@ class Calculator extends Component {
     //user clicks number
     recordNumber = (e) => {
         //save in array
-        this.setState({
-            input: [...this.state.input, e.target.innerText],
-            message: [...this.state.input, e.target.innerText]
-        })
+        if (this.state.input.length === 0 && e.target.innerText !== 0) {
+            this.setState({
+                input: [e.target.innerText],
+                message: [e.target.innerText]
+            })
+        } else if ( this.state.input.length > 0) {
+            this.setState({
+                input: [...this.state.input, e.target.innerText],
+                message: [...this.state.input, e.target.innerText]
+            })
+        }
+        
     }
 
     //user clicks operator
@@ -122,8 +130,8 @@ class Calculator extends Component {
             <button className="calc-button calc-button-op" onClick={this.recordOperator}>+</button>
           </div>
           <div className="calc-row">
-            <button className="calc-button width-2">0</button>
-            <button className="calc-button">.</button>
+            <button className="calc-button width-2" onClick={this.recordNumber}>0</button>
+            <button className="calc-button" onClick={this.recordNumber}>.</button>
                     <button className="calc-button calc-button-op" onClick={() => this.calculate(this.state.operator)}>=</button>
           </div>
         </div>
