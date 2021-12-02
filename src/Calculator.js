@@ -4,11 +4,26 @@ class Calculator extends Component {
     // Declare state variables
     state = {
         currentNum: 0,
+        previousNum: null,
         operator: '',
         numValue: []
     }
 
+    // create a function that will input the num value to the current num
+    // concat those numbers until an operator is clicked
+    inputNumVal = (e) => {
+        console.log('this is e\n', e)
+        let newNum = e
+        this.setState({
+            currentNum: newNum
+        })
+    }
+
     // create a function to set/pass operator once one has been clicked
+    // if operators are clicked b2b, throw an error to user
+
+    // create a function that will evaluate equation
+    // attach helper method to = button
 
     // clear function that will reset states
     // attach helper method to AC button
