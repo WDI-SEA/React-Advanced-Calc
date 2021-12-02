@@ -2,42 +2,117 @@ import React, { Component } from 'react'
 
 class Calculator extends Component {
     // Declare state variables
+    state = {
+        operator: "",
+        currentNumber: 0,
+        equation: []
+    }
+
+    showNumber = (e) => {
+        let currentNumberNew = e.target.innerText
+        console.log(currentNumberNew)
+
+        let newNumArray = this.state.equation
+        newNumArray.push(currentNumberNew)
+        console.log(newNumArray)
+
+        this.setState({
+            currentNumber: currentNumberNew,
+            equation: newNumArray
+        })
+        
+    }
+    clearNumber = () => {
+        console.log("cleared")
+        this.setState({
+            currentNumber: 0,
+            equation: [],
+            operator: ""
+        })
+    }
+    calculate = (e) => {
+        let oldArray = this.state.equation
+        let newNumArray = oldArray.map(function(item) {
+            return parseInt(item, 10);
+        })
+        if (newNumArray.length >= 2) {
+            if (e.target.value = "+") {
+                this.setState({
+                    operator: "+"
+                })
+            } else if(e.target.value = "-") {
+                    this.setState({
+                        operator: "-"
+                    })
+                }
+        }
+    }
+    equals = (e) => {
+        let sign= this.state.operator
+        let oldArray = this.state.equation
+        let newNumArray = oldArray.map(function(item) {
+            return parseInt(item, 10);
+        })
+        
+        if (newNumArray.length >= 2) {
+            if (sign = "+") {
+                let numOne = parseInt(newNumArray[0])
+                let numTwo = parseInt(newNumArray[1])
+                let sum = numOne + numTwo
+                console.log(sum)
+                return this.setState({
+                    currentNumber: sum
+                })
+            } else if (sign = "-"){
+                let numOne = parseInt(newNumArray[0])
+                let numTwo = parseInt(newNumArray[1])
+                let subtractSum = numOne - numTwo
+                console.log(subtractSum)
+                return this.setState({
+                    currentNumber: subtractSum
+                })
+            }
+        }
+    }
+        
+    
 
 render(){
+    
     return (
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
                 <p>Values: </p>
-                <div className="answer-box">TBD</div>
+                <div className="answer-box">{this.state.currentNumber}</div>
                 <div className="calc-row">
-                    <button className="calc-button calc-button-top">AC</button>
+                    <button onClick={this.clearNumber} className="calc-button calc-button-top">AC</button>
                     <button className="calc-button calc-button-top">+/-</button>
                     <button className="calc-button calc-button-top">%</button>
-                    <button className="calc-button calc-button-op">/</button>
+                    <button onClick={this.calculate} className="calc-button calc-button-op">/</button>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button">7</button>
-                    <button className="calc-button">8</button>
-                    <button className="calc-button">9</button>
-                    <button className="calc-button calc-button-op">x</button>
+                    <button onClick={this.showNumber} className="calc-button">7</button>
+                    <button onClick={this.showNumber} className="calc-button">8</button>
+                    <button onClick={this.showNumber} className="calc-button">9</button>
+                    <button onClick={this.calculate} className="calc-button calc-button-op">x</button>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button">4</button>
-                    <button className="calc-button">5</button>
-                    <button className="calc-button">6</button>
-                    <button className="calc-button calc-button-op">-</button>
+                    <button onClick={this.showNumber} className="calc-button">4</button>
+                    <button onClick={this.showNumber} className="calc-button">5</button>
+                    <button onClick={this.showNumber} className="calc-button">6</button>
+                    <button onClick={this.calculate} className="calc-button calc-button-op">-</button>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button">1</button>
-                    <button className="calc-button">2</button>
-                    <button className="calc-button">3</button>
-                    <button className="calc-button calc-button-op">+</button>
+                    <button onClick={this.showNumber} className="calc-button">1</button>
+                    <button onClick={this.showNumber} className="calc-button">2</button>
+                    <button onClick={this.showNumber} className="calc-button">3</button>
+                    <button onClick={this.calculate} className="calc-button calc-button-op">+</button>
                 </div>
                 <div className="calc-row">
-                    <button className="calc-button width-2">0</button>
+                    <button onClick={this.showNumber} className="calc-button width-2">0</button>
                     <button className="calc-button">.</button>
-                    <button className="calc-button calc-button-op">=</button>
+                    <button onClick={this.equals} className="calc-button calc-button-op">=</button>
                 </div>
             </div>
         </div>
