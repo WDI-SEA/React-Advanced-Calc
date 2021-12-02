@@ -13,13 +13,17 @@ class Calculator extends Component {
         console.log(currentNumberNew)
 
         let newNumArray = this.state.equation
-        newNumArray.push(currentNumberNew)
-        console.log(newNumArray)
+        if (newNumArray.length === 0 && e.target.value === '0') {
+            alert('Select another number besides 0 to start')
+        } else {
+            newNumArray.push(currentNumberNew)
+            console.log(newNumArray)
 
-        this.setState({
-            currentNumber: currentNumberNew,
-            equation: newNumArray
-        })
+            this.setState({
+                currentNumber: currentNumberNew,
+                equation: newNumArray
+            })
+        }
         
     }
     clearNumber = () => {
@@ -122,7 +126,7 @@ render(){
                     <button onClick={this.calculate} className="calc-button calc-button-op" value="+">+</button>
                 </div>
                 <div className="calc-row">
-                    <button onClick={this.showNumber} className="calc-button width-2">0</button>
+                    <button onClick={this.showNumber} className="calc-button width-2" value="0">0</button>
                     <button className="calc-button">.</button>
                     <button onClick={this.equals} className="calc-button calc-button-op">=</button>
                 </div>
