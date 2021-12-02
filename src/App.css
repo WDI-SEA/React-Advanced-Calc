@@ -5,20 +5,20 @@
 
 .calc-container {
   border: 1px solid #333;
-  border-radius: 2px;
+  border-radius: 5px;
   display: inline-block;
   background-color: #ddd;
 }
 
 .calc-button {
-  width: 50px;
-  min-height: 40px;
+  width: 1000px;
+  min-height: 1000px;
   color: #333;
   background-color: #ccc;
 }
 
 .width-2 {
-  width: 100px !important;
+  width: 200px !important;
 }
 
 .calc-button-op {
@@ -35,5 +35,5 @@
   background-color: #333;
   color: #fff;
   text-align: right;
-  min-height: 90px;
+  min-height: 100px;
 }

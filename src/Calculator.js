@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 
 class Calculator extends Component {
+    constructor(props) {
+        super(props);
     // Declare state variables
-    state = {
+    this.state = {
         result: '0',
         number: '0',
         operator: ''
@@ -10,16 +12,16 @@ class Calculator extends Component {
 
     /// The bind() method creates a new function, when invoked, has the this sets to a provided value. 
     /// The bind() method allows an object to borrow a method from another object without making a copy of that method.
-    //     this.inputNumber = this.inputNumber.bind(this);
-    //     this.operator = this.operator.bind(this);
-    //     this.equals = this.equals.bind(this);
-    //     this.decimal = this.decimal.bind(this);
-    //     this.plusMinus = this.plusMinus.bind(this);
-    //     this.reset = this.reset.bind(this);
-    //   }
+        this.handleInputNumber = this.handleInputNumber.bind(this);
+        this.handleOperator = this.handleOperator.bind(this);
+        this.handleEquals = this.handleEquals.bind(this);
+        this.handleDecimal = this.handleDecimal.bind(this);
+        this.handlePlusMinus = this.handlePlusMinus.bind(this);
+        this.handleReset = this.handleReset.bind(this);
+      }
 
     // Function to handle inputs from number buttons
-    inputNumber(e) {
+    handleInputNumber(e) {
         e.preventDefault();
 
         // Getting the value from the pressed button
@@ -42,7 +44,7 @@ class Calculator extends Component {
     }
 
     // Function to handle operator
-    operator(e) {
+    handleOperator(e) {
         const operation = e.target.innerHTML;
 
         this.setState((prevState) => {
@@ -55,12 +57,12 @@ class Calculator extends Component {
     }
 
     // Function to handle reset/clear button
-    reset() {
+    handleReset() {
         this.setState({ result: '0', number: '0', operator: '' });
     }
 
     // Function to handle equal input
-    equals() {
+    handleEquals() {
         let newResult = 0;
         switch (this.state.operator) {
             case '+':
@@ -69,7 +71,7 @@ class Calculator extends Component {
             case '-':
                 newResult = this.state.result - this.state.number;
                 break;
-            case '*':
+            case 'x':
                 newResult = this.state.result * this.state.number;
                 break;
             case '/':
@@ -83,7 +85,7 @@ class Calculator extends Component {
     }
 
       // Function to handle decimal input
-  decimal() {
+  handleDecimal() {
     // concats "," to current number if number doesn't include one already
     if (this.state.number)
       this.setState({
@@ -92,7 +94,7 @@ class Calculator extends Component {
   }
 
     // Function to handle negation of number
-    plusMinus() {
+    handlePlusMinus() {
         if (!this.state.number && this.state.result) {
             // special case: number is empty and result isn't (e.g. after equal operation) it inverts the result
             this.setState({ result: -this.state.result });
@@ -111,33 +113,33 @@ class Calculator extends Component {
                     <p>Values: </p>
                     <Display output={number ? number : result + operator} />
                     <div className="calc-row">
-                        <button value="AC" className="calc-button calc-button-top" onClick={this.reset}>AC</button>
-                        <button value="+/-" className="calc-button calc-button-top" onClick={this.plusMinus}>+/-</button>
-                        <button value="%" className="calc-button calc-button-top" onClick={this.percent}>%</button>
-                        <button value="/" className="calc-button calc-button-op" onClick={this.operator}>/</button>
+                        <Button value="AC" className="calc-button calc-button-top" onClick={this.handleReset}/>
+                        <Button value="+/-" className="calc-button calc-button-top" onClick={this.handlePlusMinus}/>
+                        <Button value="%" className="calc-button calc-button-top" onClick={this.handlePercent}/>
+                        <Button value="/" className="calc-button calc-button-op" onClick={this.handleOperator}/>
                     </div>
                     <div className="calc-row">
-                        <button value="7" className="calc-button" onClick={this.inputNumber}>7</button>
-                        <button value="8" className="calc-button" onClick={this.inputNumber}>8</button>
-                        <button value="9" className="calc-button" onClick={this.inputNumber}>9</button>
-                        <button value="x" className="calc-button calc-button-op" onClick={this.operator}>x</button>
+                        <Button value="7" className="calc-button" onClick={this.handleInputNumber}/>
+                        <Button value="8" className="calc-button" onClick={this.handleInputNumber}/>
+                        <Button value="9" className="calc-button" onClick={this.handleInputNumber}/>
+                        <Button value="x" className="calc-button calc-button-op" onClick={this.handleOperator}/>
                     </div>
                     <div className="calc-row">
-                        <button value="4" className="calc-button" onClick={this.inputNumber}>4</button>
-                        <button value="5" className="calc-button" onClick={this.inputNumber}>5</button>
-                        <button value="6" className="calc-button" onClick={this.inputNumber}>6</button>
-                        <button value="-" className="calc-button calc-button-op" onClick={this.operator}>-</button>
+                        <Button value="4" className="calc-button" onClick={this.handleInputNumber}/>
+                        <Button value="5" className="calc-button" onClick={this.handleInputNumber}/>
+                        <Button value="6" className="calc-button" onClick={this.handleInputNumber}/>
+                        <Button value="-" className="calc-button calc-button-op" onClick={this.handleOperator}/>
                     </div>
                     <div className="calc-row">
-                        <button value="1" className="calc-button" onClick={this.inputNumber}>1</button>
-                        <button value="2" className="calc-button" onClick={this.inputNumber}>2</button>
-                        <button value="3" className="calc-button" onClick={this.inputNumber}>3</button>
-                        <button value="+" className="calc-button calc-button-op" onClick={this.operator}>+</button>
+                        <Button value="1" className="calc-button" onClick={this.handleInputNumber}/>
+                        <Button value="2" className="calc-button" onClick={this.handleInputNumber}/>
+                        <Button value="3" className="calc-button" onClick={this.handleInputNumber}/>
+                        <Button value="+" className="calc-button calc-button-op" onClick={this.handleOperator}/>
                     </div>
                     <div className="calc-row">
-                        <button value="0" className="calc-button width-2" onClick={this.inputNumber}>0</button>
-                        <button value="." className="calc-button" onClick={this.decimal}>.</button>
-                        <button value="=" className="calc-button calc-button-op" onClick={this.equals}>=</button>
+                        <Button value="0" className="calc-button width-2" onClick={this.handleInputNumber}/>
+                        <Button value="." className="calc-button" onClick={this.handleDecimal}/>
+                        <Button value="=" className="calc-button calc-button-op" onClick={this.handleEquals}/>
                     </div>
                 </div>
             </div>
@@ -149,6 +151,18 @@ class Display extends Component {
     render() {
       const { output } = this.props;
       return <div className="answer-box">{output}</div>;
+    }
+  }
+
+  class Button extends Component {
+    render() {
+      const { value, onClick, className, disabled } = this.props;
+  
+      return (
+        <button value={value} className={'calc-button' + className} onClick={onClick} disabled={disabled}>
+          {value}
+        </button>
+      );
     }
   }
 
