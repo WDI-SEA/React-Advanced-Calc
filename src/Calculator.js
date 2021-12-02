@@ -9,42 +9,47 @@ class Calculator extends Component {
     }
     //current number display
     showNumber = (e) => {
-        let currentNumberNew = e.target.innerText
-        console.log(currentNumberNew)
-
-        let newNumArray = this.state.equation
-        if (newNumArray.length === 0 && e.target.value === '0') {
-            alert('Select another number besides 0 to start')
-        } else {
-            newNumArray.push(currentNumberNew)
-            console.log(newNumArray)
-
-            this.setState({
-                currentNumber:  [...this.state.currentNumber, currentNumberNew],
-                equation: newNumArray
-            })
-        }
-        
+            if (this.state.currentNumber.length >= 2) {
+                    let currentNumberNew = [this.state.currentNumber+ e.target.innerText]
+                    let joinedNumber = currentNumberNew.join('')
+                    console.log("this is length > 1", this.state.currentNumber.length)
+                    this.setState({
+                        currentNumber:  [joinedNumber]
+                    }) 
+            } else { 
+                    let currentNumberNew = [this.state.currentNumber+e.target.innerText]
+                    let joinedNumber = currentNumberNew.join('')
+                    console.log("this is length < 1", this.state.currentNumber.length)
+                    this.setState({
+                        currentNumber:  [joinedNumber]
+                    })
+            } 
+            
     }
     //AC button
     clearNumber = () => {
         console.log("cleared")
         this.setState({
-            currentNumber: 0,
+            currentNumber: [],
             equation: []
         })
     }
     //operator buttons (+ - * /)
     calculate = (e) => {
-        let oldArray = this.state.equation
-        oldArray.map(function(item) {
-            return parseInt(item, 10);
-        })
-       // let newNumArray = this.state.equation
-        console.log(e.target.value)
-        this.setState({
-            operator: e.target.value,
-        }) 
+        
+       let newNumArray = this.state.equation
+        if (newNumArray.length === 0 && e.target.value === '0') {
+            alert('Select another number besides 0 to start')
+        } else {
+            newNumArray.push(this.state.currentNumber)
+            console.log("this is newNumArray", newNumArray)
+
+            this.setState({
+                operator: e.target.value
+            })
+        }
+        //console.log(e.target.value)
+        
     }
     //percent button *bonus*
     percent = () => {
@@ -55,6 +60,7 @@ class Calculator extends Component {
     }
     //equal sign button
     equals = (e) => {
+        this.calculate(e)
         console.log("equal button clicked")
         let oldArray = this.state.equation
         let sign = this.state.operator
@@ -64,7 +70,9 @@ class Calculator extends Component {
         })
         if(newNumArray.length < 2) {
             alert("you need to select an operator and one more number before clicking =")
-        } else if (newNumArray.length >= 2) {
+        } else {
+            
+            
             //addition
             if (this.state.operator === "+") {
                 let numOne = parseInt(newNumArray[newNumArray.length-2])
