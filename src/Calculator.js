@@ -86,6 +86,14 @@ class Calculator extends Component {
         console.log("this should be concatenated", this.state.currentNumber)
         console.log(this.state.operatorValue, this.state.previousNumber, this.state.currentNumber)
     }
+
+    clearState = (e) => {
+        this.setState({
+            operatorValue: '',
+            previousNumber: [],
+            currentNumber: []
+        })
+    }
     // Value Index 0 is
     //Make sure you are concatenating each number pressed until you get an operator!!!!!!
 
@@ -105,7 +113,7 @@ render(){
                 <p>Values: </p>
                 <div className="answer-box">{this.state.currentNumber}</div>
                 <div className="calc-row">
-                    <Button className="calc-button calc-button-top" name="AC" value="clear"/>
+                    <Button onClick={this.clearState}className="calc-button calc-button-top" name="AC" value="clear"/>
                     <Button className="calc-button calc-button-top" name="+/-" value="signed"/>
                     <Button onClick={this.operatorClickHandler} className="calc-button calc-button-top" name="%" value="%"/>
                     <Button onClick={this.operatorClickHandler} className="calc-button calc-button-op" name="/" value="DIVIDE"/>
