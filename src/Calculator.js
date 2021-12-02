@@ -5,6 +5,7 @@ class Calculator extends Component {
     state = {
         symbol: "",
         input: [],
+        inputTwo: [],
         operatorArray: [],
         results: null
         
@@ -30,26 +31,26 @@ class Calculator extends Component {
 
         switch (this.state.symbol) {
             case "+":
-                let sum = this.state.input[0] + this.state.input[1]
+                let sum = Number(this.state.input.join('')) + Number(this.state.inputTwo.join(''))
                 this.setState({
                     results: sum
                 })
                 break;
 
             case "-":
-                let subtractSum = this.state.input[0] - this.state.input[1]
+                let subtractSum = Number(this.state.input.join('')) - Number(this.state.inputTwo.join(''))
                 this.setState({
                     results: subtractSum
                 })
                 break;
             case "x":
-                let product = this.state.input[0] * this.state.input[1]
+                let product = Number(this.state.input.join('')) * Number(this.state.inputTwo.join(''))
                 this.setState({
                     results: product
                 })
                 break;
             case "/":
-                let quotient = this.state.input[0] / this.state.input[1]
+                let quotient = Number(this.state.input.join('')) / Number(this.state.inputTwo.join(''))
                 this.setState({
                     results: quotient
                 })
@@ -74,18 +75,27 @@ class Calculator extends Component {
     displayInput = (e) => {
         e.preventDefault()
         //console.log('You clicked', Number(e.target.innerText));
-        this.state.input.push(Number(e.target.innerText))
-        this.setState({
-            input: this.state.input
-        })
-        if(this.state.input[0] == 0){
-            console.log('You cannot start with 0!');
+        if(this.state.operatorArray != "") {
+            this.state.inputTwo.push(Number(e.target.innerText))
             this.setState({
-                input: []
+                inputTwo: this.state.inputTwo
             })
-            
+        } else {
+
+            this.state.input.push(Number(e.target.innerText))
+            this.setState({
+                input: this.state.input
+            })
+            if(this.state.input[0] == 0){
+                console.log('You cannot start with 0!');
+                this.setState({
+                    input: []
+                })
+                
+            }
         }
-        console.log(this.state.input);
+        console.log('this is input:', this.state.input);
+        console.log('this is inputtwo:',this.state.inputTwo);
     }
 
     displayOperator = (e) => {
@@ -99,7 +109,6 @@ class Calculator extends Component {
         this.state.operatorArray = []
         this.state.operatorArray.push(e.target.innerText)
         this.setState({
-            input: this.state.input,
             symbol: e.target.innerText
         })
         
@@ -109,8 +118,11 @@ class Calculator extends Component {
     // clears the current input
     clearInput = (e) => {
         this.setState({
+            inputTwo: [],
             input: [],
-            results: null
+            results: null,
+            symbol: "",
+            operatorArray: []
         })
     }
 
@@ -120,7 +132,9 @@ render(){
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                <p>{this.state.input}</p>
+                <p>
+                    {`${this.state.input.join('')} ${this.state.operatorArray} ${this.state.inputTwo.join('')}`}
+                </p>
                 <div className="answer-box">
                     {this.state.results}
                     </div>
