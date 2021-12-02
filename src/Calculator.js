@@ -11,8 +11,9 @@ class Calculator extends Component {
 
     // create a function that will input the num value to the current num
     // concat those numbers until an operator is clicked
+    // don't allow 0 to begin a number ---------- COME BACK TO!!!!!!!!!! ----------
     inputNumVal = (e) => {
-        console.log('this is e\n', e)
+        console.log('this is the number clicked\n', e)
         if (this.state.currentNum === 0) {
             this.setState({
                 currentNum: e
@@ -26,6 +27,9 @@ class Calculator extends Component {
 
     // create a function to set/pass operator once one has been clicked
     // if operators are clicked b2b, throw an error to user
+    setOperator = (e) => {
+        console.log('this is the operator clicked\n', e)
+    }
 
     // create a function that will evaluate equation
     // attach helper method to = button
@@ -67,7 +71,7 @@ class Calculator extends Component {
                     <div className="calc-row">
                         <button className="calc-button width-2" onClick={(e) => this.inputNumVal('0')}>0</button>
                         <button className="calc-button">.</button>
-                        <button className="calc-button calc-button-op">=</button>
+                        <button className="calc-button calc-button-op" onClick={this.evalEquation}>=</button>
                     </div>
                 </div>
             </div>
