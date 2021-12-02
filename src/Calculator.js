@@ -32,11 +32,10 @@ class Calculator extends Component {
     }
     calculate = (e) => {
         let oldArray = this.state.equation
-        let newNumArray = oldArray.map(function(item) {
+        oldArray.map(function(item) {
             return parseInt(item, 10);
         })
         console.log(e.target.value)
-        
         this.setState({
             operator: e.target.value,
         })
@@ -67,9 +66,16 @@ class Calculator extends Component {
                 this.setState({
                     currentNumber: sum
                 })
-            } 
+            } else if (this.state.operator === "x") {
+                let numOne = parseInt(newNumArray[0])
+                let numTwo = parseInt(newNumArray[1])
+                let sum = numOne * numTwo
+                console.log(sum)
+                this.setState({
+                    currentNumber: sum
+             })
             
-            
+            }
         }
     }
         
