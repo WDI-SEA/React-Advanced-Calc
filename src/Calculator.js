@@ -16,7 +16,7 @@ class Calculator extends Component {
 //     this.reset = this.reset.bind(this);
 //   }
 
-  // function to handle operator inputs
+  // Function to handle operator inputs
   operator(e) {
     const operation = e.target.innerHTML;
 
@@ -34,7 +34,7 @@ class Calculator extends Component {
         this.setState({ result: '0', number: '0', operator: '' });
     }
 
-      // function to handle equal input
+      // Function to handle equal input
   equals() {
     let newResult = 0;
     switch (this.state.operator) {
@@ -57,7 +57,7 @@ class Calculator extends Component {
     this.setState({ number: '', operator: '', result: Number(newResult) });
   }
 
- // function to handle negation of number
+ // Function to handle negation of number
  plusMinus() {
     if (!this.state.number && this.state.result) {
       // special case: number is empty and result isn't (e.g. after equal operation) it inverts the result
