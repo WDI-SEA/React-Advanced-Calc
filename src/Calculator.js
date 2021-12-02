@@ -32,11 +32,17 @@ class Calculator extends Component {
     // if operators are clicked b2b, throw an error to user
     setOperator = (e) => {
         console.log('this is the operator clicked: ', e)
-        this.setState({
-            previousNum: this.state.currentNum,
-            operator: e,
-            currentNum: ''
-        })
+        if (this.state.operator !== '') {
+            this.setState({
+                currentNum: 'ERROR'
+            })
+        } else {
+            this.setState({
+                previousNum: this.state.currentNum,
+                operator: e,
+                currentNum: ''
+            })
+        }
     }
 
     // create a function that will evaluate equation
@@ -61,7 +67,8 @@ class Calculator extends Component {
 
         this.setState({
             currentNum: result,
-            previousNum: result
+            previousNum: result,
+            operator: ''
         })
     }
 
