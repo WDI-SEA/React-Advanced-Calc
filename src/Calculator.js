@@ -87,23 +87,27 @@ class Calculator extends Component {
         const currentInput = this.state.input.join('')
         if (this.state.operation === '+') {
             this.setState({
-                input: [parseInt(this.state.savedInput) + parseInt(currentInput)]
+                input: [parseInt(this.state.savedInput) + parseInt(currentInput)],
+                operation: ''
             })
         } else if (this.state.operation === '-') {
             this.setState({
-                input: [parseInt(this.state.savedInput) - parseInt(currentInput)]
+                input: [parseInt(this.state.savedInput) - parseInt(currentInput)],
+                operation: ''
             })
         } else if (this.state.operation === 'x') {
             this.setState({
-                input: [parseInt(this.state.savedInput) * parseInt(currentInput)]
+                input: [parseInt(this.state.savedInput) * parseInt(currentInput)],
+                operation: ''
             })
         } else if (this.state.operation === '/') {
             this.setState({
-                input: [parseInt(this.state.savedInput) / parseInt(currentInput)]
+                input: [parseInt(this.state.savedInput) / parseInt(currentInput)],
+                operation: ''
             })
         } else {
             this.setState({
-                input: ['Select an operator before calculating.'],
+                input: ['Choose operator before calculating.'],
                 acceptingNewNum: true
             })
         }
