@@ -13,11 +13,16 @@ class Calculator extends Component {
     // concat those numbers until an operator is clicked
     // don't allow 0 to begin a number ---------- COME BACK TO!!!!!!!!!! ----------
     inputNumVal = (e) => {
-        console.log('this is the number clicked\n', e)
-        if (this.state.currentNum === 0) {
+        console.log('this is the number clicked: ', e)
+        if (this.state.currentNum === 0 && e === 0) {
+            this.setState({
+                currentNum: 0
+            })
+        } else if (this.state.currentNum === 0) {
             this.setState({
                 currentNum: e
             })
+            console.log('this is e', e)
         } else if (this.state.currentNum !== 0) {
             this.setState({
                 currentNum: this.state.currentNum + e
@@ -28,7 +33,7 @@ class Calculator extends Component {
     // create a function to set/pass operator once one has been clicked
     // if operators are clicked b2b, throw an error to user
     setOperator = (e) => {
-        console.log('this is the operator clicked\n', e)
+        console.log('this is the operator clicked: ', e)
         this.setState({
             previousNum: this.state.currentNum,
             operator: e,
@@ -52,7 +57,10 @@ class Calculator extends Component {
             result = previousNum * currentNum
         } else if (this.state.operator === '/') {
             result = previousNum / currentNum
+        } else if (this.state.operator === '%') {
+            result = previousNum % currentNum
         }
+        
         this.setState({
             currentNum: result,
             previousNum: result
@@ -80,7 +88,7 @@ class Calculator extends Component {
                     <div className="calc-row">
                         <button className="calc-button calc-button-top" onClick={this.clearCalc}>AC</button>
                         <button className="calc-button calc-button-top">+/-</button>
-                        <button className="calc-button calc-button-top">%</button>
+                        <button className="calc-button calc-button-top" onClick={(e) => this.setOperator('%')}>%</button>
                         <button className="calc-button calc-button-op" onClick={(e) => this.setOperator('/')}>/</button>
                     </div>
                     <div className="calc-row">
