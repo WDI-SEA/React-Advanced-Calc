@@ -47,7 +47,7 @@ class Calculator extends Component {
                 this.setState({
                     displayString: this.state.displayString
                 })
-            } else if ((ds === 'begin with a nonzero num' && digit !== '0') || (ds==='+' || ds==='-' || ds==='x' || ds==='/')) {
+            } else if ((ds === 'begin with a nonzero num' && digit !== '0') || (ds==='+' || ds==='-' || ds==='x' || ds==='/' || ds==='%')) {
                 this.setState({
                     displayString: digit
                 })
@@ -87,6 +87,9 @@ class Calculator extends Component {
                 break
             case '/' :
                 solution = op1 / op2
+                break
+            case '%' :
+                solution = op1 % op2
                 break
             default: 
                 console.log('no operator')

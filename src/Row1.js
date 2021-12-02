@@ -6,7 +6,7 @@ class Row1 extends Component {
             <>
             <button className="calc-button calc-button-top" onClick={this.props.clear}>AC</button>
             <button className="calc-button calc-button-top">+/-</button>
-            <button className="calc-button calc-button-top">%</button>
+            <button className="calc-button calc-button-top" onClick={this.props.op}>%</button>
             <button className="calc-button calc-button-op" onClick={this.props.op}>/</button>
             
             </>
