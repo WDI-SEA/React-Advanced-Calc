@@ -4,7 +4,6 @@ class Calculator extends Component {
     // Declare state variables
     state = {
         currentNum: 0,
-        displayVal: 0,
         previousNum: 0,
         operator: '',
     }
@@ -18,7 +17,7 @@ class Calculator extends Component {
             this.setState({
                 currentNum: 0
             })
-        } else if (this.state.currentNum === 0) {
+        } else if (this.state.currentNum === 0 && e > 0) {
             this.setState({
                 currentNum: e
             })
@@ -60,7 +59,7 @@ class Calculator extends Component {
         } else if (this.state.operator === '%') {
             result = previousNum % currentNum
         }
-        
+
         this.setState({
             currentNum: result,
             previousNum: result
