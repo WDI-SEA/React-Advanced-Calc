@@ -21,7 +21,7 @@ class Calculator extends Component {
     //user clicks number
     recordNumber = (e) => {
         //save in array
-        if (this.state.input.length === 0 && e.target.innerText !== 0) {
+        if (this.state.input.length === 0 && e.target.innerText != 0) {
             this.setState({
                 input: [e.target.innerText],
                 message: [e.target.innerText]
@@ -56,35 +56,41 @@ class Calculator extends Component {
         }
         console.log(typeof this.state.saved)
     }
-        
+    
+    //user clicks equal
     calculate = (operator) => {
+        //evaluate first input -operator- second input
         switch (operator) {
             case ('+'):
                 this.setState({
                     message: +this.state.saved + +this.state.input.join(""),
                     saved: +this.state.saved + +this.state.input.join(""),
-                    operator: ''
+                    operator: '',
+                    input: []
                 })
                 break
             case ('-'):
                 this.setState({
                     message: +this.state.saved - +this.state.input.join(""),
                     saved: +this.state.saved - +this.state.input.join(""),
-                    operator: ''
+                    operator: '',
+                    input: []
                 })
                 break
             case ('/'):
                 this.setState({
                     message: +this.state.saved / +this.state.input.join(""),
                     saved: +this.state.saved / +this.state.input.join(""),
-                    operator: ''
+                    operator: '',
+                    input: []
                 })
                 break
             case ('x'):
                 this.setState({
                     message: +this.state.saved * +this.state.input.join(""),
                     saved: +this.state.saved * +this.state.input.join(""),
-                    operator: ''
+                    operator: '',
+                    input: []
                 })
                 break
             default:
@@ -93,10 +99,6 @@ class Calculator extends Component {
                 })
         }
     }
-    //user clicks equal
-        //turn new input array into number
-        //evaluate first input -operator- second input
-        //display total
 
   render() {
     return (
