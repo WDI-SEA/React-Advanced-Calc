@@ -101,6 +101,11 @@ class Calculator extends Component {
             this.setState({
                 input: [parseInt(this.state.savedInput) / parseInt(currentInput)]
             })
+        } else {
+            this.setState({
+                input: ['Select an operator before calculating.'],
+                acceptingNewNum: true
+            })
         }
     }
 
