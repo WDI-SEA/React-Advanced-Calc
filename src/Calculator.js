@@ -109,7 +109,8 @@ class Calculator extends Component {
     // clears the current input
     clearInput = (e) => {
         this.setState({
-            input: []
+            input: [],
+            results: null
         })
     }
 
