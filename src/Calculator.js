@@ -55,6 +55,11 @@ class Calculator extends Component {
                     results: quotient
                 })
                 break;
+            case "%":
+                let mod = Number(this.state.input.join('')) % Number(this.state.inputTwo.join(''))
+                this.setState({
+                    results: mod
+                })
 
             default:
                 break;
@@ -65,11 +70,6 @@ class Calculator extends Component {
     }
     
 
-
-    // evaluate does the actual arithmetic needed to output the solution
-    evaluateMath = () => {
-
-    }
 
     // displayInput shows the user what they are inputting into the calc answer box 
     displayInput = (e) => {
@@ -141,7 +141,7 @@ render(){
                 <div className="calc-row">
                     <button className="calc-button calc-button-top" onClick={this.clearInput}>AC</button>
                     <button className="calc-button calc-button-top" onClick={this.displayInput}>+/-</button>
-                    <button className="calc-button calc-button-top" onClick={this.displayInput}>%</button>
+                    <button className="calc-button calc-button-top" onClick={this.recordSymbol}>%</button>
                     <button className="calc-button calc-button-op" onClick={this.recordSymbol}>/</button>
                 </div>
                 <div className="calc-row">
