@@ -4,9 +4,9 @@ class Calculator extends Component {
     // Declare state variables
     state = {
         currentNum: 0,
-        previousNum: null,
+        displayVal: 0,
+        previousNum: 0,
         operator: '',
-        numValue: []
     }
 
     // create a function that will input the num value to the current num
@@ -29,13 +29,30 @@ class Calculator extends Component {
     // if operators are clicked b2b, throw an error to user
     setOperator = (e) => {
         console.log('this is the operator clicked\n', e)
+        this.setState({
+            previousNum: this.state.currentNum,
+            operator: e,
+            currentNum: ''
+        })
     }
 
     // create a function that will evaluate equation
     // attach helper method to = button
+    evalEquation = () => {
+        console.log('this is the current num: ', this.state.currentNum)
+        console.log('this is the previous num: ', this.state.previousNum)
+    }
 
     // clear function that will reset states
     // attach helper method to AC button
+    clearCalc = () => {
+        this.setState({
+            currentNum: 0,
+            displayVal: 0,
+            previousNum: 0,
+            operator: '',
+        })
+    }
 
     render() {
         return (
@@ -45,7 +62,7 @@ class Calculator extends Component {
                     <p>Values: </p>
                     <div className="answer-box">{this.state.currentNum}</div>
                     <div className="calc-row">
-                        <button className="calc-button calc-button-top">AC</button>
+                        <button className="calc-button calc-button-top" onClick={this.clearCalc}>AC</button>
                         <button className="calc-button calc-button-top">+/-</button>
                         <button className="calc-button calc-button-top">%</button>
                         <button className="calc-button calc-button-op" onClick={(e) => this.setOperator('/')}>/</button>
