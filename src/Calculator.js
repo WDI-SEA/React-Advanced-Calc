@@ -4,6 +4,7 @@ const ADD = 1
 const SUB = 2
 const MUL = 3
 const DIV = 4
+const MOD = 5
 
 class Calculator extends Component {
 
@@ -13,13 +14,17 @@ state = {
     operator: ADD
 }
 addDigit = (e) => {
-    console.log(this.state.runningTotal)
-    this.setState({
-        display: this.state.display + e.target.innerText
-    })
+    if(this.state.display==='Must enter a number, dunder'){
+        this.setState({
+            display: e.target.innerText
+        })
+    } else {
+        this.setState({
+            display: this.state.display + e.target.innerText
+        })
+    }
 }
 dividedBy = () => {
-    console.log(this.state.runningTotal)
     this.evaluate(this.state.operator)
     this.setState({
         display: '',
@@ -27,7 +32,6 @@ dividedBy = () => {
     })
 }
 times = () => {
-    console.log(this.state.runningTotal)
     this.evaluate(this.state.operator)
     this.setState({
         display: '',
@@ -35,7 +39,6 @@ times = () => {
     })
 }
 minus = () => {
-    console.log(this.state.runningTotal)
     this.evaluate(this.state.operator)
     this.setState({
         display: '',
@@ -43,55 +46,75 @@ minus = () => {
     })
 }
 plus = () => {
-    console.log(this.state.runningTotal)
     this.evaluate(this.state.operator)
     this.setState({
         display: '',
         operator: ADD
     })
 }
-evaluate = (operator) => {
+mod = () => {
+    this.evaluate(this.state.operator)
+    this.setState({
+        display: '',
+        operator: MOD
+    })
+}
+evaluate = (operator, callback) => {
     switch(operator) {
         case ADD:
             this.setState({
                 runningTotal: this.state.runningTotal + Number(this.state.display)
-            })
+            }, callback)
         break
         case SUB:
             this.setState({
                 runningTotal: this.state.runningTotal - Number(this.state.display)
-            })
+            }, callback)
         break
         case MUL:
             this.setState({
                 runningTotal: this.state.runningTotal * Number(this.state.display)
-            })
+            }, callback)
         break
         case DIV:
             this.setState({
                 runningTotal: this.state.runningTotal / Number(this.state.display)
-            })
+            }, callback)
+        break
+        case MOD:
+            this.setState({
+                runningTotal: this.state.runningTotal % Number(this.state.display)
+            }, callback)
         break
         default:
-            console.log('Something went wrong')
+            console.log('Something went wrong!')
     }
 }
 equals = () => {
-    if(this.state.display===''){
-        console.log('Must enter a number, dunder')
+    if(this.state.display==='' || this.state.display==='Must enter a number, dunder'){
         this.setState({
             display: 'Must enter a number, dunder'
         })
     } else {
-        console.log('runningTotal in equals: ',this.state.runningTotal)
-        console.log('display in equals: ',this.state.display)
-        this.evaluate(this.state.operator)
-        console.log('runningTotal after evaluate: ',this.state.runningTotal)
-        this.setState({
-            display: this.state.runningTotal
-            // runningTotal: 0
+        this.evaluate(this.state.operator,() => {
+            this.setState({
+                display: this.state.runningTotal,
+                runningTotal: 0
+            })
         })
     }
+}
+clear = () => {
+    this.setState({
+        runningTotal: 0,
+        display: '',
+        operator: ADD
+    })
+}
+changeSign = () => {
+    this.setState({
+        display: -1*Number(this.state.display)
+    })
 }
 
 render(){
@@ -99,12 +122,11 @@ render(){
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                <p>Values: </p>
                 <div className="answer-box">{this.state.display}</div>
                 <div className="calc-row">
-                    <button className="calc-button calc-button-top">AC</button>
-                    <button className="calc-button calc-button-top">+/-</button>
-                    <button className="calc-button calc-button-top">%</button>
+                    <button onClick={this.clear} className="calc-button calc-button-top">AC</button>
+                    <button onClick={this.changeSign} className="calc-button calc-button-top">+/-</button>
+                    <button onClick={this.mod} className="calc-button calc-button-top">%</button>
                     <button onClick={this.dividedBy} className="calc-button calc-button-op">/</button>
                 </div>
                 <div className="calc-row">
