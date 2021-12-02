@@ -5,6 +5,7 @@ class Calculator extends Component {
     state = {
         currentNum: 0,
         previousNum: 0,
+        display: 0,
         operator: '',
     }
 
@@ -15,15 +16,21 @@ class Calculator extends Component {
         if (this.state.currentNum === 0 && e === 0 || this.state.currentNum === 'ERROR') {
             this.setState({
                 currentNum: 0
-            })
+            }, () => this.setState({ 
+                display: this.state.currentNum
+            }))
         } else if (this.state.currentNum === 0 && e > 0) {
             this.setState({
                 currentNum: e
-            })
+            }, () => this.setState({ 
+                display: this.state.currentNum
+            }))
         } else if (this.state.currentNum !== 0) {
             this.setState({
                 currentNum: this.state.currentNum + e
-            })
+            }, () => this.setState({ 
+                display: this.state.currentNum
+            }))
         }
     }
 
@@ -40,7 +47,8 @@ class Calculator extends Component {
             this.setState({
                 previousNum: this.state.currentNum,
                 operator: e,
-                currentNum: ''
+                currentNum: '',
+                display: this.state.currentNum
             })
         }
     }
@@ -68,7 +76,8 @@ class Calculator extends Component {
         this.setState({
             currentNum: result,
             previousNum: result,
-            operator: ''
+            operator: '',
+            display: result
         })
     }
 
@@ -79,6 +88,7 @@ class Calculator extends Component {
             currentNum: 0,
             previousNum: 0,
             operator: '',
+            display: 0
         })
     }
 
@@ -88,7 +98,8 @@ class Calculator extends Component {
                 <h1>React Calculator</h1>
                 <div className="calc-container">
                     <p>Values: </p>
-                    <div className="answer-box">{this.state.currentNum}</div>
+                    {/* <div className="answer-box">{this.state.currentNum}</div> */}
+                    <div className="answer-box">{this.state.display}</div>
                     <div className="calc-row">
                         <button className="calc-button calc-button-top" onClick={this.clearCalc}>AC</button>
                         <button className="calc-button calc-button-top">+/-</button>
