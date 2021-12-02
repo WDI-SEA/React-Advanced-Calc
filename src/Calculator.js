@@ -20,7 +20,6 @@ class Calculator extends Component {
             this.setState({
                 currentNum: e
             })
-            console.log('this is e', e)
         } else if (this.state.currentNum !== 0) {
             this.setState({
                 currentNum: this.state.currentNum + e
@@ -78,7 +77,6 @@ class Calculator extends Component {
     clearCalc = () => {
         this.setState({
             currentNum: 0,
-            displayVal: 0,
             previousNum: 0,
             operator: '',
         })
