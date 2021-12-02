@@ -37,19 +37,19 @@ class Calculator extends Component {
                 break;
 
             case "-":
-                let subtractSum = parseInt(e.target[0].value) - parseInt(e.target[1].value)
+                let subtractSum = this.state.input[0] - this.state.input[1]
                 this.setState({
                     results: subtractSum
                 })
                 break;
             case "x":
-                let product = parseInt(e.target[0].value) * parseInt(e.target[1].value)
+                let product = this.state.input[0] * this.state.input[1]
                 this.setState({
                     results: product
                 })
                 break;
             case "/":
-                let quotient = parseInt(e.target[0].value) / parseInt(e.target[1].value)
+                let quotient = this.state.input[0] / this.state.input[1]
                 this.setState({
                     results: quotient
                 })
@@ -59,11 +59,10 @@ class Calculator extends Component {
                 break;
         }
 
+        console.log('these are the results: ', this.state.results);
+
     }
     
-    displayResults = () => {
-        console.log('these are the results: ', this.state.results);
-    }
 
 
     // evaluate does the actual arithmetic needed to output the solution
@@ -104,7 +103,7 @@ class Calculator extends Component {
             symbol: e.target.innerText
         })
         
-        console.log('this is the current operator:', this.state.operatorArray);
+        console.log('this is the current symbol:', this.state.operatorArray);
     }
 
     // clears the current input
@@ -120,8 +119,10 @@ render(){
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                <p>Values: </p>
-                <div className="answer-box">{this.state.input}</div>
+                <p>{this.state.input}</p>
+                <div className="answer-box">
+                    {this.state.results}
+                    </div>
                 <div className="calc-row">
                     <button className="calc-button calc-button-top" onClick={this.clearInput}>AC</button>
                     <button className="calc-button calc-button-top" onClick={this.displayInput}>+/-</button>
@@ -149,7 +150,7 @@ render(){
                 <div className="calc-row">
                     <button className="calc-button width-2" onClick={this.displayInput}>0</button>
                     <button className="calc-button" onClick={this.displayInput}>.</button>
-                    <button className="calc-button calc-button-op" onClick={this.displayResults} >=</button>
+                    <button className="calc-button calc-button-op" onClick={this.resultsOfInput} >=</button>
                 </div>
             </div>
         </div>
