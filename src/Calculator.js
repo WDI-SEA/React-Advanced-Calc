@@ -133,10 +133,14 @@ render(){
             <h1>React Calculator</h1>
             <div className="calc-container">
                 <p>
-                    {`${this.state.input.join('')} ${this.state.operatorArray} ${this.state.inputTwo.join('')}`}
                 </p>
                 <div className="answer-box">
-                    {this.state.results}
+                    <div>
+                        {`${this.state.input.join('')} ${this.state.operatorArray} ${this.state.inputTwo.join('')}`}
+                    </div>
+                    <div>
+                        {this.state.results}
+                    </div>
                     </div>
                 <div className="calc-row">
                     <button className="calc-button calc-button-top" onClick={this.clearInput}>AC</button>
