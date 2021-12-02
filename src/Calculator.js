@@ -12,7 +12,7 @@ class Calculator extends Component {
     // concat those numbers until an operator is clicked
     inputNumVal = (e) => {
         console.log('this is the number clicked: ', e)
-        if (this.state.currentNum === 0 && e === 0) {
+        if (this.state.currentNum === 0 && e === 0 || this.state.currentNum === 'ERROR') {
             this.setState({
                 currentNum: 0
             })
@@ -34,7 +34,8 @@ class Calculator extends Component {
         console.log('this is the operator clicked: ', e)
         if (this.state.operator !== '') {
             this.setState({
-                currentNum: 'ERROR'
+                currentNum: 'ERROR',
+                operator: ''
             })
         } else {
             this.setState({
