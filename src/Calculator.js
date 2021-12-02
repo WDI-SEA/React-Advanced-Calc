@@ -22,9 +22,11 @@ setNum = (value) => {
     // console.log(value)
     if(this.state.num1 === '' && value === 0 ){
         this.setState({
-            num1: "",
-            display: ""
+            display: value
         })
+    }else if(this.state.num1.includes('.')  && value === '.' 
+    && this.state.num2 === ""  ){
+        console.log('too many decimals!')
     }else if(this.state.operator === null ){
         this.setState({
             num1: " " +  this.state.num1 + value,
@@ -32,9 +34,10 @@ setNum = (value) => {
         })
     }else if(this.state.num2 === '' && value === 0 ){
         this.setState({
-            num2: "", 
-            display: "" 
+            display: value 
         })
+    }else if(this.state.num2.includes('.')  && value === '.'   ){
+        console.log('too many decimals!')
     }else if(this.state.operator !== null ){
         this.setState({
             num2: " " +  this.state.num2 + value,
