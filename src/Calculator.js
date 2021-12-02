@@ -7,15 +7,7 @@ class Calculator extends Component {
         currentNumber: [],
         previousNumber: [],
     }
-    // Declare state variables
 
-    // Helper Methods:
-    // - Clear All State
-
-    // - Set Number
-
-    // Number Click Handlers
-    // - This will have to retrieve the number that is currently clicked and set the state of current number
     numberClickHandler = (e) => {
 
         e.preventDefault()
@@ -94,6 +86,15 @@ class Calculator extends Component {
             currentNumber: []
         })
     }
+
+    deleteOne = (e) => {
+        if (e.charCode === '8') {
+            console.log("Delete pressed.")
+        this.setState({
+            currentNumber: this.state.currentNumber.pop()
+        })
+    }
+    }
     // Value Index 0 is
     //Make sure you are concatenating each number pressed until you get an operator!!!!!!
 
@@ -111,7 +112,7 @@ render(){
             <h1>React Calculator</h1>
             <div className="calc-container">
                 <p>Values: </p>
-                <div className="answer-box">{this.state.currentNumber}</div>
+                <div onKeyDown={(e)=>this.deleteOne(e)} className="answer-box">{this.state.currentNumber}</div>
                 <div className="calc-row">
                     <Button onClick={this.clearState}className="calc-button calc-button-top" name="AC" value="clear"/>
                     <Button className="calc-button calc-button-top" name="+/-" value="signed"/>
