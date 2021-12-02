@@ -41,6 +41,22 @@ class Calculator extends Component {
     evalEquation = () => {
         console.log('this is the current num: ', this.state.currentNum)
         console.log('this is the previous num: ', this.state.previousNum)
+        let previousNum = Number(this.state.previousNum)
+        let currentNum = Number(this.state.currentNum)
+        let result = 0
+        if (this.state.operator === '+') {
+            result = previousNum + currentNum
+        } else if (this.state.operator === '-') {
+            result = previousNum - currentNum
+        } else if (this.state.operator === '*') {
+            result = previousNum * currentNum
+        } else if (this.state.operator === '/') {
+            result = previousNum / currentNum
+        }
+        this.setState({
+            currentNum: result,
+            previousNum: result
+        })
     }
 
     // clear function that will reset states
