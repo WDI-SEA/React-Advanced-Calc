@@ -10,7 +10,6 @@ class Calculator extends Component {
 
     // create a function that will input the num value to the current num
     // concat those numbers until an operator is clicked
-    // don't allow 0 to begin a number ---------- COME BACK TO!!!!!!!!!! ----------
     inputNumVal = (e) => {
         console.log('this is the number clicked: ', e)
         if (this.state.currentNum === 0 && e === 0) {
