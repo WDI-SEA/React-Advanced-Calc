@@ -13,10 +13,15 @@ class Calculator extends Component {
     // concat those numbers until an operator is clicked
     inputNumVal = (e) => {
         console.log('this is e\n', e)
-        let newNum = e
-        this.setState({
-            currentNum: newNum
-        })
+        if (this.state.currentNum === 0) {
+            this.setState({
+                currentNum: e
+            })
+        } else if (this.state.currentNum !== 0) {
+            this.setState({
+                currentNum: this.state.currentNum + e
+            })
+        }
     }
 
     // create a function to set/pass operator once one has been clicked
