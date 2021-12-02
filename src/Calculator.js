@@ -8,6 +8,8 @@ class Calculator extends Component {
         operator: ''
     }
 
+    /// The bind() method creates a new function, when invoked, has the this sets to a provided value. 
+    /// The bind() method allows an object to borrow a method from another object without making a copy of that method.
     //     this.inputNumber = this.inputNumber.bind(this);
     //     this.operator = this.operator.bind(this);
     //     this.equals = this.equals.bind(this);
@@ -80,7 +82,7 @@ class Calculator extends Component {
         this.setState({ number: '', operator: '', result: Number(newResult) });
     }
 
-      // function to handle comma input
+      // Function to handle decimal input
   decimal() {
     // concats "," to current number if number doesn't include one already
     if (this.state.number)
