@@ -82,34 +82,39 @@ class Calculator extends Component {
         })
     }
 
+    // solution rounding to the nearest ten thousandth
+    niceRound = (num) => {
+        return Math.round(num * 10000) / 10000
+    }
+
     // handle sum click
     handleEqualClick = () => {
         console.log('clicked equal')
         const currentInput = this.state.input.join('')
         if (this.state.operation === '+') {
             this.setState({
-                input: [parseFloat(this.state.savedInput) + parseFloat(currentInput)],
+                input: [this.niceRound(parseFloat(this.state.savedInput) + parseFloat(currentInput))],
                 operation: '',
                 acceptingNewNum: true
 
             })
         } else if (this.state.operation === '-') {
             this.setState({
-                input: [parseFloat(this.state.savedInput) - parseFloat(currentInput)],
+                input: [this.niceRound(parseFloat(this.state.savedInput) - parseFloat(currentInput))],
                 operation: '',
                 acceptingNewNum: true
 
             })
         } else if (this.state.operation === 'x') {
             this.setState({
-                input: [parseFloat(this.state.savedInput) * parseFloat(currentInput)],
+                input: [this.niceRound(parseFloat(this.state.savedInput) * parseFloat(currentInput))],
                 operation: '',
                 acceptingNewNum: true
 
             })
         } else if (this.state.operation === '/') {
             this.setState({
-                input: [parseFloat(this.state.savedInput) / parseFloat(currentInput)],
+                input: [this.niceRound(parseFloat(this.state.savedInput) / parseFloat(currentInput))],
                 operation: '',
                 acceptingNewNum: true
 
