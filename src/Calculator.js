@@ -1,4 +1,3 @@
-import { COMPARISON_BINARY_OPERATORS } from '@babel/types'
 import React, { Component } from 'react'
 
 class Calculator extends Component {
@@ -42,10 +41,10 @@ class Calculator extends Component {
         
     }
     equals = (e) => {
-        console.log("this is equal")
+        console.log("equal button clicked")
         let oldArray = this.state.equation
         let sign = this.state.operator
-        console.log("this is sign", sign)
+        console.log("this is operator sign:", sign)
         let newNumArray = oldArray.map(function(item) {
             return parseInt(item, 10);
         })
@@ -70,6 +69,15 @@ class Calculator extends Component {
                 let numOne = parseInt(newNumArray[0])
                 let numTwo = parseInt(newNumArray[1])
                 let sum = numOne * numTwo
+                console.log(sum)
+                this.setState({
+                    currentNumber: sum
+             })
+            
+            } else if (this.state.operator === "/") {
+                let numOne = parseInt(newNumArray[0])
+                let numTwo = parseInt(newNumArray[1])
+                let sum = numOne / numTwo
                 console.log(sum)
                 this.setState({
                     currentNumber: sum
