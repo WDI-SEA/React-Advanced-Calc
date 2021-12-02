@@ -28,7 +28,8 @@ class App extends Component {
       finalResult: '',
       firstNumber: '',
       secondNumber: '',
-      operator: ''
+      operator: '',
+      decimal: ''
     })
   }
 
@@ -36,6 +37,7 @@ class App extends Component {
 
   onClick = (buttonClicked) => {
     const operators = ['/', '*', '+', '-']
+    const decimal = '.'
 
     if (buttonClicked === '%') {
       return;
@@ -62,6 +64,15 @@ class App extends Component {
       })
       return;
     }
+
+    if (buttonClicked === '.') {
+      let number = this.state.operator ? this.state.secondNumber : this.state.firstNumber
+      if (number.includes(buttonClicked)) {
+        return;
+      }
+    }
+
+
 
     if (buttonClicked === '0' && this.state.operator === '' && this.state.firstNumber === '') {
      this.setState({
@@ -90,6 +101,7 @@ class App extends Component {
       })
       return;
     }
+
     // console.log('button bein clicked right here', buttonClicked)
     // console.log('final result', this.state.finalResult)
     
