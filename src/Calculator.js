@@ -3,9 +3,9 @@ import Button from './Button'
 
 class Calculator extends Component {
     state = {
-        result: '0',
-        operator: '',
+        operatorValue: [],
         currentNumber: [],
+        previousNumber: [],
     }
     // Declare state variables
 
@@ -19,22 +19,60 @@ class Calculator extends Component {
     numberClickHandler = (e) => {
         e.preventDefault()
         console.log("This is a number!", e.target.value)
+        console.log("This is the current Number", this.state.currentNumber)
         const value = e.target.value
         // calling setState with prevState provides you with a snapshot
         this.setState({
-             currentNumber: [value, ...this.state.currentNumber]
+             currentNumber: [...this.state.currentNumber, value]
         })
         console.log(this.state.currentNumber)
-    }    
+    }
+    
+    equalClickHandler = (e) => {
+        console.log("Equal!")
+        if (e.target.value === "=") {
+            let operator = this.state.operatorValue
+            switch(operator) {
+                case 'MULTIPLY':
+                    this.setState({
+                        currentNumber: parseInt(this.state.currentNumber.join("")) * this.state.previousNumber
+                    })
+                    break;
+                case 'DIVIDE':
+                    this.setState({
+                        currentNumber: parseInt(this.state.currentNumber.join("")) / this.state.previousNumber
+                    })
+                    break;
+                case 'PLUS':
+                    this.setState({
+                        currentNumber: parseInt(this.state.currentNumber.join("")) + this.state.previousNumber
+                    })
+                    break;
+                case 'MINUS':
+                    this.setState({
+                        currentNumber: parseInt(this.state.currentNumber.join("")) - this.state.previousNumber
+                    })
+                    break;
+            }
+        }
+    }
     
     // Operator Handler (switch)
     operatorClickHandler = (e) => {
+        e.preventDefault()
+
         console.log("This is a operator!", e.target.value)
         const operator = e.target.value
         this.setState({
-            operator: operator
+            operatorValue: operator,
+            previousNumber: parseInt(this.state.currentNumber.join("")),
+            currentNumber: []
         })
-        console.log(this.state.operator)
+            
+
+        console.log(this.state.operatorValue)
+        console.log("this should be concatenated", this.state.currentNumber)
+        console.log(this.state.operatorValue, this.state.previousNumber, this.state.currentNumber)
     }
     // Value Index 0 is
     //Make sure you are concatenating each number pressed until you get an operator!!!!!!
@@ -58,31 +96,31 @@ render(){
                     <Button className="calc-button calc-button-top" name="AC" value="clear"/>
                     <Button className="calc-button calc-button-top" name="+/-" value="signed"/>
                     <Button onClick={this.operatorClickHandler} className="calc-button calc-button-top" name="%" value="%"/>
-                    <Button onClick={this.operatorClickHandler} className="calc-button calc-button-op" name="/" value="/"/>
+                    <Button onClick={this.operatorClickHandler} className="calc-button calc-button-op" name="/" value="DIVIDE"/>
                 </div>
                 <div className="calc-row">
                     <Button onClick={this.numberClickHandler} className="calc-button calc-button-top" name="7" value="7"/>
                     <Button onClick={this.numberClickHandler} className="calc-button calc-button-top" name="8" value="8"/>
                     <Button onClick={this.numberClickHandler} className="calc-button calc-button-top" name="9" value="9"/>
-                    <Button onClick={this.operatorClickHandler} className="calc-button calc-button-op" name="x" value="*"/>
+                    <Button onClick={this.operatorClickHandler} className="calc-button calc-button-op" name="x" value="MULTIPLY"/>
                 </div>
                 <div className="calc-row">
                     <Button onClick={this.numberClickHandler} className="calc-button calc-button-top" name="4" value="4"/>
                     <Button onClick={this.numberClickHandler} className="calc-button calc-button-top" name="5" value="5"/>
                     <Button onClick={this.numberClickHandler} className="calc-button calc-button-top" name="6" value="6"/>
-                    <Button onClick={this.operatorClickHandler} className="calc-button calc-button-op" name="-" value="-"/>
+                    <Button onClick={this.operatorClickHandler} className="calc-button calc-button-op" name="-" value="MINUS"/>
                 </div>
                 <div className="calc-row">
                     <Button onClick={this.numberClickHandler} className="calc-button calc-button-top" name="1" value="1"/>
                     <Button onClick={this.numberClickHandler} className="calc-button calc-button-top" name="2" value="2"/>
                     <Button onClick={this.numberClickHandler} className="calc-button calc-button-top" name="3" value="3"/>
-                    <Button onClick={this.operatorClickHandler} className="calc-button calc-button-op" name="+" value="+"/>
+                    <Button onClick={this.operatorClickHandler} className="calc-button calc-button-op" name="+" value="PLUS"/>
                 </div>
                 <div className="calc-row">
                 <Button onClick={this.numberClickHandler} className="calc-button calc-button-top" name="0" value="0"/>
                     <Button className="calc-button calc-button-top" name="." value="."/>
                     {/*might need a special click handler to run a floating point conversion*/}
-                    <Button className="calc-button calc-button-top" name="=" value="="/>
+                    <Button onClick={this.equalClickHandler} className="calc-button calc-button-top" name="=" value="="/>
                     {/*might need a special click handler to run an an equal function */}
                     <Button onClick={this.operatorClickHandler} className="calc-button calc-button-op" name="/" value="/"/>
                 </div>
