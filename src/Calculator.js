@@ -14,9 +14,8 @@ changeOperator = (symbol) => {
     if(this.state.num1.length > 1 && this.state.num2 === ""){
     this.setState({
         operator: symbol,
-        display: this.state.operator
+        display: symbol
     })}
-    return this.state.operator
 }
 
 setNum = (value) => {
@@ -24,15 +23,15 @@ setNum = (value) => {
     if(this.state.operator === null ){
         this.setState({
             num1: " " +  this.state.num1 + value,
-            display: this.state.num1
+            display: " " +  this.state.num1 + value,
         })
     }else {
         this.setState({
             num2: " " +  this.state.num2 + value,
-            display: this.state.num2
+            display: " " +  this.state.num2 + value,
         })
     }
-    return this.state.num1
+
 }
 
 evaluate = () => {
