@@ -1,3 +1,4 @@
+import { COMPARISON_BINARY_OPERATORS } from '@babel/types'
 import React, { Component } from 'react'
 
 class Calculator extends Component {
@@ -26,8 +27,7 @@ class Calculator extends Component {
         console.log("cleared")
         this.setState({
             currentNumber: 0,
-            equation: [],
-            operator: ""
+            equation: []
         })
     }
     calculate = (e) => {
@@ -35,39 +35,31 @@ class Calculator extends Component {
         let newNumArray = oldArray.map(function(item) {
             return parseInt(item, 10);
         })
-        if (newNumArray.length >= 2) {
-            if (e.target.value === "+") {
-                this.setState({
-                    operator: "+"
-                })
-            } else if(e.target.value === "-") {
-                this.setState({
-                    operator: "-"
-                })
-            } else if(e.target.value === "x") {
-                this.setState({
-                    operator: "*"
-                })
-            }
-        }
+        console.log(e.target.value)
+        
+        this.setState({
+            operator: e.target.value,
+        })
+        
     }
-    equals = () => {
+    equals = (e) => {
+        console.log("this is equal")
         let oldArray = this.state.equation
+        let sign = this.state.operator
+        console.log("this is sign", sign)
         let newNumArray = oldArray.map(function(item) {
             return parseInt(item, 10);
         })
-        
         if (newNumArray.length >= 2) {
-            if (this.state.operator = "+") {
+            if (this.state.operator === "+") {
                 let numOne = parseInt(newNumArray[0])
                 let numTwo = parseInt(newNumArray[1])
                 let sum = numOne + numTwo
+                console.log(sum)
                 this.setState({
                     currentNumber: sum
                 })
-            }  
-            
-             if (this.state.operator = "-"){
+            } else if (this.state.operator === "-") {
                 let numOne = parseInt(newNumArray[0])
                 let numTwo = parseInt(newNumArray[1])
                 let sum = numOne - numTwo
@@ -77,16 +69,7 @@ class Calculator extends Component {
                 })
             } 
             
-            if (this.state.operator === "*" && "is-active"){
-                let numOne = parseInt(newNumArray[0])
-                let numTwo = parseInt(newNumArray[1])
-                let sum = numOne * numTwo
-                console.log(sum)
-                this.setState({
-                    currentNumber: sum
-                })
-            } 
-           
+            
         }
     }
         
@@ -104,25 +87,25 @@ render(){
                     <button onClick={this.clearNumber} className="calc-button calc-button-top">AC</button>
                     <button className="calc-button calc-button-top">+/-</button>
                     <button className="calc-button calc-button-top">%</button>
-                    <button onClick={this.calculate} className="calc-button calc-button-op">/</button>
+                    <button onClick={this.calculate} className="calc-button calc-button-op" value="/">/</button>
                 </div>
                 <div className="calc-row">
                     <button onClick={this.showNumber} className="calc-button">7</button>
                     <button onClick={this.showNumber} className="calc-button">8</button>
                     <button onClick={this.showNumber} className="calc-button">9</button>
-                    <button onClick={this.calculate} className="calc-button calc-button-op">x</button>
+                    <button onClick={this.calculate} className="calc-button calc-button-op" value="x">x</button>
                 </div>
                 <div className="calc-row">
                     <button onClick={this.showNumber} className="calc-button">4</button>
                     <button onClick={this.showNumber} className="calc-button">5</button>
                     <button onClick={this.showNumber} className="calc-button">6</button>
-                    <button onClick={this.calculate} className="calc-button calc-button-op">-</button>
+                    <button onClick={this.calculate} className="calc-button calc-button-op" value="-">-</button>
                 </div>
                 <div className="calc-row">
                     <button onClick={this.showNumber} className="calc-button">1</button>
                     <button onClick={this.showNumber} className="calc-button">2</button>
                     <button onClick={this.showNumber} className="calc-button">3</button>
-                    <button onClick={this.calculate} className="calc-button calc-button-op">+</button>
+                    <button onClick={this.calculate} className="calc-button calc-button-op" value="+">+</button>
                 </div>
                 <div className="calc-row">
                     <button onClick={this.showNumber} className="calc-button width-2">0</button>
