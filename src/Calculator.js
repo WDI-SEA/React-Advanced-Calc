@@ -2,6 +2,40 @@ import React, { Component } from 'react'
 
 class Calculator extends Component {
     // Declare state variables
+    state = {
+        saved: 0,
+        input: [],
+        operator: 0
+    }
+    // global variables to reference in any part of the code 
+
+    // add things
+
+    // subtract things
+
+    // multiply things
+
+    // divide things
+
+    // recordNumber will keep the numbers in a array
+    recordNumber = () => {
+
+    }
+
+    // recordOperator will store the operator selected
+    recordOperator = () => {
+
+    }
+
+    // evaluate does the actual arithmetic needed to output the solution
+    evaluateMath = () => {
+
+    }
+
+    // displayInput shows the user what they are inputting into the calc answer box 
+    displayInput = () => {
+        
+    }
 
 render(){
     return (
@@ -9,7 +43,7 @@ render(){
             <h1>React Calculator</h1>
             <div className="calc-container">
                 <p>Values: </p>
-                <div className="answer-box">TBD</div>
+                <div className="answer-box"></div>
                 <div className="calc-row">
                     <button className="calc-button calc-button-top">AC</button>
                     <button className="calc-button calc-button-top">+/-</button>
