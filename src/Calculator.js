@@ -17,14 +17,26 @@ class Calculator extends Component {
     // Number Click Handlers
     // - This will have to retrieve the number that is currently clicked and set the state of current number
     numberClickHandler = (e) => {
+
         e.preventDefault()
         console.log("This is a number!", e.target.value)
         console.log("This is the current Number", this.state.currentNumber)
         const value = e.target.value
         // calling setState with prevState provides you with a snapshot
-        this.setState({
-             currentNumber: [...this.state.currentNumber, value]
-        })
+        if (this.state.currentNumber === 0 && e.target.value === 0){
+            this.setState({
+                currentNumber: []
+            })
+        } else if (this.state.currentNumber === 0 && e.target.value > 0) {
+            this.setState({
+                currentNumber: e.target.value
+            })
+        } else {
+            this.setState({
+                currentNumber: [...this.state.currentNumber, value]
+            })      
+        }
+        
         console.log(this.state.currentNumber)
     }
     
