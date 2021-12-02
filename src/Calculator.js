@@ -9,22 +9,11 @@ class Calculator extends Component {
     }
     //current number display
     showNumber = (e) => {
-            if (this.state.currentNumber.length >= 2) {
-                    let currentNumberNew = [this.state.currentNumber+ e.target.innerText]
-                    let joinedNumber = currentNumberNew.join('')
-                    console.log("this is length > 1", this.state.currentNumber.length)
-                    this.setState({
-                        currentNumber:  [joinedNumber]
-                    }) 
-            } else { 
-                    let currentNumberNew = [this.state.currentNumber+e.target.innerText]
-                    let joinedNumber = currentNumberNew.join('')
-                    console.log("this is length < 1", this.state.currentNumber.length)
-                    this.setState({
-                        currentNumber:  [joinedNumber]
-                    })
-            } 
-            
+        let current = this.state.currentNumber
+        //console.log(current + e.target.value)
+        this.setState({
+            currentNumber:  current + e.target.value
+        })      
     }
     //AC button
     clearNumber = () => {
@@ -42,10 +31,11 @@ class Calculator extends Component {
             alert('Select another number besides 0 to start')
         } else {
             newNumArray.push(this.state.currentNumber)
-            console.log("this is newNumArray", newNumArray)
+            //console.log("this is newNumArray", newNumArray)
 
             this.setState({
-                operator: e.target.value
+                operator: e.target.value,
+                currentNumber: []
             })
         }
         //console.log(e.target.value)
@@ -124,7 +114,7 @@ class Calculator extends Component {
                 <h1>React Calculator</h1>
                 <div className="calc-container">
                     <p>Values: </p>
-                    <div className="answer-box">{this.state.currentNumber}</div>
+                    <div className="answer-box">{this.state.operator}{this.state.currentNumber}</div>
                     <div className="calc-row">
                         <button onClick={this.clearNumber} className="calc-button calc-button-top">AC</button>
                         <button className="calc-button calc-button-top">+/-</button>
@@ -144,10 +134,10 @@ class Calculator extends Component {
                         <button onClick={this.calculate} className="calc-button calc-button-op" value="-">-</button>
                     </div>
                     <div className="calc-row">
-                        <button onClick={this.showNumber} className="calc-button">1</button>
-                        <button onClick={this.showNumber} className="calc-button">2</button>
+                        <button onClick={(e) => this.showNumber(e)} className="calc-button" value="1">1</button>
+                        <button onClick={(e) => this.showNumber(e)} className="calc-button" value="2">2</button>
                         <button onClick={this.showNumber} className="calc-button">3</button>
-                        <button onClick={this.calculate} className="calc-button calc-button-op" value="+">+</button>
+                        <button onClick={(e) => this.calculate(e)} className="calc-button calc-button-op" value="+">+</button>
                     </div>
                     <div className="calc-row">
                         <button onClick={this.showNumber} className="calc-button width-2" value="0">0</button>
