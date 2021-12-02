@@ -4,7 +4,7 @@ class Calculator extends Component {
     // Declare state variables
     state = {
         operator: "",
-        currentNumber: 0,
+        currentNumber: '',
         equation: []
     }
 
@@ -52,39 +52,45 @@ class Calculator extends Component {
         let newNumArray = oldArray.map(function(item) {
             return parseInt(item, 10);
         })
-        if (newNumArray.length >= 2) {
+        if(newNumArray.length < 2) {
+            alert("you need to select an operator and one more number before clicking =")
+        } else if (newNumArray.length >= 2) {
             if (this.state.operator === "+") {
-                let numOne = parseInt(newNumArray[0])
-                let numTwo = parseInt(newNumArray[1])
+                let numOne = parseInt(newNumArray[newNumArray.length-2])
+                let numTwo = parseInt(newNumArray[newNumArray.length-1])
                 let sum = numOne + numTwo
                 console.log(sum)
                 this.setState({
-                    currentNumber: sum
+                    currentNumber: sum,
+                    equation: [...this.state.equation, sum]
                 })
             } else if (this.state.operator === "-") {
-                let numOne = parseInt(newNumArray[0])
-                let numTwo = parseInt(newNumArray[1])
+                let numOne = parseInt(newNumArray[newNumArray.length-2])
+                let numTwo = parseInt(newNumArray[newNumArray.length-1])
                 let sum = numOne - numTwo
                 console.log(sum)
                 this.setState({
-                    currentNumber: sum
+                    currentNumber: sum,
+                    equation: [...this.state.equation, sum]
                 })
             } else if (this.state.operator === "x") {
-                let numOne = parseInt(newNumArray[0])
-                let numTwo = parseInt(newNumArray[1])
+                let numOne = parseInt(newNumArray[newNumArray.length-2])
+                let numTwo = parseInt(newNumArray[newNumArray.length-1])
                 let sum = numOne * numTwo
                 console.log(sum)
                 this.setState({
-                    currentNumber: sum
+                    currentNumber: sum,
+                    equation: [...this.state.equation, sum]
              })
             
             } else if (this.state.operator === "/") {
-                let numOne = parseInt(newNumArray[0])
-                let numTwo = parseInt(newNumArray[1])
+                let numOne = parseInt(newNumArray[newNumArray.length-2])
+                let numTwo = parseInt(newNumArray[newNumArray.length-1])
                 let sum = numOne / numTwo
                 console.log(sum)
                 this.setState({
-                    currentNumber: sum
+                    currentNumber: sum,
+                    equation: [...this.state.equation, sum]
              })
             
             }
