@@ -5,7 +5,7 @@ class Calculator extends Component {
     // Declare state variables
 
     state = {
-        display: '',
+        display: '0',
         currentState: 'input1',
         firstValue: '',
         secondValue: '',
