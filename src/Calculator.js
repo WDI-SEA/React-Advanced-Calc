@@ -4,7 +4,7 @@ class Calculator extends Component {
     // Declare state variables
     state = {
         input: [], 
-        operator: null,
+        operator: '',
         savedNum: null,
         zero: 0, 
         one: 1, 
@@ -23,27 +23,38 @@ class Calculator extends Component {
     addToEquation = (e) => {
         // console.log('this is what was clicked', e.target.value)
         let number = e.target.value
-        this.setState({
-            input:[
-                ...this.state.input,
-                number
-            ]
-        })
+        if(this.state.input[0] != '0'){
+            this.setState({
+                input:[
+                    ...this.state.input,
+                    number
+                ]
+            })
+        }
     }
 
     allClear = () => {
         this.setState({
-            input: []
+            input: [],
+            operator: ''
         })
     }
+
+    // positiveNegative = () => {
+
+    // }
 
     pickOperator = (e) => {
         console.log('this is the operator: ', e.target.value)
         console.log('this is savedNum: ', parseInt(this.state.input.join("")))
         let operator = e.target.value
-        this.setState({
-            operator: operator
-        })
+        // if(operator != ''){
+        //     alert=('error')
+        // } else {
+            this.setState({
+                operator: operator
+            })
+        // }
         this.setState({
             savedNum: parseInt(this.state.input.join(""))
         })
@@ -54,7 +65,6 @@ class Calculator extends Component {
     }
 
     solve = (e) => {
-        console.log('this is the answer', e)
         // let firstNum = this.state.savedNum
         let secondNum = parseInt(this.state.input.join(""))
         console.log('this is secondNum:', secondNum)
@@ -68,7 +78,6 @@ class Calculator extends Component {
             <div className="container">
                 <h1>React Calculator</h1>
                 <div className="calc-container">
-                    <p>Values: </p>
                     <div className="answer-box">{this.state.input}</div>
                     <div className="calc-row">
                         <button className="calc-button calc-button-top" onClick={this.allClear}>AC</button>
