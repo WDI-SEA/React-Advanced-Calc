@@ -10,10 +10,16 @@ class Calculator extends Component {
     //current number display
     showNumber = (e) => {
         let current = this.state.currentNumber
-        //console.log(current + e.target.value)
-        this.setState({
-            currentNumber:  current + e.target.value
-        })      
+        let newNumArray = this.state.equation
+        console.log(newNumArray)
+        if (newNumArray.length === 0 && e.target.value === '0') {
+            alert('Select another number besides 0 to start. Try again.')
+        } else {
+            //console.log(current + e.target.value)
+            this.setState({
+                currentNumber:  current + e.target.value
+            })  
+        }    
     }
     //AC button
     clearNumber = () => {
@@ -25,26 +31,20 @@ class Calculator extends Component {
     }
     //operator buttons (+ - * /)
     calculate = (e) => {
-        
        let newNumArray = this.state.equation
-        if (newNumArray.length === 0 && e.target.value === '0') {
-            alert('Select another number besides 0 to start')
-        } else {
-            newNumArray.push(this.state.currentNumber)
-            //console.log("this is newNumArray", newNumArray)
-
-            this.setState({
-                operator: e.target.value,
-                currentNumber: []
-            })
-        }
+       console.log(newNumArray)
+        newNumArray.push(this.state.currentNumber)
+        //console.log("this is newNumArray", newNumArray)
+        this.setState({
+            operator: e.target.value,
+            currentNumber: []
+        })
         //console.log(e.target.value)
-        
     }
     //percent button *bonus*
     percent = () => {
         this.setState({
-            currentNumber: this.state.currentNumber*100,
+            currentNumber: this.state.currentNumber/100,
             equation: [...this.state.equation, (this.state.currentNumber*100)]
         })
     }
@@ -59,10 +59,8 @@ class Calculator extends Component {
             return parseInt(item, 10);
         })
         if(newNumArray.length < 2) {
-            alert("you need to select an operator and one more number before clicking =")
+            alert("you need to select one number, one operator, and another number before clicking the sum. Try again.")
         } else {
-            
-            
             //addition
             if (this.state.operator === "+") {
                 let numOne = parseInt(newNumArray[newNumArray.length-2])
@@ -119,28 +117,28 @@ class Calculator extends Component {
                         <button onClick={this.clearNumber} className="calc-button calc-button-top">AC</button>
                         <button className="calc-button calc-button-top">+/-</button>
                         <button onClick={this.percent} className="calc-button calc-button-top">%</button>
-                        <button onClick={this.calculate} className="calc-button calc-button-op" value="/">/</button>
+                        <button onClick={(e) => this.calculate(e)} className="calc-button calc-button-op" value="/">/</button>
                     </div>
                     <div className="calc-row">
-                        <button onClick={this.showNumber} className="calc-button">7</button>
-                        <button onClick={this.showNumber} className="calc-button">8</button>
-                        <button onClick={this.showNumber} className="calc-button">9</button>
-                        <button onClick={this.calculate} className="calc-button calc-button-op" value="x">x</button>
+                        <button onClick={(e) => this.showNumber(e)} className="calc-button" value="7">7</button>
+                        <button onClick={(e) => this.showNumber(e)} className="calc-button" value="8">8</button>
+                        <button onClick={(e) => this.showNumber(e)} className="calc-button" value="9">9</button>
+                        <button onClick={(e) => this.calculate(e)} className="calc-button calc-button-op" value="x">x</button>
                     </div>
                     <div className="calc-row">
-                        <button onClick={this.showNumber} className="calc-button">4</button>
-                        <button onClick={this.showNumber} className="calc-button">5</button>
-                        <button onClick={this.showNumber} className="calc-button">6</button>
-                        <button onClick={this.calculate} className="calc-button calc-button-op" value="-">-</button>
+                        <button onClick={(e) => this.showNumber(e)} className="calc-button" value="4">4</button>
+                        <button onClick={(e) => this.showNumber(e)} className="calc-button" value="5">5</button>
+                        <button onClick={(e) => this.showNumber(e)} className="calc-button" value="6">6</button>
+                        <button onClick={(e) => this.calculate(e)} className="calc-button calc-button-op" value="-">-</button>
                     </div>
                     <div className="calc-row">
                         <button onClick={(e) => this.showNumber(e)} className="calc-button" value="1">1</button>
                         <button onClick={(e) => this.showNumber(e)} className="calc-button" value="2">2</button>
-                        <button onClick={this.showNumber} className="calc-button">3</button>
+                        <button onClick={(e) => this.showNumber(e)} className="calc-button" value="3">3</button>
                         <button onClick={(e) => this.calculate(e)} className="calc-button calc-button-op" value="+">+</button>
                     </div>
                     <div className="calc-row">
-                        <button onClick={this.showNumber} className="calc-button width-2" value="0">0</button>
+                        <button onClick={(e) => this.showNumber(e)} className="calc-button width-2" value="0">0</button>
                         <button className="calc-button">.</button>
                         <button onClick={this.equals} className="calc-button calc-button-op">=</button>
                     </div>
