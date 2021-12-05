@@ -48,13 +48,9 @@ class Calculator extends Component {
         console.log('this is the operator: ', e.target.value)
         console.log('this is savedNum: ', parseInt(this.state.input.join("")))
         let operator = e.target.value
-        // if(operator != ''){
-        //     alert=('error')
-        // } else {
-            this.setState({
-                operator: operator
-            })
-        // }
+        this.setState({
+            operator: operator
+        })
         this.setState({
             savedNum: parseInt(this.state.input.join(""))
         })
@@ -82,7 +78,7 @@ class Calculator extends Component {
                     <div className="calc-row">
                         <button className="calc-button calc-button-top" onClick={this.allClear}>AC</button>
                         <button className="calc-button calc-button-top">+/-</button>
-                        <button className="calc-button calc-button-top">%</button>
+                        <button className="calc-button calc-button-top" onClick={this.pickOperator} value='%'>%</button>
                         <button className="calc-button calc-button-op" onClick={this.pickOperator} value='/'>/</button>
                     </div>
                     <div className="calc-row">
