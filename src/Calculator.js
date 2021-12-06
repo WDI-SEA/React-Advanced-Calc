@@ -5,12 +5,14 @@ class Calculator extends Component {
     state={
         display: '',
         operator: null,
-        readyForNewNum: false
+        readyForNewNum: false,
+        total: null
     }
     operationsHelper = (e) => {
         this.setState({
             readyForNewNum: true,
-            operator: e.target.innerText
+            operator: e.target.innerText,
+            total: this.state.display
         })
     }
 
@@ -25,8 +27,40 @@ class Calculator extends Component {
                 display: this.state.display + e.target.innerText
             })
         }
-        
+    }
+
+    operate = () => {
+        switch(this.state.operator) {
+            case '+':
+                return parseFloat(this.state.total) + parseFloat(this.state.display)
+            case '-':
+                return parseFloat(this.state.total) - parseFloat(this.state.display)
+            case 'x':
+                return parseFloat(this.state.total) * parseFloat(this.state.display)
+            case '/':
+                return parseFloat(this.state.total) / parseFloat(this.state.display)
+            default:
+                console.log('defaulting ');
+
         }
+    }
+
+    calculate = () => {
+        let result = this.operate()
+        this.setState({
+            display:result,
+            readyForNewNum: true
+        })
+    }
+
+    clearAll = () => {
+        this.setState({
+            display: '',
+            operator: null,
+            readyForNewNum: false,
+            total: null
+        })
+    }
     
 
 render(){
@@ -39,7 +73,7 @@ render(){
                 <p>Values: </p>
                 <div className="answer-box">{this.state.display}</div>
                 <div className="calc-row">
-                    <button onClick={this.operationsHelper}className="calc-button calc-button-top">AC</button>
+                    <button onClick={this.clearAll}className="calc-button calc-button-top">AC</button>
                     <button onClick={this.operationsHelper}className="calc-button calc-button-top">+/-</button>
                     <button onClick={this.operationsHelper}className="calc-button calc-button-top">%</button>
                     <button onClick={this.operationsHelper}className="calc-button calc-button-op">/</button>
@@ -65,7 +99,7 @@ render(){
                 <div className="calc-row">
                     <button onClick={this.inputNum}className="calc-button width-2">0</button>
                     <button onClick={this.operationsHelper}className="calc-button">.</button>
-                    <button onClick={this.operationsHelper}className="calc-button calc-button-op">=</button>
+                    <button onClick={this.calculate}className="calc-button calc-button-op">=</button>
                 </div>
             </div>
         </div>
