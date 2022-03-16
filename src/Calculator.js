@@ -7,29 +7,36 @@ const Calculator = () => {
     const [num1, setNum1] = useState('')
     const [num2, setNum2] = useState('')
     const [operation, setOperation] = useState('')
+    const [isPositive, setIsPositive] = useState(true)
 
     const handleNumber = (e) => {
         const temp = e.target.value
-        // if (operation === null) {
-        //     if (num1 === null) {
+        // if (operation === '') {
+        //     if (num1 === '') {
         //         setNum1(temp)
         //     } else setNum1(num1 + temp)
         // }
         // else {
-        //     if (num2 === null) {
+        //     if (num2 === '') {
         //         setNum2(temp)
         //     } else setNum2(num2 + temp)
         // }
 
-        if (num1 === null && temp != '0') {
+        if (num1 === '' && temp !== '0') {
             setNum1(temp)
-        } else if (num1 != null) { setNum1(num1 + temp) }
+        } else if (num1 !== '') { setNum1(num1 + temp) }
     }
 
     const handleOperation = (e) => {
-        setOperation(e.target.value)
-        setNum2(num1)
-        setNum1('')
+        if (operation === '' && num1 !== '') {
+            setOperation(e.target.value)
+            setNum2(num1)
+            setNum1('')
+        } else if (operation !== '' && num1 !== '') {
+            setResult('Error: double operation')
+        } else if (operation === '' && num1 === '') {
+            setResult('Must input a number first')
+        }
     }
     const handleClear = () => {
         setNum1('')
@@ -37,37 +44,53 @@ const Calculator = () => {
         setOperation('')
         setResult('')
     }
-    const calculate = () => {
+    const handleResult = () => {
         const temp1 = num1 * 1
         const temp2 = num2 * 1
-        console.log(temp1)
-        console.log('temp2', temp2)
+        // console.log('temp1', temp1)
+        // console.log('temp2', temp2)
         if (operation === 'add') {
             setResult(temp1 + temp2)
             setNum1('')
+            setNum2('')
+            setOperation('')
         } else if (operation === 'sub') {
             setResult(temp2 - temp1)
             setNum1('')
+            setNum2('')
+            setOperation('')
         } else if (operation === 'mul') {
             setResult(temp1 * temp2)
             setNum1('')
+            setNum2('')
+            setOperation('')
         } else if (operation === 'div') {
             setResult(temp2 / temp1)
             setNum1('')
+            setNum2('')
+            setOperation('')
         } else if (operation === 'modulo') {
             setResult(temp2 % temp1)
             setNum1('')
+            setNum2('')
+            setOperation('')
         }
     }
 
     const handleSign = () => {
+        setIsPositive(!isPositive)
 
-    }
+        if (isPositive === false) {
+            const temp = 0 - (num1 * 1)
+            setNum1(temp)
+            setResult(temp)
+        }
+        else {
+            const temp = 0 + (num1 * 1)
+            setNum1(temp)
+            setResult(temp)
+        }
 
-    const handlePercent = () => {
-        const temp = num1
-        setResult(temp / 100)
-        setNum1('')
 
     }
 
@@ -76,7 +99,7 @@ const Calculator = () => {
         <div className="container">
             <h1>React Calculator</h1>
             <div className="calc-container">
-                <p>Values: {num1 != null ? num1 : num2}</p>
+                <p>Values: {num1 !== '' ? num1 : num2}</p>
                 <div id='display' className="answer-box">{result}</div>
                 <div className="calc-row">
                     <button onClick={handleClear} value='clear' id='AC' className="calc-button calc-button-top">AC</button>
@@ -105,7 +128,7 @@ const Calculator = () => {
                 <div className="calc-row">
                     <button onClick={handleNumber} value='0' id='num0' className="calc-button width-2">0</button>
                     <button onClick={handleNumber} value='.' id='decimal' className="calc-button">.</button>
-                    <button onClick={calculate} value='submit' id='submit' className="calc-button calc-button-op">=</button>
+                    <button onClick={handleResult} value='submit' id='submit' className="calc-button calc-button-op">=</button>
                 </div>
             </div>
         </div>
