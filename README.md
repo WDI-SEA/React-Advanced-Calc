@@ -1,4 +1,4 @@
-## ![](https://s3.amazonaws.com/python-ga/images/GA_Cog_Medium_White_RGB.png) Advanced React Calculator
+
 
 Remember the calculator we made during the in-class lab? Well, let's take it to the next level! 
 
