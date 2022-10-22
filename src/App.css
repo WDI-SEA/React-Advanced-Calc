@@ -8,6 +8,7 @@
   border-radius: 2px;
   display: inline-block;
   background-color: #ddd;
+  width: 200px;
 }
 
 .calc-button {
@@ -36,4 +37,5 @@
   color: #fff;
   text-align: right;
   min-height: 90px;
+
 }
